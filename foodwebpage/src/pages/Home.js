@@ -1,16 +1,15 @@
 import { Component } from "react";
-import Body from "../components/Body";
-import Footer from "../components/Footer";
-import NavBarHeader from "../components/NavBar";
+import ResponsiveAppBar from "../components/ResponsiveNavBar";
+import ResponsiveBody from "../components/ResponsiveBody";
+import ResponsiveFooter from "../components/ResponsiveFooter";
 
 class Home extends Component
 {
     render(){
         return <div>
-            <NavBarHeader></NavBarHeader>
-                <p>Home</p>
-                <Body></Body>
-            <Footer></Footer>
+            <ResponsiveAppBar></ResponsiveAppBar>
+            <ResponsiveBody></ResponsiveBody>
+            <ResponsiveFooter></ResponsiveFooter>
         </div>
     }
 }

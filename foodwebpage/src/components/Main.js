@@ -4,7 +4,6 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import Recipes from "../pages/Recipes";
-import NavBarHeader from "./NavBar";
 
 class Main extends Component{
     render()
@@ -17,6 +16,7 @@ class Main extends Component{
                     <Route path='/recipes' element={<Recipes></Recipes>}></Route>
                     <Route path='/login' element={<Login></Login>}></Route>
                     <Route path='profile' element={<Profile></Profile>}></Route>
+                    <Route path="*" element={<Home />} />
                 </Routes>
             </div>
         )

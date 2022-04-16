@@ -12,8 +12,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom'
+import { FormGroup } from '@mui/material';
+import { Switch } from '@mui/material';
+import { FormControlLabel } from '@mui/material';
 
-const pages = ['Inicio', 'Recetas', 'Contacto'];
+const pages = ['Inicio', 'Recetas', 'Contacto', 'Register'];
 const settings = ['Perfil', 'Recetas', 'Logout'];
 
 const ResponsiveAppBar = () => {
@@ -45,7 +48,7 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            LOGO
+            Food Recipes
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -90,7 +93,7 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            LOGO
+            Food Recipes
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -104,7 +107,11 @@ const ResponsiveAppBar = () => {
               </Button>
             ))}
           </Box>
-
+          <FormGroup>
+            <FormControlLabel 
+              control={<Switch color='warning' />} 
+              label="Logeado" />
+          </FormGroup>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Mi Perfil">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
