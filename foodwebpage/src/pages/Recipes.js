@@ -1,14 +1,15 @@
 import { Component } from "react";
-import Footer from "../components/Footer";
-import NavBarHeader from "../components/NavBar";
+import ResponsiveFooter from "../components/ResponsiveFooter";
+import ResponsiveAppBar from "../components/ResponsiveNavBar";
+import RecipeBody from "../components/RecipeBody";
 
 class Recipes extends Component{
     render(){
         return (
             <div>
-                <NavBarHeader></NavBarHeader>
-                <p>Recipes</p>
-                <Footer></Footer>
+                <ResponsiveAppBar></ResponsiveAppBar>
+                <RecipeBody></RecipeBody>
+                <ResponsiveFooter></ResponsiveFooter>
             </div>
         )
     }

@@ -1,14 +1,13 @@
 import { Component } from "react";
-import NavBarHeader from "../components/NavBar";
-import Footer from "../components/Footer";
+import ResponsiveAppBar from "../components/ResponsiveNavBar";
+import ResponsiveFooter from "../components/ResponsiveFooter";
 
 class Login extends Component{
     render(){
         return (
             <div>
-                <NavBarHeader></NavBarHeader>
-                <p>Login</p>
-                <Footer></Footer>
+                <ResponsiveAppBar></ResponsiveAppBar>
+                <ResponsiveFooter></ResponsiveFooter>
             </div>
         )
     }

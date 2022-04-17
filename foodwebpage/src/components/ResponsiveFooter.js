@@ -6,7 +6,6 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import InfoIcon from '@mui/icons-material/Info';
 
@@ -26,31 +25,37 @@ const aboutItems = [
 const socialItems = [
     {'Text' : "Facebook", 'Icon' : <FacebookIcon/>},
     {'Text' : "Twitter", 'Icon' : <TwitterIcon/>},
-    {'Text' : "Whatsapp", 'Icon' : <WhatsAppIcon/>},
 ]
 class ResponsiveFooter extends Component{
     render(){
         return (
             <>
                 {/* Footer */}
-                <Box sx={{ bgcolor: 'background.paper', p:12 }} component="footer">
-                <Grid container spacing={{ xs: 4, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}
-                direction='row' alignContent='center' justifyContent="space-evenly"
-                >
-                    <FooterSection sectionTittle='Contacto' sectionItems={contactItems}></FooterSection>
-                    <FooterSection sectionTittle='Social' sectionItems={socialItems}></FooterSection>
-                    <FooterSection sectionTittle='Sobre Nosotros' sectionItems={aboutItems}></FooterSection>
-                    
-                </Grid>
-                <Box textAlign="center" pt={{ xs: 5, sm: 10 }} pb={{ xs: 5, sm: 0 }}>
-                    <Typography variant="h6">
-                        Creada para fines academicos por Candela Esquivel y
-                        <br></br>
-                        Antonio Berti
-                        <br></br>
-                        Copyright &reg; {new Date().getFullYear()}
-                    </Typography>
-                </Box>
+                <Box sx={{ bgcolor: 'background.paper', p:6 }} component="footer">
+                    <Grid
+                        container 
+                        justify="center"
+                        alignItems="center"
+                        direction="row"
+                        textAlign='center'
+                        spacing={{ xs: 2, md: 3 }} 
+                        columns={{ xs: 4, sm: 8, md: 12 }}
+                    >
+                        <FooterSection sectionTittle='Contacto' sectionItems={contactItems}></FooterSection>
+                        <FooterSection sectionTittle='Social' sectionItems={socialItems}></FooterSection>
+                        <FooterSection sectionTittle='Sobre Nosotros' sectionItems={aboutItems}></FooterSection>
+                        
+                    </Grid>
+
+                    <Box textAlign="center" pt={{ xs: 5, sm: 10 }} pb={{ xs: 5, sm: 0 }}>
+                        <Typography variant="h6">
+                            Creada para fines academicos por Candela Esquivel y
+                            <br></br>
+                            Antonio Berti
+                            <br></br>
+                            Copyright &reg; {new Date().getFullYear()}
+                        </Typography>
+                    </Box>
                 </Box>
                 {/* End footer */}
             </>
