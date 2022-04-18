@@ -7,47 +7,37 @@ import { Button } from "@mui/material";
 import { CardActions } from "@mui/material";
 import { Link } from "react-router-dom";
 
+import { faker } from '@faker-js/faker';
+
+
 class RecipeSmallCard extends Component{
-
-    constructor(props){
-        super(props)
-
-        this.state ={
-            recipeName : props.recipeName,
-            recipeDescription : props.recipeDescription,
-            recipeImage : props.recipeImage,
-            readMoreLink : props.readMoreLink
-        }
-    }
-
     render(){
         return(
             <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                     component="img"
                     height="140"
-                    image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+                    image={this.props.imgSrc}
                     alt="green iguana"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {this.state.recipeName}
+                        {this.props.recipeName}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {this.state.recipeDescription}
+                        {this.props.recipeDescription}
                     </Typography>
                 </CardContent>
                 <CardActions>
                     <Button 
                         size="medium" 
-                        component={Link} to={this.state.readMoreLink}>
+                        component={Link} to={this.props.readMoreLink}>
                         Leer Mas
                     </Button>
                 </CardActions>
             </Card>
         )
     }
-
 }
 
 export default RecipeSmallCard;

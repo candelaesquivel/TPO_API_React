@@ -2,14 +2,15 @@ import { Component } from "react";
 import SearchBar from "./SearchBar";
 import RecipeGrid from "./RecipeGrid";
 import { Box } from "@mui/system";
+import faker from "@faker-js/faker";
 
 const recipeProfileExamples = [
-    { 'name' : 'Aguacate', 'description' : 'Aguacate en agua'},
-    { 'name' : 'Aguacate', 'description' : 'Aguacate en agua'},
-    { 'name' : 'Aguacate', 'description' : 'Aguacate en agua'},
-    { 'name' : 'Aguacate', 'description' : 'Aguacate en agua'},
-    { 'name' : 'Aguacate', 'description' : 'Aguacate en agua'},
-    { 'name' : 'Aguacate', 'description' : 'Aguacate en agua'},
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
 ]
 
 class ProfileRecipesBody extends Component{

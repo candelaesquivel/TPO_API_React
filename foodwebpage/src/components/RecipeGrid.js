@@ -1,6 +1,7 @@
 import { Component } from "react";
 import RecipeSmallCard from "./RecipeSmallCard";
 import { Grid } from "@mui/material";
+import faker from "@faker-js/faker";
 
 class RecipeGrid extends Component{
 
@@ -22,7 +23,8 @@ class RecipeGrid extends Component{
                         <RecipeSmallCard 
                             recipeName = {itr.name} 
                             recipeDescription = {itr.description}
-                            readMoreLink = {this.state.readMoreLink}
+                            readMoreLink = {this.props.readMoreLink}
+                            imgSrc = {faker.image.food(640, 480, true)}
                         >
                         </RecipeSmallCard>
                     </Grid>
