@@ -12,51 +12,56 @@ class ResponsiveDialog extends Component{
 
     constructor(props){
         super(props)
-        this.state ={
-            buttonText : props.buttonText,
-            messageTittle : props.messageTittle,
-            messageText : props.messageText,
-            agreeLink : props.agreeLink,
+
+        this.state = {
+          isLogged : false
         }
+
+        this.handleClickOpen = this.handleClickOpen.bind(this)
+        this.handleDialogOnClose = this.handleDialogOnClose.bind(this)
+    }
+
+    handleClickOpen(){
+      this.setState(prevState => ({
+        isLogged: !prevState.isLogged
+      }));
+    }
+
+    handleDialogOnClose(){
+      this.setState({
+        isLogged : false
+      })
     }
 
     render(){
-
-        const handleClickOpen = () => {
-          };
-        
-          const handleClose = () => {
-          };
-
         return (
             <>
-              <Button variant="contained" onClick={handleClickOpen}>
-                {this.state.buttonText}
+              <Button variant="contained" onClick={this.handleClickOpen}>
+                {this.props.buttonText}
               </Button>
-              <Dialog
-                onClose={handleClose}
-                aria-labelledby="responsive-dialog-title"
-              >
-                <DialogTitle id="responsive-dialog-title">
-                  {this.state.messageTittle}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    {this.state.messageText}
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button autoFocus onClick={handleClose}>
-                    Cancelar
-                  </Button>
-                  <Button onClick={handleClose} component={Link} to={this.agreeLink} autoFocus>
-                    Logear
-                  </Button>
-                </DialogActions>
+              <Dialog onClose = {this.handleDialogOnClose} open={this.state.isLogged}>
+                <DialogTitle>{this.props.messageTittle}</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      {this.props.messageText}
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button variant='contained' component={Link} to={'/' + this.props.agreeLink}>{this.props.dialogOptionText}</Button>
+                  </DialogActions>
               </Dialog>
               </>
           );
     }
 }
+
+
+ResponsiveDialog.defaultProps = {
+  buttonText : "Button Text",
+  messageText : 'Message Text',
+  messageTittle : 'Message Tittle',
+  dialogOptionText : 'Dialog Option Text',
+  agreeLink : '#',
+};
 
 export default ResponsiveDialog;
