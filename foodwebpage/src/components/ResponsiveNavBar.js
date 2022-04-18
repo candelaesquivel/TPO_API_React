@@ -16,8 +16,8 @@ import { FormGroup } from '@mui/material';
 import { Switch } from '@mui/material';
 import { FormControlLabel } from '@mui/material';
 
-const pages = ['Inicio', 'Recetas', 'Contacto', 'Register'];
-const settings = ['Perfil', 'Recetas', 'Logout'];
+const pages = ['Inicio', 'Contacto', 'Login', 'Register'];
+const settings = ['Perfil', 'TusRecetas', 'Logout'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -135,7 +135,8 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+
+                <MenuItem key={setting} component={Link} to={'/' + setting.split(' ')}onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

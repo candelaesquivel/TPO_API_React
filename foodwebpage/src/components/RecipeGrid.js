@@ -7,7 +7,8 @@ class RecipeGrid extends Component{
     constructor(props){
         super(props)
         this.state = {
-            recipes : props.recipes
+            recipes : props.recipes,
+            linkToEdit : props.linkToEdit
         }
     }
 
@@ -19,7 +20,10 @@ class RecipeGrid extends Component{
                     <Grid item xs={4} sm={4} md={4}>
                         <RecipeSmallCard 
                             recipeName = {itr.name} 
-                            recipeDescription = {itr.description}>
+                            recipeDescription = {itr.description}
+                            recipeLink = {itr.recipeLink}
+                            linkToEdit = {this.state.linkToEdit}
+                        >
                         </RecipeSmallCard>
                     </Grid>
                     ))

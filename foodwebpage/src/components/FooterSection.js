@@ -33,9 +33,10 @@ class FooterSection extends Component{
                                     <ListItemIcon>{itr.Icon}</ListItemIcon>
                                     <ListItemText primary={itr.Text}></ListItemText>
                                 </ListItem>
-                            ))
+                                )
+                            )
                         }
-                    </List>
+                        </List>
                     )
                 }
                     

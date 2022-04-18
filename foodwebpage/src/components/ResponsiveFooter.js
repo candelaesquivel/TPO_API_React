@@ -11,7 +11,6 @@ import InfoIcon from '@mui/icons-material/Info';
 
 import FooterSection from "./FooterSection";
 
-
 const contactItems = [
     {'Text' : '+54 12-34-56-78', 'Icon' : <ContactPhoneIcon/> },
     {'Text' : 'uade@edu.ar', 'Icon' : <ContactMailIcon/> },
@@ -26,6 +25,7 @@ const socialItems = [
     {'Text' : "Facebook", 'Icon' : <FacebookIcon/>},
     {'Text' : "Twitter", 'Icon' : <TwitterIcon/>},
 ]
+
 class ResponsiveFooter extends Component{
     render(){
         return (

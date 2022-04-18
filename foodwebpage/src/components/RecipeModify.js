@@ -3,7 +3,7 @@ import { Component } from "react";
 import { Grid } from "@mui/material";
 import Comments from "./Comment";
 import BurgerImage from "../assets/img/burger.jpg"
-import ResponsiveDialog from "./ResponsiveDialog";
+
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 import { List, ListItem } from "@mui/material";
@@ -58,9 +58,14 @@ function categoriaList(categories){
     )
 }
 
-class RecipeBody extends Component{
+class RecipeModifyBody extends Component{
     
     render(){
+
+        const handleClickOpen = () => {
+            setOpen(true);
+          };
+
         return (
             <Grid 
                 container 
@@ -119,15 +124,11 @@ class RecipeBody extends Component{
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={4}>
-                    <Comments comments={commentsItems}></Comments>
-                </Grid>
-
-                <Grid item xs={4} sm={4} md={4}>
                     <CommentTextField></CommentTextField>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={4}>
-                    <ResponsiveDialog buttonText='Agregar Comentario'></ResponsiveDialog>
+                    
                 </Grid>
 
 
@@ -136,4 +137,4 @@ class RecipeBody extends Component{
     }
 }
 
-export default RecipeBody;
+export default RecipeModifyBody;
