@@ -19,7 +19,10 @@ class ResponsiveBody extends Component{
         return(
             <Box sx={{ flexGrow: 1 }} component='body'>
                 <SearchBar></SearchBar>
-                <RecipeGrid recipes={recipesInfo}></RecipeGrid>
+                <RecipeGrid 
+                    recipes={recipesInfo}
+                    readMoreLink='recipes'
+                ></RecipeGrid>
             </Box>
         )
     }

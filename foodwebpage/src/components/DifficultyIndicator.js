@@ -7,6 +7,7 @@ class DifficultyIndicator extends Component{
     constructor(props){
         super(props)
         this.state = {
+            disabled : props.disabled,
             difficultyValue : props.difficultyValue
         }
     }
@@ -37,7 +38,7 @@ class DifficultyIndicator extends Component{
                     marks={valueLabels}
                     max={10}
                     min={1}
-                    disabled
+                    disabled={this.props.disabled}
                     size={'small'}
                 />
             </>

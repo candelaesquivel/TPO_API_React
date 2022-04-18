@@ -20,7 +20,7 @@ class ProfileRecipesBody extends Component{
                     <SearchBar></SearchBar>
                     <RecipeGrid 
                         recipes={recipeProfileExamples}
-                        linkToEdit={true}
+                        readMoreLink='edit-recipe'
                     >
                     </RecipeGrid>
                 </Box>

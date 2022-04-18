@@ -17,7 +17,9 @@ import { Switch } from '@mui/material';
 import { FormControlLabel } from '@mui/material';
 
 const pages = ['Inicio', 'Contacto', 'Login', 'Register'];
-const settings = ['Perfil', 'TusRecetas', 'Logout'];
+const pagesLinks = ['home', 'contact-us', 'login', 'register'];
+const settings = ['Perfil', 'Mis Recetas', 'Logout'];
+const settingsLinks = ['profile', 'my-recipes', 'logout']
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -80,11 +82,11 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} component = {Link} to={page}>
+              {pages.map((page, _index) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu} component = {Link} to={'/' + pagesLinks[_index]}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ))}
+              ), pagesLinks)}
             </Menu>
           </Box>
           <Typography
@@ -96,16 +98,18 @@ const ResponsiveAppBar = () => {
             Food Recipes
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-                component={Link} to={page}
-              >
-                {page}
-              </Button>
-            ))}
+            {
+              pages.map((page, _index) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  component={Link} to={'/' + pagesLinks[_index]}
+                >
+                  {page}
+                </Button>
+              ), pagesLinks)
+            }
           </Box>
           <FormGroup>
             <FormControlLabel 
@@ -134,12 +138,11 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-
-                <MenuItem key={setting} component={Link} to={'/' + setting.split(' ')}onClick={handleCloseUserMenu}>
+              {settings.map((setting, _index) => (
+                <MenuItem key={setting} component={Link} to={'/' + settingsLinks[_index]}onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              ))}
+              ), settingsLinks)}
             </Menu>
           </Box>
         </Toolbar>

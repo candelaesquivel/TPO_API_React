@@ -11,28 +11,12 @@ class RecipeSmallCard extends Component{
 
     constructor(props){
         super(props)
+
         this.state ={
             recipeName : props.recipeName,
             recipeDescription : props.recipeDescription,
             recipeImage : props.recipeImage,
-            linkToEdit : props.LinkToEdit
-        }
-
-        this.readMoreButton = this.readMoreButton.bind(this)
-    }
-
-    readMoreButton() {
-        console.log(this.state.linkToEdit)
-        
-        if (this.state.linkToEdit){
-            return (
-                <Button size="medium" component={Link} to='#'>Leer Mas</Button>
-            )
-        }
-        else{
-            return (
-                <Button size="medium" component={Link} to='Recetas'>Leer Mas</Button>
-            )
+            readMoreLink : props.readMoreLink
         }
     }
 
@@ -54,7 +38,11 @@ class RecipeSmallCard extends Component{
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    {this.readMoreButton()}
+                    <Button 
+                        size="medium" 
+                        component={Link} to={this.state.readMoreLink}>
+                        Leer Mas
+                    </Button>
                 </CardActions>
             </Card>
         )
