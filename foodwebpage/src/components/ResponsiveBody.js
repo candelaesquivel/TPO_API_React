@@ -3,14 +3,15 @@ import {Box} from '@mui/material';
 
 import RecipeGrid from "./RecipeGrid";
 import SearchBar from "./SearchBar";
+import faker from "@faker-js/faker";
 
 const recipesInfo = [
-    { 'name' : 'Arroz Frito', 'description' : 'Arroz frito en aceite'},
-    { 'name' : 'Arroz Frito', 'description' : 'Arroz frito en aceite'},
-    { 'name' : 'Arroz Frito', 'description' : 'Arroz frito en aceite'},
-    { 'name' : 'Arroz Frito', 'description' : 'Arroz frito en aceite'},
-    { 'name' : 'Arroz Frito', 'description' : 'Arroz frito en aceite'},
-    { 'name' : 'Arroz Frito', 'description' : 'Arroz frito en aceite'},
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
+    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
 ]
 
 class ResponsiveBody extends Component{
