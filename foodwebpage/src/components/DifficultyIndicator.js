@@ -4,15 +4,6 @@ import { Slider } from "@mui/material";
 
 class DifficultyIndicator extends Component{
     
-    constructor(props){
-        super(props)
-        this.state = {
-            disabled : props.disabled,
-            difficultyValue : props.difficultyValue
-        }
-    }
-
-
     render(){
         const valueLabels = [
             { value : 1, label : '1' },
@@ -25,14 +16,14 @@ class DifficultyIndicator extends Component{
             { value : 8, label : '8' },
             { value : 9, label : '9' },
             { value : 10, label : '10' }
-        ]
+        ];
 
         return (
             <>
                 <Typography>Dificultad: </Typography>
                 <Slider
-                    aria-label="Custom marks"
-                    defaultValue={this.state.difficultyValue}
+                    aria-label="difficulty-marks"
+                    defaultValue={this.props.difficultyValue}
                     step={1}
                     valueLabelDisplay="auto"
                     marks={valueLabels}
