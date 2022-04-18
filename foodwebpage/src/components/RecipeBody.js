@@ -1,4 +1,4 @@
-import { Button, Divider, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { ListItemIcon, ListItemText, Switch, Typography } from "@mui/material";
 import { Component } from "react";
 import { Grid } from "@mui/material";
 import Comments from "./Comment";
@@ -11,10 +11,12 @@ import DifficultyIndicator from "./DifficultyIndicator";
 import CommentTextField from "./CommentTextField";
 import { Rating } from "@mui/material";
 
+import { faker } from '@faker-js/faker';
+
 const commentsItems = [
-    {'id' : 0, 'name' : 'Pedrito', 'email' : 'pedrito@gmail.com', 'body' : 'Hola'},
-    {'id' : 1, 'name' : 'Pablo', 'email' : 'pablo@gmail.com', 'body' : 'Medio'},
-    {'id' : 2, 'name' : 'Marco', 'email' : 'marco@gmail.com', 'body' : 'Adios'},
+    {'id' : 0, 'name' : faker.name.firstName(), 'email' : faker.internet.email(), 'body' : faker.lorem.paragraphs(6)},
+    {'id' : 1, 'name' : faker.name.firstName(), 'email' : faker.internet.email(), 'body' : faker.lorem.paragraphs(6)},
+    {'id' : 2, 'name' : faker.name.firstName(), 'email' : faker.internet.email(), 'body' : faker.lorem.paragraphs(6)},
 ]
 
 const ingredientsExample = [
@@ -60,6 +62,24 @@ function categoriaList(categories){
 
 class RecipeBody extends Component{
     
+    constructor(props){
+        super(props)
+        
+        this.state = {
+            onLogged : false
+        }
+
+        this.handleLoginButton = this.handleLoginButton.bind(this)
+    }
+
+    handleLoginButton(event){
+        this.setState( {
+            onLogged : event.target.checked
+        })
+
+        console.log("Seleccionado: " + this.state.onLogged)
+    }
+
     render(){
         return (
             <Grid 
@@ -97,7 +117,7 @@ class RecipeBody extends Component{
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
-                    <DifficultyIndicator difficultyValue='4'></DifficultyIndicator>
+                    <DifficultyIndicator difficultyValue={4} disabled = {true}></DifficultyIndicator>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={4}>
@@ -105,7 +125,7 @@ class RecipeBody extends Component{
                         Descripcion
                     </Typography>
                     <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        {faker.lorem.paragraphs(6)}
                     </Typography>
                 </Grid>
 
@@ -114,7 +134,7 @@ class RecipeBody extends Component{
                         Calificar Receta
                     </Typography>
                     <Rating>
-                        name="simple-controlled"
+                        name={'simple-controlled'}
                     </Rating>
                 </Grid>
 
@@ -128,6 +148,7 @@ class RecipeBody extends Component{
 
                 <Grid item xs={4} sm={4} md={4}>
                     <ResponsiveDialog buttonText='Agregar Comentario'></ResponsiveDialog>
+                    <Switch aria-label = 'Switch demo' defaultChecked onChange={this.handleLoginButton} />
                 </Grid>
 
 
