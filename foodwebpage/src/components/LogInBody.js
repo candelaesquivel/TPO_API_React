@@ -1,31 +1,17 @@
 import { Component } from "react";
+import LoginIcon from '@mui/icons-material/Login';
 import { Container, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Avatar } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
-import HowToRegIcon from '@mui/icons-material/HowToReg';
+import { Link } from "react-router-dom";
 
-// Icons
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-class RegisterFormBody extends Component{
-
-    constructor(props){
-        super(props)
-        this.handleOnSubmit = this.handleOnSubmit.bind(this)
-        this.handleCleanFields = this.handleCleanFields.bind(this)
-    }
-
-    handleOnSubmit(){
-        console.log("Submit Enviado")
-    }
-
-    handleCleanFields(event){
-        console.log("Campos REstaurados")
-    }
-
+class LogInBody extends Component{
     render(){
-        return (
+
+        return(
+
             <Container component='main' maxWidth='xs'>
                 <Box
                     sx={{
@@ -38,36 +24,15 @@ class RegisterFormBody extends Component{
                 </Box>
 
                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <HowToRegIcon />
+                    <LoginIcon />
                 </Avatar>
                 <Typography variant='h6'>
-                    Creacion de Cuentas
+                    Ingresar al sitio 
                 </Typography>
 
                 <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={this.handleOnSubmit}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <TextField
-                                autoComplete="given-name"
-                                name='Nombre'
-                                required
-                                fullWidth
-                                label='Nombre'
-                            >
-                            </TextField>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField
-                                autoComplete="given-name"
-                                name='Apellido'
-                                required
-                                fullWidth
-                                label='Apellido'
-                            >
-                            </TextField>
-                        </Grid>
-
+                    
                         <Grid item xs={12}>
                             <TextField
                             required
@@ -83,18 +48,6 @@ class RegisterFormBody extends Component{
                             <TextField
                             required
                             fullWidth
-                            name="telefono"
-                            label="Telefono"
-                            type="number"
-                            id="password"
-                            autoComplete="Telefono"
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField
-                            required
-                            fullWidth
                             name="password"
                             label="Contrasena"
                             type="password"
@@ -102,8 +55,17 @@ class RegisterFormBody extends Component{
                             autoComplete="new-password"
                             />
                         </Grid>
+
+                        <Grid item xs={12}>
+                         <Typography variant='subtitle1' color='primary' component={Link}  to='#'>
+                                 Has olvidado tu contrasena ? 
+                            </Typography>
+                        </Grid>
                     </Grid>
 
+                   
+
+            
                     <Grid container spacing={2} direction='row'>
                         <Grid item xs={12} sm={6}>
                         <Button 
@@ -122,14 +84,16 @@ class RegisterFormBody extends Component{
                                 fullWidth
                                 type='onSubmit'
                                 >
-                                Registrar</Button>
+                                Ingresar</Button>
                         </Grid>
+            
                     </Grid>
                 </Box>
 
             </Container>
-        )
+        );
     }
+
 }
 
-export default RegisterFormBody;
+export default LogInBody;

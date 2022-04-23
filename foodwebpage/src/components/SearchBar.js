@@ -4,6 +4,9 @@ import { TextField } from "@mui/material";
 import { Grid } from "@mui/material";
 import { InputAdornment } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 class SearchBar extends Component{
     
@@ -37,6 +40,11 @@ class SearchBar extends Component{
 
                         </TextField>
                     </Box>
+                    <FormGroup>
+                         <FormControlLabel control={<Checkbox defaultChecked />} label="Ingredientes" />
+                         <FormControlLabel control={<Checkbox defaultChecked />} label="Categoria" />
+                         <FormControlLabel control={<Checkbox defaultChecked />} label="Dificultad" />
+                     </FormGroup>
                 </Grid>
             </Grid>
         )
