@@ -22,7 +22,7 @@ class ResponsiveBody extends Component{
                 <SearchBar></SearchBar>
                 <RecipeGrid 
                     recipes={recipesInfo}
-                    readMoreLink='recipes'
+                    readMoreLink='view-recipe'
                 ></RecipeGrid>
             </Box>
         )

@@ -7,7 +7,6 @@ import { Button } from "@mui/material";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 // Icons
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 class RegisterFormBody extends Component{
 
     constructor(props){

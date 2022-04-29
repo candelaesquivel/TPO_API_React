@@ -12,9 +12,6 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom'
-import { FormGroup } from '@mui/material';
-import { Switch } from '@mui/material';
-import { FormControlLabel } from '@mui/material';
 
 const pages = ['Inicio', 'Contacto', 'Login', 'Register'];
 const pagesLinks = ['home', 'contact-us', 'login', 'register'];
@@ -111,11 +108,6 @@ const ResponsiveAppBar = () => {
               ), pagesLinks)
             }
           </Box>
-          <FormGroup>
-            <FormControlLabel 
-              control={<Switch color='warning' />} 
-              label="Logeado" />
-          </FormGroup>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Mi Perfil">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

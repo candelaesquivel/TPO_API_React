@@ -1,4 +1,4 @@
-import { ListItemIcon, ListItemText, Switch, Typography } from "@mui/material";
+import { ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { Component } from "react";
 import { Grid } from "@mui/material";
 import Comments from "./Comment";
@@ -148,7 +148,6 @@ class RecipeBody extends Component{
 
                 <Grid item xs={4} sm={4} md={4}>
                     <ResponsiveDialog buttonText='Agregar Comentario'></ResponsiveDialog>
-                    <Switch aria-label = 'Switch demo' defaultChecked onChange={this.handleLoginButton} />
                 </Grid>
 
 

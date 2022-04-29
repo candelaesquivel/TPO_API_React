@@ -7,9 +7,6 @@ import { Button } from "@mui/material";
 import { CardActions } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { faker } from '@faker-js/faker';
-
-
 class RecipeSmallCard extends Component{
     render(){
         return(
@@ -31,7 +28,7 @@ class RecipeSmallCard extends Component{
                 <CardActions>
                     <Button 
                         size="medium" 
-                        component={Link} to={this.props.readMoreLink}>
+                        component={Link} to={'/' + this.props.readMoreLink}>
                         Leer Mas
                     </Button>
                 </CardActions>
