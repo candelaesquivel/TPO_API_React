@@ -64,20 +64,6 @@ class RecipeBody extends Component{
     
     constructor(props){
         super(props)
-        
-        this.state = {
-            onLogged : false
-        }
-
-        this.handleLoginButton = this.handleLoginButton.bind(this)
-    }
-
-    handleLoginButton(event){
-        this.setState( {
-            onLogged : event.target.checked
-        })
-
-        console.log("Seleccionado: " + this.state.onLogged)
     }
 
     render(){
