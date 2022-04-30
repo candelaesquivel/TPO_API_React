@@ -62,10 +62,6 @@ function categoriaList(categories){
 
 class RecipeBody extends Component{
     
-    constructor(props){
-        super(props)
-    }
-
     render(){
         return (
             <Grid 
