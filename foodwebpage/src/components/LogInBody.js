@@ -85,7 +85,7 @@ class LogInBody extends Component{
                         </Grid>
 
                         <Grid item xs={12}>
-                         <Typography variant='subtitle1' color='primary' component={Link}  to='/ResetPassword'>
+                         <Typography variant='subtitle1' color='primary' component={Link} to='/ResetPassword'>
                                 Olvide Contraseña
                             </Typography>
                         </Grid>
