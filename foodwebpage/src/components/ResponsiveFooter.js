@@ -49,8 +49,7 @@ class ResponsiveFooter extends Component{
 
                     <Box textAlign="center" pt={{ xs: 5, sm: 10 }} pb={{ xs: 5, sm: 0 }}>
                         <Typography variant="h6">
-                            Creada para fines academicos por Candela Esquivel y
-                            <br></br>
+                            Creada por Candela Esquivel y
                             Antonio Berti
                             <br></br>
                             Copyright &reg; {new Date().getFullYear()}
