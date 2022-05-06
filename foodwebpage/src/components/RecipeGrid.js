@@ -5,20 +5,11 @@ import faker from "@faker-js/faker";
 
 class RecipeGrid extends Component{
 
-    constructor(props){
-        super(props)
-
-        this.state = {
-            recipes : props.recipes,
-            readMoreLink : props.readMoreLink
-        }
-    }
-
     render(){
         return (
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} p={12}>
                 {
-                    this.state.recipes.map( itr => (
+                    this.props.recipes.map( itr => (
                     <Grid item xs={4} sm={4} md={4}>
                         <RecipeSmallCard 
                             recipeName = {itr.name} 

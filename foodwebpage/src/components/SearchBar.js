@@ -1,51 +1,69 @@
 import { Component } from "react";
-import { Box } from "@mui/system";
-import { TextField } from "@mui/material";
+import { Button, IconButton, TextField } from "@mui/material";
 import { Grid } from "@mui/material";
-import { InputAdornment } from "@mui/material";
+import { Rating } from "@mui/material";
+import { Typography } from "@mui/material";
+
+import AdjustIcon from '@mui/icons-material/Adjust';
 import SearchIcon from '@mui/icons-material/Search';
-import Checkbox from '@mui/material/Checkbox';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
 class SearchBar extends Component{
     
-
-    
     render(){
         return (
-            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}
-                alignContent='center' direction='row' justifyContent='center'>
-                <Grid item xs={2} sm={4} md={8}>
-                    <Box
-                        sx={{
-                            flexGrow : 0,
-                            maxWidth: '100%',
-                        }}
-                        
-                        >
-                        <TextField 
-                            margin='normal' 
-                            fullWidth 
-                            label=''
-                            placeholder="Buscador de Recetas" 
-                            InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <SearchIcon />
-                                  </InputAdornment>
-                                ),
-                              }}
-                        >
+            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                    <Grid item xs={4} sm={8} md={12}>
+                        <Typography variant='h6'>Buscador de Recetas</Typography>
+                    </Grid>
 
-                        </TextField>
-                    </Box>
-                    <FormGroup>
-                         <FormControlLabel control={<Checkbox defaultChecked />} label="Ingredientes" />
-                         <FormControlLabel control={<Checkbox defaultChecked />} label="Categoria" />
-                         <FormControlLabel control={<Checkbox defaultChecked />} label="Dificultad" />
-                     </FormGroup>
-                </Grid>
+                    <Grid item xs={4} sm={8} md={6}>
+                        <TextField
+                                id="standard-search"
+                                label="Nombre"
+                                type="search"
+                                variant="standard"
+                                fullWidth
+                            />
+                    </Grid>
+
+                    <Grid item xs={4} sm={8} md={6}>
+                        <TextField
+                                id="standard-search"
+                                label="Ingredientes"
+                                type="search"
+                                variant="standard"
+                                fullWidth
+                            />
+                    </Grid>
+
+                    <Grid item xs={4} sm={8} md={6}>
+                        <TextField
+                                id="standard-search"
+                                label="Categorias"
+                                type="search"
+                                variant="standard"
+                                fullWidth
+                            />
+                    </Grid>
+
+                    <Grid item xs={4} sm={8} md={6}>
+                        <Typography component="legend">Dificultad</Typography>
+                        <Rating
+                            name="simple-controlled"
+                            icon={<AdjustIcon fontSize="inherit" />}
+                            emptyIcon={<AdjustIcon fontSize="inherit" />}
+                        />
+                    </Grid>
+
+                    <Grid item xs={4} sm={8} md={6}>
+                        <>Empty</>
+                    </Grid>
+
+                    <Grid item xs={4} sm={8} md={6}>
+                        <Button variant="contained" startIcon={<SearchIcon />}>
+                            Buscar
+                        </Button>
+                    </Grid>
             </Grid>
         )
     }

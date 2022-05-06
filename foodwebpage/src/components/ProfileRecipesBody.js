@@ -5,6 +5,7 @@ import { Box } from "@mui/system";
 import faker from "@faker-js/faker";
 import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
+import RecipeSearchModule from "./RecipeSearchModule";
 
 const recipeProfileExamples = [
     { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
@@ -34,12 +35,7 @@ class ProfileRecipesBody extends Component{
                     </Grid>
 
                 </Grid>
-                    <SearchBar></SearchBar>
-                    <RecipeGrid 
-                        recipes={recipeProfileExamples}
-                        readMoreLink='edit-recipe'
-                    >
-                    </RecipeGrid>
+                    <RecipeSearchModule></RecipeSearchModule>
                 </Box>
             </>
         )
