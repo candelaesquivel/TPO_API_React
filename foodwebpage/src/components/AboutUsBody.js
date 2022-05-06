@@ -1,7 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import { Component } from "react";
 import { Box } from "@mui/system";
-import AboutUsHeaderImg from "../assets/img/comidas-rapidas.jpg"
 
 class AboutUsBody extends Component{
     render(){
@@ -9,7 +8,7 @@ class AboutUsBody extends Component{
             <Box sx={{ flexGrow: 1 }} component='body'>
                 <Grid container justifyContent='center' p={3}>
                     <Grid item >
-                        <img src= {AboutUsHeaderImg}
+                        <img src='/assets/img/comidas-rapidas.jpg'
                         style={{ height: "100%", width: "100%" }}
                         alt='about_us'
                         >

@@ -7,7 +7,6 @@ import { Switch } from "@mui/material";
 import { FormControlLabel } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 
-import BurgerImage from '../assets/img/burger.jpg'
 import { UploadButton } from "./UploadButton";
 
 class RecipeEditBody extends Component {

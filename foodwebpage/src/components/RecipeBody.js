@@ -2,7 +2,6 @@ import { ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { Component } from "react";
 import { Grid } from "@mui/material";
 import Comments from "./Comment";
-import BurgerImage from "../assets/img/burger.jpg"
 import ResponsiveDialog from "./ResponsiveDialog";
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
@@ -10,7 +9,6 @@ import { List, ListItem } from "@mui/material";
 import DifficultyIndicator from "./DifficultyIndicator";
 import CommentTextField from "./CommentTextField";
 import { Rating } from "@mui/material";
-
 import { faker } from '@faker-js/faker';
 
 const commentsItems = [
@@ -82,7 +80,7 @@ class RecipeBody extends Component{
                     justifyContent='center'
                 >
                     <Grid item xs={4} sm={8} md={12}>
-                        <img src={BurgerImage}
+                        <img src='/assets/img.burger.jpg'
                         style={{height: 'auto', width: '100%', maxWidth : '900px'}}
                         alt='recipe-img'
                         >
