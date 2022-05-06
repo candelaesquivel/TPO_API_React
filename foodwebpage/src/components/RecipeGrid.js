@@ -13,9 +13,11 @@ class RecipeGrid extends Component{
                     <Grid item xs={4} sm={4} md={4}>
                         <RecipeSmallCard 
                             recipeName = {itr.name} 
-                            recipeDescription = {itr.description}
+                            recipeProcedure = {itr.procedure}
+                            recipeRanking = {itr.ranking}
+                            recipeDifficulty = {itr.difficulty}
                             readMoreLink = {this.props.readMoreLink}
-                            imgSrc = {faker.image.food(640, 480, true)}
+                            imgsrc = {itr.img}
                         >
                         </RecipeSmallCard>
                     </Grid>

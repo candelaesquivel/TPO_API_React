@@ -6,24 +6,39 @@ import { CardMedia } from "@mui/material";
 import { Button } from "@mui/material";
 import { CardActions } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Rating } from "@mui/material";
+import { Stack } from "@mui/material";
 
 class RecipeSmallCard extends Component{
-    render(){
+    
+
+    render()
+    {
+        console.log(this.props.imgsrc);
+
         return(
             <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                     component="img"
                     height="140"
-                    image={this.props.imgSrc}
+                    image={this.props.imgsrc}
                     alt="green iguana"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         {this.props.recipeName}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {this.props.recipeDescription}
+                    <Typography variant="body2">
+                        Dificultad: {this.props.recipeDifficulty}
                     </Typography>
+                    <Stack direction='row' spacing={2}>
+                    <Typography variant='body2'>
+                        Calificación
+                    </Typography>
+                    <Rating value={this.props.recipeRanking}>
+                    </Rating>
+                    </Stack>
+                    
                 </CardContent>
                 <CardActions>
                     <Button 
