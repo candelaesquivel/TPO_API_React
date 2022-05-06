@@ -68,13 +68,7 @@ class RecipeEditBody extends Component {
                     alignItems='center'
                     justifyContent='center'
                 >
-                    <Grid item xs={4} sm={8} md={12}>
-                        <img src={BurgerImage}
-                        style={{height: 'auto', width: '100%', maxWidth : '900px'}}
-                        alt='recipe-img'
-                        >
-                        </img>
-                    </Grid>
+                    
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>

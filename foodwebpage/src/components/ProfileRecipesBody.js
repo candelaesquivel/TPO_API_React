@@ -6,6 +6,7 @@ import faker from "@faker-js/faker";
 import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
 import RecipeSearchModule from "./RecipeSearchModule";
+import { Link } from "react-router-dom";
 
 const recipeProfileExamples = [
     { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
@@ -31,7 +32,7 @@ class ProfileRecipesBody extends Component{
                         direction='column'
                 >
                     <Grid item xs={4} sm={8} md={12}>
-                        <Button variant='contained'>Agregar Nueva Receta</Button>
+                        <Button variant='contained' component={Link} to='/edit-recipe' >Agregar Nueva Receta</Button>
                     </Grid>
 
                 </Grid>
