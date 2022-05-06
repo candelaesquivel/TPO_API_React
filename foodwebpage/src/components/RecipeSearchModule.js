@@ -6,15 +6,6 @@ import faker from "@faker-js/faker";
 import prefixStr from '../utilities/stringFunctions';
 import {recipes_example} from "../utilities/sharedData";
 
-const recipesInfo = [
-    { 'name' : 'Hamburguesa', 'description' : faker.lorem.sentence() },
-    { 'name' : 'Sopa', 'description' : faker.lorem.sentence() },
-    { 'name' : 'Pizza', 'description' : faker.lorem.sentence() },
-    { 'name' : 'Tacos de Pollo', 'description' : faker.lorem.sentence() },
-    { 'name' : 'Helado Ron con pasas', 'description' : faker.lorem.sentence() },
-    { 'name' : 'Asado', 'description' : faker.lorem.sentence() },
-]
-
 class RecipeSearchModule extends Component{
     
     constructor(props){
@@ -36,7 +27,7 @@ class RecipeSearchModule extends Component{
 
     render(){
 
-        const recipeList = recipesInfo.filter( itr => 
+        const recipeList = recipes_example.filter( itr => 
         {
             return prefixStr(itr.name, '');
         });
