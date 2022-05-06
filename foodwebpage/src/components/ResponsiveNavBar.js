@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom'
 
-const pages = ['Inicio', 'Contacto', 'Login', 'Register'];
+const pages = ['Inicio', 'Sobre nosotros', 'Login', 'Register'];
 const pagesLinks = ['home', 'contact-us', 'login', 'register'];
 const settings = ['Perfil', 'Mis Recetas', 'Logout'];
 const settingsLinks = ['profile', 'my-recipes', 'logout']
