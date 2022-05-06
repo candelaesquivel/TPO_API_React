@@ -8,6 +8,17 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 class LogInBody extends Component{
+
+    constructor(props){
+        super(props)
+
+        this.handleCleanFields = this.handleCleanFields.bind(this);
+    }
+
+    handleCleanFields(event) {
+
+    }
+
     render(){
 
         return(
@@ -30,7 +41,7 @@ class LogInBody extends Component{
                     Ingresar al sitio 
                 </Typography>
 
-                <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={this.handleOnSubmit}>
+                <Box component="form" noValidate sx={{ mt: 3 }} >
                     <Grid container spacing={2}>
                     
                         <Grid item xs={12}>
@@ -38,9 +49,10 @@ class LogInBody extends Component{
                             required
                             fullWidth
                             id="email"
-                            label="Correo Electronico"
+                            label="Correo Electrónico"
                             name="email"
                             autoComplete="email"
+                            onChange = {this.handleCleanFields}
                             />
                         </Grid>
 
@@ -49,7 +61,7 @@ class LogInBody extends Component{
                             required
                             fullWidth
                             name="password"
-                            label="Contrasena"
+                            label="Contraseña"
                             type="password"
                             id="password"
                             autoComplete="new-password"
@@ -58,7 +70,7 @@ class LogInBody extends Component{
 
                         <Grid item xs={12}>
                          <Typography variant='subtitle1' color='primary' component={Link}  to='#'>
-                                 Has olvidado tu contrasena ? 
+                                 ¿Has olvidado tu Contraseña? 
                             </Typography>
                         </Grid>
                     </Grid>
