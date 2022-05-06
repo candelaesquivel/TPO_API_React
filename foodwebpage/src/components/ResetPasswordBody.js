@@ -18,7 +18,7 @@ class ResetPasswordBody extends Component{
             <Container component='main' maxWidth='xs'>
                 <Box
                     sx={{
-                        marginTop: 8,
+                        mt: 8,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',

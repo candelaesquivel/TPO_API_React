@@ -5,7 +5,6 @@ import { Box } from "@mui/system";
 import { Grid } from "@mui/material";
 import Button from '@mui/material/Button';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-import MessageIcon from '@mui/icons-material/Message';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from "react-router-dom";
 
@@ -18,7 +17,7 @@ class ProfileBody extends Component{
         <Container component='main' maxWidth='xs'>
                 <Box
                     sx={{
-                        marginTop: 8,
+                        mt: 8,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -53,7 +52,7 @@ class ProfileBody extends Component{
                         </Grid>
 
                         <Grid item xs={4} sm={8} md={6}>
-                            <Button variant='contained' xs={4} paddingBotton={6}>Modificar</Button>
+                            <Button variant='contained' xs={4} paddingBotton={6} component={Link} to ='/ChangePassword'>Modificar</Button>
                         </Grid>
 
                         <Grid item xs={4} sm={8} md={6}>
