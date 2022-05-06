@@ -95,6 +95,8 @@ class LogInBody extends Component{
                                 variant='contained'
                                 fullWidth
                                 type='onSubmit'
+                                component={Link}
+                                to='/profile'
                                 >
                                 Ingresar</Button>
                         </Grid>

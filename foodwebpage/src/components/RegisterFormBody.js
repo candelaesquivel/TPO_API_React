@@ -95,10 +95,34 @@ class RegisterFormBody extends Component{
                             required
                             fullWidth
                             name="password"
-                            label="Contrasena"
+                            label="Contraseña"
                             type="password"
                             id="password"
                             autoComplete="new-password"
+                            />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <TextField
+                            required
+                            fullWidth
+                            name="pregunta-seg"
+                            label="Pregunta de seguridad"
+                            type="preg-seg"
+                            id="preg-seg"
+                            autoComplete="Pregunta de seguridad"
+                            />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <TextField
+                            required
+                            fullWidth
+                            name="repuesta"
+                            label="Respuesta de pregunta de seguridad"
+                            type="password"
+                            id="respuesta-preg-de-seg"
+                            autoComplete="respuesta "
                             />
                         </Grid>
                     </Grid>
