@@ -10,6 +10,7 @@ import ProfileRecipesPage from "../pages/ProfileRecipes";
 import RecipeViewPage from "../pages/RecipeView";
 import RecipeEditPage from "../pages/RecipeEdit";
 import ResetPassword from "../pages/ResetPassword";
+import ChangePassword from "../pages/ChangePassword";
 
 class Main extends Component{
     render()
@@ -27,6 +28,7 @@ class Main extends Component{
                     <Route path='my-recipes' element={<ProfileRecipesPage></ProfileRecipesPage>}></Route>
                     <Route path='edit-recipe' element={<RecipeEditPage></RecipeEditPage>}></Route>
                     <Route path= 'ResetPassword' element={<ResetPassword></ResetPassword>}></Route>
+                    <Route path= 'ChangePassword' element={<ChangePassword></ChangePassword>}></Route>
                     <Route path="*" element={<Home />} />
                 </Routes>
             </div>
