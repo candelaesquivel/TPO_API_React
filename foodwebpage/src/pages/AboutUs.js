@@ -1,19 +1,19 @@
 import { Component } from "react";
 import ResponsiveFooter from "../components/ResponsiveFooter";
 import ResponsiveAppBar from "../components/ResponsiveNavBar";
-import ContactBody from "../components/ContactBody"
+import AboutUsBody from "../components/AboutUsBody";
 
-class ContactPage extends Component{
+class AboutUsPage extends Component{
     
     render(){
         return (
         <>
             <ResponsiveAppBar></ResponsiveAppBar>
-            <ContactBody></ContactBody>
+            <AboutUsBody></AboutUsBody>
             <ResponsiveFooter></ResponsiveFooter>
         </>
         )
     }
 }
 
-export default ContactPage;
+export default AboutUsPage;

@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom'
 
 const pages = ['Inicio', 'Sobre nosotros', 'Login', 'Register'];
-const pagesLinks = ['home', 'contact-us', 'login', 'register'];
+const pagesLinks = ['home', 'about-us', 'login', 'register'];
 const settings = ['Perfil', 'Mis Recetas', 'Logout'];
 const settingsLinks = ['profile', 'my-recipes', 'logout']
 

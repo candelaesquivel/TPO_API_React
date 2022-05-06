@@ -1,43 +1,15 @@
-import { Grid, ListItem, ListItemText, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Component } from "react";
 import { Box } from "@mui/system";
-import { List } from "@mui/material";
-import { TextField } from "@mui/material";
-import { Button } from "@mui/material";
-import foto1 from "../assets/img/comidas-rapidas.jpg"
+import AboutUsHeaderImg from "../assets/img/comidas-rapidas.jpg"
 
-function addressField(street, city, province){
-    return (
-        <ListItem>
-            <ListItemText>
-                {street} <br></br>
-                {city} <br></br>
-                {province} <br></br>
-            </ListItemText>
-        </ListItem>
-    )
-}
-
-function inputTextField(autoComplete, fieldName, fieldLabel){
-    return (
-        <TextField
-            autoComplete = {autoComplete}
-            name = {fieldName}
-            label = {fieldLabel}
-            fullWidth
-            required
-        >
-        </TextField>
-    )
-}
-
-class ContactBody extends Component{
+class AboutUsBody extends Component{
     render(){
         return (
             <Box sx={{ flexGrow: 1 }} component='body'>
                 <Grid container justifyContent='center' p={3}>
                     <Grid item >
-                        <img src= {foto1}
+                        <img src= {AboutUsHeaderImg}
                         style={{ height: "100%", width: "100%" }}
                         alt='about_us'
                         >
@@ -69,4 +41,4 @@ class ContactBody extends Component{
     }
 }
 
-export default ContactBody;
+export default AboutUsBody;
