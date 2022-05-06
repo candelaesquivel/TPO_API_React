@@ -6,17 +6,34 @@ import { Avatar } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+
 
 class LogInBody extends Component{
 
     constructor(props){
         super(props)
 
+        this.state = {
+            isLogged : false
+        };
+
         this.handleCleanFields = this.handleCleanFields.bind(this);
+        this.handleOnSubmit = this.handleOnSubmit.bind(this);
     }
 
     handleCleanFields(event) {
 
+        this.setState(prevState => ({
+            isLogged: false
+          }));
+
+        console.log(this.state.isLogged);
+    }
+
+    handleOnSubmit(e){
+        e.preventDefault();
+        console.log(e.target.email.value);
     }
 
     render(){
@@ -41,7 +58,7 @@ class LogInBody extends Component{
                     Ingresar al sitio 
                 </Typography>
 
-                <Box component="form" noValidate sx={{ mt: 3 }} >
+                <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={this.handleOnSubmit} >
                     <Grid container spacing={2}>
                     
                         <Grid item xs={12}>
@@ -52,7 +69,6 @@ class LogInBody extends Component{
                             label="Correo Electrónico"
                             name="email"
                             autoComplete="email"
-                            onChange = {this.handleCleanFields}
                             />
                         </Grid>
 
@@ -69,8 +85,8 @@ class LogInBody extends Component{
                         </Grid>
 
                         <Grid item xs={12}>
-                         <Typography variant='subtitle1' color='primary' component={Link}  to='#'>
-                                 ¿Has olvidado tu Contraseña? 
+                         <Typography variant='subtitle1' color='primary' component={Link}  to='/ResetPassword'>
+                                Olvide Contraseña
                             </Typography>
                         </Grid>
                     </Grid>
@@ -84,7 +100,6 @@ class LogInBody extends Component{
                                 sx={{mt:3, mb: 2}}
                                 variant='contained'
                                 fullWidth
-                                onClick={this.handleCleanFields}
                                 >
                                 Limpiar Campos</Button>
                         </Grid>
@@ -94,13 +109,15 @@ class LogInBody extends Component{
                                 sx={{mt:3, mb: 2}}
                                 variant='contained'
                                 fullWidth
-                                type='onSubmit'
-                                component={Link}
-                                to='/profile'
+                                type='submit'
                                 >
                                 Ingresar</Button>
                         </Grid>
-            
+
+                        {
+                            this.state.isLogged && <Navigate to='/profile' replace={true}></Navigate>
+                        }
+                        
                     </Grid>
                 </Box>
 
