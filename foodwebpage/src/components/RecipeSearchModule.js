@@ -1,7 +1,6 @@
 import { Component } from "react";
 import RecipeGrid from "./RecipeGrid";
 import SearchBar from "./SearchBar";
-import faker from "@faker-js/faker";
 
 import prefixStr from '../utilities/stringFunctions';
 import {recipes_example} from "../utilities/sharedData";
@@ -36,7 +35,7 @@ class RecipeSearchModule extends Component{
             <>
                 <SearchBar onChange={this.handleSearchByName}></SearchBar>
                 <RecipeGrid 
-                    recipes={recipes_example}
+                    recipes={recipeList}
                     readMoreLink='view-recipe'
                 >
                 </RecipeGrid>

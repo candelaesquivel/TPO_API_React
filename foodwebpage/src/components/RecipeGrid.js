@@ -1,7 +1,6 @@
 import { Component } from "react";
 import RecipeSmallCard from "./RecipeSmallCard";
 import { Grid } from "@mui/material";
-import faker from "@faker-js/faker";
 
 class RecipeGrid extends Component{
 
