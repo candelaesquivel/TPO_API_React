@@ -9,8 +9,6 @@ import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 
 class ChangePasswordBody extends Component{
 
-    
-
     render(){
 
         return(

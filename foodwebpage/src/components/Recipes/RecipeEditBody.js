@@ -1,19 +1,19 @@
 import { Component } from "react";
-import { Button, Grid, Stack } from "@mui/material";
-import DifficultyIndicator from "./DifficultyIndicator";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { FormGroup } from "@mui/material";
 import { Switch } from "@mui/material";
 import { FormControlLabel } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 
-import { UploadButton } from "./UploadButton";
-
 import { List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
 import { Checkbox } from "@mui/material";
-import { categories } from "../utilities/sharedData";
 
-function CategoryList(categories)
+import { UploadButton } from '../Misc/UploadButton';
+import { categories } from "../../utilities/sharedData";
+import DifficultyIndicator from './DifficultyIndicator';
+
+function categoryList(categories)
 {
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
@@ -24,7 +24,7 @@ function CategoryList(categories)
                         <Checkbox>
                         </Checkbox>
                     </ListItemIcon>
-                    <listItemText>{itr}</listItemText>
+                    <ListItemText>{itr}</ListItemText>
                 </ListItem>
             )
         }
@@ -104,15 +104,19 @@ class RecipeEditBody extends Component {
                     <FormHelperText>Presionar para que la receta se publique</FormHelperText>
                 </Grid>
 
+                <Grid item xs={4} sm={4} md={12}>
+                    <Typography>Categorías</Typography>
+                </Grid>
+
                 <Grid container item xs={4} sm={4} md={4}>
-                    <Grid item>
-                        {CategoryList(categories.slice(0, 3))}
+                    <Grid item xs={4} sm={4} md={4}>
+                        {categoryList(categories.slice(0, 3))}
                     </Grid>
-                    <Grid item>
-                        {CategoryList(categories.slice(3, 6))}
+                    <Grid item xs={4} sm={4} md={4}>
+                        {categoryList(categories.slice(3, 6))}
                     </Grid>
-                    <Grid item>
-                        {CategoryList(categories.slice(6, 9))}
+                    <Grid item xs={4} sm={4} md={4}>
+                        {categoryList(categories.slice(6, 9))}
                     </Grid>
                 </Grid>
                 <Grid item xs={4} sm={4} md={12}>

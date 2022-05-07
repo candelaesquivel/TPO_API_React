@@ -1,18 +1,19 @@
 import { Component } from "react";
-import ResponsiveAppBar from '../components/Misc/ResponsiveNavBar';
-import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
-import ProfileBody from '../components/Profile/ProfileBody';
 
-class Profile extends Component{
+import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
+import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
+import RecipeCreateBody from '../components/Recipes/RecipeCreateBody';
+
+class RecipeCreate extends Component{
     render(){
         return (
             <div>
                 <ResponsiveAppBar></ResponsiveAppBar>
-                <ProfileBody></ProfileBody>
+                <RecipeCreateBody></RecipeCreateBody>
                 <ResponsiveFooter></ResponsiveFooter>
             </div>
         )
     }
 }
 
-export default Profile;
+export default RecipeCreate;

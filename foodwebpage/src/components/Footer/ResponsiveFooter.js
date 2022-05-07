@@ -9,7 +9,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import InfoIcon from '@mui/icons-material/Info';
 
-import FooterSection from "./FooterSection";
+import FooterSection from './FooterSection';
 
 const contactItems = [
     {'Text' : '+54 12-34-56-78', 'Icon' : <ContactPhoneIcon/> },

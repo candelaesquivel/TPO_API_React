@@ -75,7 +75,8 @@ class ProfileBody extends Component{
                             
                      
                         <Grid item xs={4} sm={8} md={12}>
-                            <Button fullWidth variant='contained'  startIcon={<RestaurantIcon/>} component={Link} to='/my-recipes'>
+                            <Button fullWidth variant='contained'  startIcon={<RestaurantIcon/>} 
+                                component={Link} to='/my-recipes'>
                                 Mis recetas
                             </Button>
                         </Grid>

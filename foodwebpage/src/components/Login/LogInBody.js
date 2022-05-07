@@ -105,7 +105,7 @@ class LogInBody extends Component{
                     {
                         this.state.isLogged && <Navigate to='/profile' replace={true}></Navigate>
                     }
-                    
+
                 </Box>
 
             </Container>

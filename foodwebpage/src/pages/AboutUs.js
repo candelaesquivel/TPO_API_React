@@ -1,7 +1,7 @@
 import { Component } from "react";
-import ResponsiveFooter from "../components/ResponsiveFooter";
-import ResponsiveAppBar from "../components/ResponsiveNavBar";
-import AboutUsBody from "../components/AboutUsBody";
+import ResponsiveAppBar from '../components/Misc/ResponsiveNavBar';
+import ResponsiveFooter from '../components/Footer/ResponsiveFooter';
+import AboutUsBody from '../components/AboutUs/AboutUsBody';
 
 class AboutUsPage extends Component{
     

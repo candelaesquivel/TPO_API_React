@@ -1,8 +1,7 @@
 import { Component } from "react";
-import ResponsiveFooter from "../components/ResponsiveFooter";
-import ResponsiveAppBar from "../components/ResponsiveNavBar";
-import ChangePasswordBody from "../components/ChangePasswordBody"
-
+import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
+import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
+import ChangePasswordBody from '../components/Profile/ChangePasswordBody';
 
 class ChangePassword extends Component{
     

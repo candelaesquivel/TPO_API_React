@@ -1,7 +1,7 @@
 import { Component } from "react";
-import ResponsiveFooter from "../components/ResponsiveFooter";
-import ResponsiveAppBar from "../components/ResponsiveNavBar";
-import ProfileRecipesBody from "../components/ProfileRecipesBody";
+import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
+import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
+import ProfileRecipesBody from "../components/Profile/ProfileRecipesBody";
 
 class ProfileRecipesPage extends Component{
 

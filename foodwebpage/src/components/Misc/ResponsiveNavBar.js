@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom'
-import { isLogged } from '../utilities/sharedData';
+import { isLogged } from '../../utilities/sharedData';
 
 const pages = ['Inicio', 'Sobre nosotros', 'Login', 'Register'];
 const pagesLinks = ['home', 'about-us', 'login', 'register'];

@@ -4,9 +4,9 @@ import { Grid } from "@mui/material";
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 import { List, ListItem } from "@mui/material";
-import DifficultyIndicator from "./DifficultyIndicator";
 import { Rating } from "@mui/material";
-import {recipes_example} from "../utilities/sharedData";
+import {recipes_example} from '../../utilities/sharedData';
+import DifficultyIndicator from "./DifficultyIndicator";
 
 
 function ingredientList(ingredients){

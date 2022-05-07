@@ -5,7 +5,7 @@ import { Avatar } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import {users_info} from '../utilities/sharedData';
+import {users_info} from '../../utilities/sharedData';
 
 class RegisterFormBody extends Component{
 

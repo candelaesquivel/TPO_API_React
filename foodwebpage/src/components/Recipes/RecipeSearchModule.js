@@ -1,9 +1,10 @@
 import { Component } from "react";
 import RecipeGrid from "./RecipeGrid";
-import SearchBar from "./SearchBar";
 
-import prefixStr from '../utilities/stringFunctions';
-import {recipes_example} from "../utilities/sharedData";
+import {SearchBar} from './SearchBar';
+
+import {prefixStr} from '../../utilities/stringFunctions';
+import {recipes_example} from "../../utilities/sharedData";
 
 class RecipeSearchModule extends Component{
     
@@ -69,6 +70,7 @@ class RecipeSearchModule extends Component{
 
         return (
             <>
+                
                 <SearchBar onNameChange={this.handleSearchByName} onDifficultChange={this.handleToggleRanking}></SearchBar>
                 <RecipeGrid 
                     recipes={recipeList}

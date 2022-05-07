@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
-import RecipeSearchModule from "./RecipeSearchModule";
+import RecipeSearchModule from "../Recipes/RecipeSearchModule";
 import { Link } from "react-router-dom";
 
 class ProfileRecipesBody extends Component{
@@ -20,7 +20,7 @@ class ProfileRecipesBody extends Component{
                         direction='column'
                 >
                     <Grid item xs={4} sm={8} md={12}>
-                        <Button variant='contained' component={Link} to='/edit-recipe' >Agregar Nueva Receta</Button>
+                        <Button variant='contained' component={Link} to='/create-recipe' >Agregar Nueva Receta</Button>
                     </Grid>
 
                 </Grid>

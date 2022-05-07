@@ -1,7 +1,7 @@
-import { Component } from "react";
-import ResponsiveFooter from "../components/ResponsiveFooter";
-import ResponsiveAppBar from "../components/ResponsiveNavBar";
-import RecipeBody from "../components/RecipeBody";
+import RecipeBody from '../components/Recipes/RecipeBody';
+import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
+import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
+
 import { useParams } from "react-router-dom";
 
 export default function RecupeViewPage(props) {

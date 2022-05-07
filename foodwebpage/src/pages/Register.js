@@ -1,7 +1,8 @@
 import { Component } from "react";
-import RegisterFormBody from "../components/RegisterFormBody";
-import ResponsiveFooter from "../components/ResponsiveFooter";
-import ResponsiveAppBar from "../components/ResponsiveNavBar";
+
+import RegisterFormBody from '../components/Register/RegisterFormBody';
+import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
+import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
 
 class RegisterPage extends Component{
     render(){
