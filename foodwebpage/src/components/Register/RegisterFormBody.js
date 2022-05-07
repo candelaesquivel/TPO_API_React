@@ -156,17 +156,7 @@ class RegisterFormBody extends Component{
                     </Grid>
 
                     <Grid container spacing={2} direction='row'>
-                        <Grid item xs={12} sm={6}>
-                        <Button 
-                                sx={{mt:3, mb: 2}}
-                                variant='contained'
-                                fullWidth
-                                onClick={this.handleCleanFields}
-                                >
-                                Limpiar Campos</Button>
-                        </Grid>
-
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={4} sm={8} md={12}>
                             <Button 
                                 sx={{mt:3, mb: 2}}
                                 variant='contained'
