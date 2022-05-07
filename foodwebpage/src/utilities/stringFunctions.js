@@ -3,7 +3,5 @@ export default function prefixStr(source, target){
     if (target.lenght === 0)
         return true;
     
-    console.log(target);
-
     return source.startsWith(target);
 }
