@@ -20,10 +20,28 @@ export const users_info = [
     },
 ];
 
+export let isLogged = false;
+
+export const categories = [
+    'Postre',
+    'Ensalada',
+    'Bebidas',
+    'Guisos',
+    'Carnes',
+    'Libre de Gluten',
+    'Vegetariano',
+    'Vegano',
+    'Plato Caliente',
+    'Plato Frío'
+];
+
 export const recipes_example = [
     {
+        'id' : 1,
         'name' : 'Hamburguesa',
-        'category' : 'Americana',
+        'category' : [
+            'Americana'
+        ],
         'procedure' : 'Cortar el tomate en rodajas, lavar la lechuga. Cocinar el pan a la plancha por 2 minutos.',
         'ingredients' : [
             'Tomate',
@@ -37,8 +55,11 @@ export const recipes_example = [
     },
 
     {
+        'id' : 2,
         'name' : 'Sopa de Vegetales',
-        'category' : 'Argentina',
+        'category' : [
+            'Argentina'
+        ],
         'procedure' : 'Hervir el agua con zanahoria, lenteja y tomate por 1 hora.',
         'ingredients' : [
             'Tomate',
@@ -53,8 +74,11 @@ export const recipes_example = [
     },
 
     {
+        'id' : 3,
         'name' : 'Tacos de Pollo',
-        'category' : 'Mexico',
+        'category' : [
+            'Mexico'
+        ],
         'procedure' : 'Cocinar el pollo a la plancha por 30 min. Sofreir vegetales por 5 minutos',
         'ingredients' : [
             'Pollo',
@@ -68,8 +92,11 @@ export const recipes_example = [
     },
 
     {
+        'id' : 4,
         'name' : 'Torta de Chocolate',
-        'category' : 'Postre',
+        'category' : [
+            'Postre'
+        ],
         'procedure' : 'Mezclar los huevos con la leche, la harina y la stevia y el cacao.',
         'ingredients' : [
             'Cacao',
@@ -83,8 +110,11 @@ export const recipes_example = [
     },
 
     {
+        'id' : 5,
         'name' : 'Flan',
-        'category' : 'Postre',
+        'category' : [
+            'Postre'
+        ],
         'procedure' : 'Mezclar los huevos con la leche y la stevia. Aplicar baño María por 40 minutos',
         'ingredients' : [
             'Stevia',
