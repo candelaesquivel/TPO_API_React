@@ -20,8 +20,8 @@ class FooterSection extends Component{
                     centerBox(
                         <List>
                         {
-                            this.props.sectionItems.map( itr => (
-                                <ListItem button component={Link} to='/'>
+                            this.props.sectionItems.map((itr, _index) => (
+                                <ListItem button component={Link} to='/' key={_index}>
                                     <ListItemIcon>{itr.Icon}</ListItemIcon>
                                     <ListItemText primary={itr.Text}></ListItemText>
                                 </ListItem>
