@@ -19,8 +19,8 @@ class Main extends Component{
         return (
             <div>
                 <Routes>
-                    <Route path="/" element={<Home></Home>} />
-                    <Route path="home" element={<Home></Home>}></Route>
+                    <Route path='/' element={<Home></Home>} />
+                    <Route path='home' element={<Home></Home>}></Route>
                     <Route path='login' element={<Login></Login>}></Route>
                     <Route path='profile' element={<Profile></Profile>}></Route>
                     <Route path='register' element={<RegisterPage></RegisterPage>}></Route>
@@ -31,7 +31,7 @@ class Main extends Component{
                     <Route path='create-recipe' element={<RecipeCreatePage></RecipeCreatePage>}></Route>
                     <Route path= 'ResetPassword' element={<ResetPassword></ResetPassword>}></Route>
                     <Route path= 'ChangePassword' element={<ChangePassword></ChangePassword>}></Route>
-                    <Route path="*" element={<Home />} />
+                    <Route path='*' element={<Home />} />
                 </Routes>
             </div>
         )
