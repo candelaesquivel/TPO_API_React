@@ -9,6 +9,29 @@ import { FormHelperText } from "@mui/material";
 
 import { UploadButton } from "./UploadButton";
 
+import { List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
+import { Checkbox } from "@mui/material";
+import { categories } from "../utilities/sharedData";
+
+function CategoryList(categories)
+{
+    return (
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        {
+            categories.map(itr => 
+                <ListItem>
+                    <ListItemIcon>
+                        <Checkbox>
+                        </Checkbox>
+                    </ListItemIcon>
+                    <listItemText>{itr}</listItemText>
+                </ListItem>
+            )
+        }
+        </List>
+    )
+}
+
 class RecipeEditBody extends Component {
 
     constructor(props){
@@ -81,18 +104,17 @@ class RecipeEditBody extends Component {
                     <FormHelperText>Presionar para que la receta se publique</FormHelperText>
                 </Grid>
 
-                <Grid item xs={4} sm={4} md={4}>
-                    <TextField
-                        id="outlined-multiline-static"
-                        label="Categorias"
-                        multiline
-                        helperText='Escriba las categorias separadas por una coma. Ejemplo (vegana, argentina)'
-                        rows={4}
-                        fullWidth
-                        defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    />
+                <Grid container item xs={4} sm={4} md={4}>
+                    <Grid item>
+                        {CategoryList(categories.slice(0, 3))}
+                    </Grid>
+                    <Grid item>
+                        {CategoryList(categories.slice(3, 6))}
+                    </Grid>
+                    <Grid item>
+                        {CategoryList(categories.slice(6, 9))}
+                    </Grid>
                 </Grid>
-                
                 <Grid item xs={4} sm={4} md={12}>
                     <TextField
                         id="outlined-multiline-static"
