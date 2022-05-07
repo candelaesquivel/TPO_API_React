@@ -14,7 +14,7 @@ class ResponsiveDialog extends Component{
         super(props)
 
         this.state = {
-          isLogged : false
+          isClosed : false
         }
 
         this.handleClickOpen = this.handleClickOpen.bind(this)
@@ -23,13 +23,13 @@ class ResponsiveDialog extends Component{
 
     handleClickOpen(){
       this.setState(prevState => ({
-        isLogged: !prevState.isLogged
+        isClosed: !prevState.isClosed
       }));
     }
 
     handleDialogOnClose(){
       this.setState({
-        isLogged : false
+        isClosed : false
       })
     }
 
@@ -39,7 +39,7 @@ class ResponsiveDialog extends Component{
               <Button variant="contained" onClick={this.handleClickOpen}>
                 {this.props.buttonText}
               </Button>
-              <Dialog onClose = {this.handleDialogOnClose} open={this.state.isLogged}>
+              <Dialog onClose = {this.handleDialogOnClose} open={this.state.isClosed}>
                 <DialogTitle>{this.props.messageTittle}</DialogTitle>
                   <DialogContent>
                     <DialogContentText id="alert-dialog-description">
@@ -47,7 +47,11 @@ class ResponsiveDialog extends Component{
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
-                    <Button variant='contained' component={Link} to={'/' + this.props.agreeLink}>{this.props.dialogOptionText}</Button>
+                    <Button variant='contained'
+                    onClick={this.handleDialogOnClose}
+                    color='success'
+                    >{this.props.dialogOptionText} 
+                    </Button>
                   </DialogActions>
               </Dialog>
               </>
@@ -61,7 +65,6 @@ ResponsiveDialog.defaultProps = {
   messageText : 'Message Text',
   messageTittle : 'Message Tittle',
   dialogOptionText : 'Dialog Option Text',
-  agreeLink : '#',
 };
 
 export default ResponsiveDialog;
