@@ -10,6 +10,7 @@ import { Rating } from "@mui/material";
 import { Stack } from "@mui/material";
 
 class RecipeSmallCard extends Component{
+
     render()
     {
         return(
