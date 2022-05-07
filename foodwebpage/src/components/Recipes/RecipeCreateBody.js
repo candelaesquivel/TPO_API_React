@@ -12,6 +12,7 @@ import { Checkbox } from "@mui/material";
 import { UploadButton } from '../Misc/UploadButton';
 import { categories } from "../../utilities/sharedData";
 import DifficultyIndicator from './DifficultyIndicator';
+import ResponsiveDialog from '../Misc/ResponsiveDialog';
 
 function categoryList(categories)
 {
@@ -147,7 +148,13 @@ class RecipeCreate extends Component {
 
                 <Grid item xs={4} sm={4} md={4}>
                     <Stack spacing={2} direction='row'>
-                        <Button variant='contained' color="primary">Guardar Cambios</Button>
+                        <ResponsiveDialog 
+                            buttonText={'Guardar Cambios'}
+                            messageTittle = ''
+                            messageText='Receta Guardada Correctamente'
+                            dialogOptionText = 'Salir'
+                        >
+                        </ResponsiveDialog>
                     </Stack>
                 </Grid>
             </Grid>
