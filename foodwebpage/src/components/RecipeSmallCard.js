@@ -10,12 +10,8 @@ import { Rating } from "@mui/material";
 import { Stack } from "@mui/material";
 
 class RecipeSmallCard extends Component{
-    
-
     render()
     {
-        console.log(this.props.imgsrc);
-
         return(
             <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
@@ -41,11 +37,12 @@ class RecipeSmallCard extends Component{
                     
                 </CardContent>
                 <CardActions>
+                    <Link to={`/view-recipe/${this.props.recipeId}`}>
                     <Button 
-                        size="medium" 
-                        component={Link} to={'/' + this.props.readMoreLink}>
+                        size="medium">
                         Leer Mas
                     </Button>
+                    </Link>
                 </CardActions>
             </Card>
         )

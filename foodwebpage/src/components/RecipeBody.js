@@ -1,33 +1,13 @@
 import { ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { Component } from "react";
 import { Grid } from "@mui/material";
-import Comments from "./Comment";
-import ResponsiveDialog from "./ResponsiveDialog";
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 import { List, ListItem } from "@mui/material";
 import DifficultyIndicator from "./DifficultyIndicator";
-import CommentTextField from "./CommentTextField";
 import { Rating } from "@mui/material";
-import { faker } from '@faker-js/faker';
+import {recipes_example} from "../utilities/sharedData";
 
-const commentsItems = [
-    {'id' : 0, 'name' : faker.name.firstName(), 'email' : faker.internet.email(), 'body' : faker.lorem.paragraphs(6)},
-    {'id' : 1, 'name' : faker.name.firstName(), 'email' : faker.internet.email(), 'body' : faker.lorem.paragraphs(6)},
-    {'id' : 2, 'name' : faker.name.firstName(), 'email' : faker.internet.email(), 'body' : faker.lorem.paragraphs(6)},
-]
-
-const ingredientsExample = [
-    'Harina de Trigo',
-    'Huevos',
-    'Aguacate'
-]
-
-const categoriesExample = [
-    'Sin Grasas',
-    'Alto en Azucar',
-    'Vegetariano'
-]
 
 function ingredientList(ingredients){
     return (
@@ -61,7 +41,13 @@ function categoriaList(categories){
 class RecipeBody extends Component{
     
     render(){
+
+        const recipe = recipes_example.find(itr => itr.id === parseInt(this.props.idRecipe));
+
+        console.log(recipe);
+
         return (
+
             <Grid 
                 container 
                 spacing={{ xs: 2, md: 3 }} 
@@ -69,6 +55,12 @@ class RecipeBody extends Component{
                 p={12}
                 direction='column'
             >
+
+                <Grid item xs={4} sm={8} md={12}>
+                    <Typography variant='h4'>
+                        {recipe.name}
+                    </Typography>
+                </Grid>
                 
                 <Grid 
                     item
@@ -79,9 +71,10 @@ class RecipeBody extends Component{
                     alignItems='center'
                     justifyContent='center'
                 >
+
                     <Grid item xs={4} sm={8} md={12}>
-                        <img src='/assets/img.burger.jpg'
-                        style={{height: 'auto', width: '100%', maxWidth : '900px'}}
+                        <img src={'/' + recipe.img}
+                        style={{height: 'auto', width: '70%'}}
                         alt='recipe-img'
                         >
                         </img>
@@ -92,20 +85,20 @@ class RecipeBody extends Component{
                     <Typography>
                         Ingredientes:
                     </Typography>
-                    {ingredientList(ingredientsExample)}
-                    {categoriaList(categoriesExample)}
+                    {ingredientList(recipe.ingredients)}
+                    {categoriaList(recipe.category)}
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
-                    <DifficultyIndicator difficultyValue={4} disabled = {true}></DifficultyIndicator>
+                    <DifficultyIndicator difficultyValue={recipe.difficulty} disabled = {true}></DifficultyIndicator>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={4}>
                     <Typography variant='h6'>
-                        Descripcion
+                        Procedimiento
                     </Typography>
                     <Typography>
-                        {faker.lorem.paragraphs(6)}
+                        {recipe.procedure}
                     </Typography>
                 </Grid>
 
@@ -118,18 +111,7 @@ class RecipeBody extends Component{
                     </Rating>
                 </Grid>
 
-                <Grid item xs={4} sm={4} md={4}>
-                    <Comments comments={commentsItems}></Comments>
-                </Grid>
-
-                <Grid item xs={4} sm={4} md={4}>
-                    <CommentTextField></CommentTextField>
-                </Grid>
-
-                <Grid item xs={4} sm={4} md={4}>
-                    <ResponsiveDialog buttonText='Agregar Comentario'></ResponsiveDialog>
-                </Grid>
-
+             
 
             </Grid>
         )

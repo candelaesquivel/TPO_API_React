@@ -15,6 +15,7 @@ class RecipeGrid extends Component{
                             recipeProcedure = {itr.procedure}
                             recipeRanking = {itr.ranking}
                             recipeDifficulty = {itr.difficulty}
+                            recipeId = {itr.id}
                             readMoreLink = {this.props.readMoreLink}
                             imgsrc = {itr.img}
                         >
