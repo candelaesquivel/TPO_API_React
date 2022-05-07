@@ -8,6 +8,8 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
+import { isValidAccount } from "../../utilities/sharedData";
+import { setGlobalLogged } from '../../utilities/UserSession';
 
 class LogInBody extends Component{
 
@@ -15,25 +17,29 @@ class LogInBody extends Component{
         super(props)
 
         this.state = {
-            isLogged : false
+            isValidAccount : false
         };
 
-        this.handleCleanFields = this.handleCleanFields.bind(this);
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
     }
 
-    handleCleanFields(event) {
+    handleOnSubmit(event){
 
-        this.setState(prevState => ({
-            isLogged: false
-          }));
+        const email = event.target.email.value;
+        const password = event.target.password.value;
 
-        console.log(this.state.isLogged);
-    }
+        if (!isValidAccount(email, password))
+        {
+            event.preventDefault();
+        }
+        else{
+    
+            setGlobalLogged(true);
 
-    handleOnSubmit(e){
-        e.preventDefault();
-        console.log(e.target.email.value);
+            this.setState({
+                isValidAccount : true
+            });
+        }
     }
 
     render(){
@@ -103,7 +109,7 @@ class LogInBody extends Component{
                     </Grid>
 
                     {
-                        this.state.isLogged && <Navigate to='/profile' replace={true}></Navigate>
+                        this.state.isValidAccount && <Navigate to='/profile' replace={true}></Navigate>
                     }
 
                 </Box>

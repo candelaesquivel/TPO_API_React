@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom'
-import { isLogged } from '../../utilities/sharedData';
+import { isGlobalLogged } from '../../utilities/UserSession';
 
 const pages = ['Inicio', 'Sobre nosotros', 'Login', 'Register'];
 const pagesLinks = ['home', 'about-us', 'login', 'register'];
@@ -40,7 +40,8 @@ const ResponsiveAppBar = () => {
 
   let menuOptions = ['Inicio', 'Sobre nosotros', 'Login', 'Register'];
   let menuOptionLinks = [];
-  if (isLogged)
+
+  if (isGlobalLogged())
   {
     menuOptions = ['Inicio', 'Sobre Nosotros'];
     menuOptionLinks = ['home', 'about-us'];

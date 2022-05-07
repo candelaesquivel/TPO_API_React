@@ -20,8 +20,6 @@ export const users_info = [
     },
 ];
 
-export let isLogged = false;
-
 export const categories = [
     'Postre',
     'Ensalada',
@@ -127,3 +125,19 @@ export const recipes_example = [
         'img' : 'assets/img/flan.jpg'
     },
 ];
+
+export function isValidAccount(email, password){
+
+    let isValid = false;
+
+    users_info.forEach(itr => {
+
+        if (isValid)
+            return;
+
+        isValid = (itr.email === email && itr.password === password);
+    });
+
+    return isValid;
+}
+
