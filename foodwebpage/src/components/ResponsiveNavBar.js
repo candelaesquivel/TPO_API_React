@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom'
+import { isLogged } from '../utilities/sharedData';
 
 const pages = ['Inicio', 'Sobre nosotros', 'Login', 'Register'];
 const pagesLinks = ['home', 'about-us', 'login', 'register'];
@@ -36,6 +37,19 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  let menuOptions = ['Inicio', 'Sobre nosotros', 'Login', 'Register'];
+  let menuOptionLinks = [];
+  if (isLogged)
+  {
+    menuOptions = ['Inicio', 'Sobre Nosotros'];
+    menuOptionLinks = ['home', 'about-us'];
+  }
+  else
+  {
+    menuOptions = pages;
+    menuOptionLinks = pagesLinks;
+  }
 
   return (
     <AppBar position="static">
@@ -79,11 +93,11 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page, _index) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} component = {Link} to={'/' + pagesLinks[_index]}>
+              {menuOptions.map((page, _index) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu} component = {Link} to={'/' + menuOptionLinks[_index]}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ), pagesLinks)}
+              ), menuOptionLinks)}
             </Menu>
           </Box>
           <Typography
@@ -96,16 +110,16 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {
-              pages.map((page, _index) => (
+              menuOptions.map((page, _index) => (
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
-                  component={Link} to={'/' + pagesLinks[_index]}
+                  component={Link} to={'/' + menuOptionLinks[_index]}
                 >
                   {page}
                 </Button>
-              ), pagesLinks)
+              ), menuOptionLinks)
             }
           </Box>
           <Box sx={{ flexGrow: 0 }}>

@@ -24,7 +24,7 @@ class Main extends Component{
                     <Route path='profile' element={<Profile></Profile>}></Route>
                     <Route path='register' element={<RegisterPage></RegisterPage>}></Route>
                     <Route path='about-us' element={<AboutUsPage></AboutUsPage>}></Route>
-                    <Route path='view-recipe' element={<RecipeViewPage></RecipeViewPage>}></Route>
+                    <Route path='view-recipe/:id' element={<RecipeViewPage></RecipeViewPage>}></Route>
                     <Route path='my-recipes' element={<ProfileRecipesPage></ProfileRecipesPage>}></Route>
                     <Route path='edit-recipe' element={<RecipeEditPage></RecipeEditPage>}></Route>
                     <Route path= 'ResetPassword' element={<ResetPassword></ResetPassword>}></Route>
