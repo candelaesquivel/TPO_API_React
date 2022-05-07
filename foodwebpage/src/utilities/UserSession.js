@@ -4,6 +4,6 @@ export function setGlobalLogged(isLogged = false){
 }
 
 export function isGlobalLogged(){
-const isLogged = sessionStorage.getItem('isGlobalLogged');
-return isLogged;
+    const isLogged = sessionStorage.getItem('isGlobalLogged');
+    return isLogged;
 }

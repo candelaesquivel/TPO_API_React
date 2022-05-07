@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom'
 import { isGlobalLogged } from '../../utilities/UserSession';
 
-const pages = ['Inicio', 'Sobre nosotros', 'Login', 'Register'];
+const pages = ['Inicio', 'Sobre nosotros', 'Conectarse', 'Registrarse'];
 const pagesLinks = ['home', 'about-us', 'login', 'register'];
 const settings = ['Perfil', 'Mis Recetas', 'Logout'];
 const settingsLinks = ['profile', 'my-recipes', 'logout']
@@ -38,7 +38,7 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
-  let menuOptions = ['Inicio', 'Sobre nosotros', 'Login', 'Register'];
+  let menuOptions = ['Inicio', 'Sobre nosotros', 'Conectarse', 'Registrarse'];
   let menuOptionLinks = [];
 
   if (isGlobalLogged())
@@ -50,6 +50,39 @@ const ResponsiveAppBar = () => {
   {
     menuOptions = pages;
     menuOptionLinks = pagesLinks;
+  }
+
+  const ProfileSection = () => {
+    return (
+        <>
+          <Tooltip title="Mi Perfil">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="Remy Sharp" />
+            </IconButton>
+          </Tooltip><Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {settings.map((setting, _index) => (
+              <MenuItem key={setting} component={Link} to={'/' + settingsLinks[_index]} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">{setting}</Typography>
+              </MenuItem>
+            ), settingsLinks)}
+          </Menu>
+        </>
+    )
   }
 
   return (
@@ -124,33 +157,7 @@ const ResponsiveAppBar = () => {
             }
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Mi Perfil">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp"/>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting, _index) => (
-                <MenuItem key={setting} component={Link} to={'/' + settingsLinks[_index]}onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ), settingsLinks)}
-            </Menu>
+            {isGlobalLogged() ? ProfileSection() : <></> }
           </Box>
         </Toolbar>
       </Container>

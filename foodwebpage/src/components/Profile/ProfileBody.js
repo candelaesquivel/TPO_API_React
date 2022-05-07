@@ -52,7 +52,7 @@ class ProfileBody extends Component{
                         </Grid>
 
                         <Grid item xs={4} sm={8} md={6}>
-                            <Button variant='contained' xs={4} paddingBotton={6} component={Link} to ='/ChangePassword'>Modificar</Button>
+                            <Button variant='contained' xs={4} paddingBottom={6} component={Link} to ='/ChangePassword'>Modificar</Button>
                         </Grid>
 
                         <Grid item xs={4} sm={8} md={6}>
