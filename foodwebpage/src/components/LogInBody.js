@@ -92,19 +92,7 @@ class LogInBody extends Component{
                     </Grid>
 
                    
-
-            
-                    <Grid container spacing={2} direction='row'>
-                        <Grid item xs={12} sm={6}>
-                        <Button 
-                                sx={{mt:3, mb: 2}}
-                                variant='contained'
-                                fullWidth
-                                >
-                                Limpiar Campos</Button>
-                        </Grid>
-
-                        <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={6}>
                             <Button 
                                 sx={{mt:3, mb: 2}}
                                 variant='contained'
@@ -112,13 +100,12 @@ class LogInBody extends Component{
                                 type='submit'
                                 >
                                 Ingresar</Button>
-                        </Grid>
-
-                        {
-                            this.state.isLogged && <Navigate to='/profile' replace={true}></Navigate>
-                        }
-                        
                     </Grid>
+
+                    {
+                        this.state.isLogged && <Navigate to='/profile' replace={true}></Navigate>
+                    }
+                    
                 </Box>
 
             </Container>
