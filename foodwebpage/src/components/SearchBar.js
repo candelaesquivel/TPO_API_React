@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Button, IconButton, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Rating } from "@mui/material";
 import { Typography } from "@mui/material";
@@ -23,6 +23,7 @@ class SearchBar extends Component{
                                 type="search"
                                 variant="standard"
                                 fullWidth
+                                onChange={this.props.onNameChange}
                             />
                     </Grid>
 
@@ -52,11 +53,12 @@ class SearchBar extends Component{
                             name="simple-controlled"
                             icon={<AdjustIcon fontSize="inherit" />}
                             emptyIcon={<AdjustIcon fontSize="inherit" />}
+                            onChange={this.props.onDifficultChange}
                         />
                     </Grid>
 
                     <Grid item xs={4} sm={8} md={6}>
-                        <>Empty</>
+                        <></>
                     </Grid>
 
                     <Grid item xs={4} sm={8} md={6}>

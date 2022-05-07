@@ -11,32 +11,68 @@ class RecipeSearchModule extends Component{
         super(props)
 
         this.state = {
-            'nameText' : '',
-            'ingredientText' : '',
-            'categoryText' : '',
-            'difficultyValue' : 1
+            nameRecipe : '',
+            ingredientRecipe : '',
+            categoryRecipe : '',
+            difficultyValue : 0
 
         };
 
         this.handleSearchByName = this.handleSearchByName.bind(this);
+        this.handleToggleRanking = this.handleToggleRanking.bind(this);
     }
 
     handleSearchByName(event) {
+
+        let name = '';
+
+        if (event.target.value.length > 0)
+            name = event.target.value;
+
+        this.setState({
+            nameRecipe : name
+        });
+    }
+
+    handleToggleRanking(_event, value){
+        if (value == null)
+        {
+            this.setState({
+                difficultyValue : 0
+            })
+        }else{
+            this.setState({
+                difficultyValue : value
+            });
+        }
     }
 
     render(){
 
+        const diffValue = this.state.difficultyValue;
+
         const recipeList = recipes_example.filter( itr => 
         {
-            return prefixStr(itr.name, '');
+            let matchName = true;
+            let matchDiff = true;
+            let matchIngrendients = true;
+            let matchCategories = true;
+
+            if (itr.name.length > 0)
+                matchName = prefixStr(itr.name, this.state.nameRecipe);
+            
+            if (diffValue > 0)
+                matchDiff = itr.difficulty === diffValue
+
+            return matchName && matchDiff && matchIngrendients && matchCategories;
         });
 
         return (
             <>
-                <SearchBar onChange={this.handleSearchByName}></SearchBar>
+                <SearchBar onNameChange={this.handleSearchByName} onDifficultChange={this.handleToggleRanking}></SearchBar>
                 <RecipeGrid 
                     recipes={recipeList}
-                    readMoreLink='view-recipe'
+                    readMoreLink={this.props.readMoreLink}
                 >
                 </RecipeGrid>
             </>
