@@ -7,7 +7,7 @@ class ResponsiveBody extends Component{
     render(){
         return(
             <Box sx={{ flexGrow: 1 }} component='body'>
-                <RecipeSearchModule></RecipeSearchModule>
+                <RecipeSearchModule readMoreLink = 'view-recipe'></RecipeSearchModule>
             </Box>
         )
     }
