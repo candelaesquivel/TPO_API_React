@@ -5,14 +5,20 @@ import { Avatar } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+import {users_info} from '../utilities/sharedData';
 
-// Icons
 class RegisterFormBody extends Component{
 
     constructor(props){
         super(props)
         this.handleOnSubmit = this.handleOnSubmit.bind(this)
         this.handleCleanFields = this.handleCleanFields.bind(this)
+
+        this.state = {
+          isValidEmail : true  
+        };
+
+        this.handleEmailValidation = this.handleEmailValidation.bind(this);
     }
 
     handleOnSubmit(){
@@ -23,7 +29,26 @@ class RegisterFormBody extends Component{
         console.log("Campos REstaurados")
     }
 
+    handleEmailValidation(event){
+
+        const email = event.target.value;
+
+        const isValid = users_info.every(itr => {
+            return itr.email !== email
+        });
+
+        this.setState({
+            isValidEmail : isValid
+        });
+    }
+
     render(){
+
+        let emailHelperText = "";
+
+        if (!this.state.isValidEmail)
+            emailHelperText = "Corrreo Electronico en Uso";
+        
         return (
             <Container component='main' maxWidth='xs'>
                 <Box
@@ -75,6 +100,9 @@ class RegisterFormBody extends Component{
                             label="Correo Electronico"
                             name="email"
                             autoComplete="email"
+                            onChange = {this.handleEmailValidation}
+                            error = {!this.state.isValidEmail}
+                            helperText = {emailHelperText}
                             />
                         </Grid>
 
