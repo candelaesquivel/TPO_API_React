@@ -1,21 +1,9 @@
 import { Component } from "react";
-import SearchBar from "./SearchBar";
-import RecipeGrid from "./RecipeGrid";
 import { Box } from "@mui/system";
-import faker from "@faker-js/faker";
 import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
 import RecipeSearchModule from "./RecipeSearchModule";
 import { Link } from "react-router-dom";
-
-const recipeProfileExamples = [
-    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
-    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
-    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
-    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
-    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
-    { 'name' : faker.lorem.word(), 'description' : faker.lorem.sentence() },
-]
 
 class ProfileRecipesBody extends Component{
     render(){
@@ -36,7 +24,7 @@ class ProfileRecipesBody extends Component{
                     </Grid>
 
                 </Grid>
-                    <RecipeSearchModule></RecipeSearchModule>
+                    <RecipeSearchModule readMoreLink = 'edit-recipe'></RecipeSearchModule>
                 </Box>
             </>
         )
