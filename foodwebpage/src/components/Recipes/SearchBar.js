@@ -31,6 +31,7 @@ export function SearchBar(props){
                             type="search"
                             variant="standard"
                             fullWidth
+                            onChange={props.onIngredientChange}
                         />
                 </Grid>
 

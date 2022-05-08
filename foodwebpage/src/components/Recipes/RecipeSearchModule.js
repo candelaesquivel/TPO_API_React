@@ -21,6 +21,7 @@ class RecipeSearchModule extends Component{
 
         this.handleSearchByName = this.handleSearchByName.bind(this);
         this.handleToggleRanking = this.handleToggleRanking.bind(this);
+        this.handleSearchByIngredient = this.handleSearchByIngredient.bind(this);
     }
 
     handleSearchByName(event) {
@@ -48,6 +49,17 @@ class RecipeSearchModule extends Component{
         }
     }
 
+    handleSearchByIngredient(event){
+        const ingredient = event.target.value;
+
+        if (ingredient.length > 0)
+        {
+            this.setState({
+                ingredientRecipe : ingredient
+            });
+        }
+    }
+
     render(){
 
         const diffValue = this.state.difficultyValue;
@@ -57,21 +69,44 @@ class RecipeSearchModule extends Component{
             let matchName = true;
             let matchDiff = true;
             let matchIngrendients = true;
-            let matchCategories = true;
 
+            /** Filtro por Nombre */
             if (itr.name.length > 0)
                 matchName = prefixStr(itr.name, this.state.nameRecipe);
-            
+
+
+            /** Filtro por Dificultad */
             if (diffValue > 0)
                 matchDiff = itr.difficulty === diffValue
 
-            return matchName && matchDiff && matchIngrendients && matchCategories;
+            const ingredientTarget = this.state.ingredientRecipe;
+
+            /** Filtro por Ingrediente*/
+            if (ingredientTarget.length >= 3)
+            {
+                matchIngrendients = itr.ingredients.find(ingredient =>
+                {
+                    return prefixStr(ingredient, ingredientTarget);
+                });
+
+                console.log(matchIngrendients);
+            }
+
+            /** Filtro por Categoria */
+
+
+            return matchName && matchDiff && matchIngrendients;
         });
 
         return (
             <>
                 
-                <SearchBar onNameChange={this.handleSearchByName} onDifficultChange={this.handleToggleRanking}></SearchBar>
+                <SearchBar 
+                    onNameChange={this.handleSearchByName} 
+                    onDifficultChange={this.handleToggleRanking}
+                    onIngredientChange={this.handleSearchByIngredient}
+                >
+                </SearchBar>
                 <RecipeGrid 
                     recipes={recipeList}
                     readMoreLink={this.props.readMoreLink}
