@@ -155,16 +155,14 @@ class RegisterFormBody extends Component{
                         </Grid>
                     </Grid>
 
-                    <Grid container spacing={2} direction='row'>
-                        <Grid item xs={4} sm={8} md={12}>
-                            <Button 
-                                sx={{mt:3, mb: 2}}
-                                variant='contained'
-                                fullWidth
-                                type='onSubmit'
-                                >
-                                Registrar</Button>
-                        </Grid>
+                    <Grid item xs={4} sm={8} md={12}>
+                        <Button 
+                            sx={{mt:3, mb: 2}}
+                            variant='contained'
+                            fullWidth
+                            type='onSubmit'
+                            >
+                            Registrar</Button>
                     </Grid>
                 </Box>
 
