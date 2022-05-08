@@ -6,32 +6,12 @@ import { Switch } from "@mui/material";
 import { FormControlLabel } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 
-import { List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
-import { Checkbox } from "@mui/material";
 
+import { CheckBoxList } from "../Misc/CheckBoxList";
 import { UploadButton } from '../Misc/UploadButton';
 import { categories } from "../../utilities/sharedData";
 import DifficultyIndicator from './DifficultyIndicator';
 import ResponsiveDialog from '../Misc/ResponsiveDialog';
-
-function categoryList(categories)
-{
-    return (
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        {
-            categories.map(itr => 
-                <ListItem>
-                    <ListItemIcon>
-                        <Checkbox>
-                        </Checkbox>
-                    </ListItemIcon>
-                    <ListItemText>{itr}</ListItemText>
-                </ListItem>
-            )
-        }
-        </List>
-    )
-}
 
 class RecipeCreate extends Component {
 
@@ -111,13 +91,16 @@ class RecipeCreate extends Component {
 
                 <Grid container item xs={4} sm={4} md={4}>
                     <Grid item xs={4} sm={4} md={4}>
-                        {categoryList(categories.slice(0, 3))}
+                        <CheckBoxList items = {categories.slice(0, 3)}>
+                        </CheckBoxList>
                     </Grid>
                     <Grid item xs={4} sm={4} md={4}>
-                        {categoryList(categories.slice(3, 6))}
+                        <CheckBoxList items = {categories.slice(3, 6)}>
+                        </CheckBoxList>
                     </Grid>
                     <Grid item xs={4} sm={4} md={4}>
-                        {categoryList(categories.slice(6, 9))}
+                        <CheckBoxList items = {categories.slice(6, 9)}>
+                        </CheckBoxList>
                     </Grid>
                 </Grid>
                 <Grid item xs={4} sm={4} md={12}>
