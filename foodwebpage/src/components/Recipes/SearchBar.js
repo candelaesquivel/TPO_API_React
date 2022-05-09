@@ -20,7 +20,7 @@ export function SearchBar(props){
                             id="standard-search"
                             label="Nombre"
                             type="search"
-                            variant="standard"
+                            variant="outlined"
                             fullWidth
                             onChange={props.onNameChange}
                         />
@@ -31,14 +31,20 @@ export function SearchBar(props){
                             id="standard-search"
                             label="Ingredientes"
                             type="search"
-                            variant="standard"
+                            variant="outlined"
                             fullWidth
                             onChange={props.onIngredientChange}
                         />
                 </Grid>
 
                 <Grid item xs={4} sm={8} md={6}>
-                    <CheckboxesTags options = {categories} onCheckBoxTagOnChange={props.onCategoryChange}></CheckboxesTags>
+                    <CheckboxesTags 
+                        options = {categories} 
+                        onCheckBoxTagOnChange={props.onCategoryChange}
+                        placeholder='Categorías'
+                    >
+                        
+                    </CheckboxesTags>
                 </Grid>
 
                 <Grid item xs={4} sm={8} md={6}>
