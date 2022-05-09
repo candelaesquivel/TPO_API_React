@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { Container, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Avatar } from "@mui/material";
@@ -6,164 +5,153 @@ import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import {users_info} from '../../utilities/sharedData';
+import React, {useState} from 'react';
 
-class RegisterFormBody extends Component{
 
-    constructor(props){
-        super(props)
-        this.handleOnSubmit = this.handleOnSubmit.bind(this)
+export function RegisterFormBody(props){
 
-        this.state = {
-          isValidEmail : true  
-        };
+    const [isEmailValid, setEmailValid] = useState(true);
+    const [emailHelperText, setEmailHelperText] = useState('');
 
-        this.handleEmailValidation = this.handleEmailValidation.bind(this);
-    }
-
-    handleOnSubmit(){
-        console.log("Submit Enviado")
-    }
-
-    handleEmailValidation(event){
-
+    const validateEmail = (event) => 
+    {
         const email = event.target.value;
 
         const isValid = users_info.every(itr => {
-            return itr.email !== email
+            return itr.email !== email;
         });
 
-        this.setState({
-            isValidEmail : isValid
-        });
-    }
+        setEmailValid(isValid);
 
-    render(){
+        if (isValid)
+            setEmailHelperText('')
+        else
+            setEmailHelperText('Correo Electrónico en uso')
+    };
 
-        let emailHelperText = "";
+    const validateForm = (event) => {
+        event.preventDefault();
 
-        if (!this.state.isValidEmail)
-            emailHelperText = "Corrreo Electronico en Uso";
         
-        return (
-            <Container component='main' maxWidth='xs'>
-                <Box
-                    sx={{
-                        mt: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                    >
-                </Box>
+    };
 
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <HowToRegIcon />
-                </Avatar>
-                <Typography variant='h6'>
-                    Creacion de Cuentas
-                </Typography>
+    return (
+        <Container component='main' maxWidth='xs'>
+            <Box
+                sx={{
+                    mt: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+                >
+            </Box>
 
-                <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={this.handleOnSubmit}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <TextField
-                                autoComplete="given-name"
-                                name='Nombre'
-                                required
-                                fullWidth
-                                label='Nombre'
-                            >
-                            </TextField>
-                        </Grid>
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <HowToRegIcon />
+            </Avatar>
+            <Typography variant='h6'>
+                Creación de Cuentas
+            </Typography>
 
-                        <Grid item xs={12}>
-                            <TextField
-                                autoComplete="given-name"
-                                name='Apellido'
-                                required
-                                fullWidth
-                                label='Apellido'
-                            >
-                            </TextField>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField
+            <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={validateForm} >
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField
+                            autoComplete="given-name"
+                            name='Nombre'
                             required
                             fullWidth
-                            id="email"
-                            label="Correo Electronico"
-                            name="email"
-                            autoComplete="email"
-                            onChange = {this.handleEmailValidation}
-                            error = {!this.state.isValidEmail}
-                            helperText = {emailHelperText}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField
-                            required
-                            fullWidth
-                            name="telefono"
-                            label="Telefono"
-                            type="number"
-                            id="password"
-                            autoComplete="Telefono"
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField
-                            required
-                            fullWidth
-                            name="password"
-                            label="Contraseña"
-                            type="password"
-                            id="password"
-                            autoComplete="new-password"
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField
-                            required
-                            fullWidth
-                            name="pregunta-seg"
-                            label="Pregunta de seguridad"
-                            type="preg-seg"
-                            id="preg-seg"
-                            autoComplete="Pregunta de seguridad"
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField
-                            required
-                            fullWidth
-                            name="repuesta"
-                            label="Respuesta de pregunta de seguridad"
-                            type="password"
-                            id="respuesta-preg-de-seg"
-                            autoComplete="respuesta "
-                            />
-                        </Grid>
+                            label='Nombre'
+                        >
+                        </TextField>
                     </Grid>
 
-                    <Grid item xs={4} sm={8} md={12}>
-                        <Button 
-                            sx={{mt:3, mb: 2}}
-                            variant='contained'
+                    <Grid item xs={12}>
+                        <TextField
+                            autoComplete="given-name"
+                            name='Apellido'
+                            required
                             fullWidth
-                            type='onSubmit'
-                            >
-                            Registrar</Button>
+                            label='Apellido'
+                        >
+                        </TextField>
                     </Grid>
-                </Box>
 
-            </Container>
-        )
-    }
+                    <Grid item xs={12}>
+                        <TextField
+                        required
+                        fullWidth
+                        id="email"
+                        label="Correo Electronico"
+                        name="email"
+                        autoComplete="email"
+                        onChange = {validateEmail}
+                        error = {!isEmailValid}
+                        helperText = {emailHelperText}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TextField
+                        required
+                        fullWidth
+                        name="telefono"
+                        label="Telefono"
+                        type="number"
+                        id="password"
+                        autoComplete="Telefono"
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TextField
+                        required
+                        fullWidth
+                        name="password"
+                        label="Contraseña"
+                        type="password"
+                        id="password"
+                        autoComplete="new-password"
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TextField
+                        required
+                        fullWidth
+                        name="pregunta-seg"
+                        label="Pregunta de seguridad"
+                        type="preg-seg"
+                        id="preg-seg"
+                        autoComplete="Pregunta de seguridad"
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TextField
+                        required
+                        fullWidth
+                        name="repuesta"
+                        label="Respuesta de pregunta de seguridad"
+                        type="password"
+                        id="respuesta-preg-de-seg"
+                        autoComplete="respuesta "
+                        />
+                    </Grid>
+                </Grid>
+
+                <Grid item xs={4} sm={8} md={12}>
+                    <Button 
+                        sx={{mt:3, mb: 2}}
+                        variant='contained'
+                        fullWidth
+                        type='onSubmit'
+                        >
+                        Registrar</Button>
+                </Grid>
+            </Box>
+
+        </Container>
+    )
 }
-
-export default RegisterFormBody;
