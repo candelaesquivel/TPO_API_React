@@ -38,7 +38,7 @@ export const recipes_example = [
         'id' : 1,
         'name' : 'Hamburguesa',
         'category' : [
-            'Americana'
+            'Carnes'
         ],
         'procedure' : 'Cortar el tomate en rodajas, lavar la lechuga. Cocinar el pan a la plancha por 2 minutos.',
         'ingredients' : [
@@ -56,7 +56,7 @@ export const recipes_example = [
         'id' : 2,
         'name' : 'Sopa de Vegetales',
         'category' : [
-            'Argentina'
+            'Plato Calientes'
         ],
         'procedure' : 'Hervir el agua con zanahoria, lenteja y tomate por 1 hora.',
         'ingredients' : [
@@ -75,7 +75,7 @@ export const recipes_example = [
         'id' : 3,
         'name' : 'Tacos de Pollo',
         'category' : [
-            'Mexico'
+            'Carnes'
         ],
         'procedure' : 'Cocinar el pollo a la plancha por 30 min. Sofreir vegetales por 5 minutos',
         'ingredients' : [
