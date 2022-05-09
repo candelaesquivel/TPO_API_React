@@ -4,7 +4,8 @@ import { Checkbox } from "@mui/material";
 export function CheckBoxList(props)
 {
     return (
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        <List sx={{ width: 'auto', maxWidth: 360, bgcolor: 'background.paper', 
+        overflow : props.overflow , maxHeight : props.maxHeight }}>
         {
             props.items.map(itr => 
                 <ListItem>

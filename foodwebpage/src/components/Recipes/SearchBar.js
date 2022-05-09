@@ -1,14 +1,16 @@
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Rating } from "@mui/material";
 import { Typography } from "@mui/material";
 
 import AdjustIcon from '@mui/icons-material/Adjust';
-import SearchIcon from '@mui/icons-material/Search';
+
+import {CheckboxesTags} from "../Misc/AutoCompleteWithCheckBoxes";
+import {categories} from '../../utilities/sharedData';
 
 export function SearchBar(props){
     return (
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                 <Grid item xs={4} sm={8} md={12}>
                     <Typography variant='h6'>Buscador de Recetas</Typography>
                 </Grid>
@@ -36,13 +38,7 @@ export function SearchBar(props){
                 </Grid>
 
                 <Grid item xs={4} sm={8} md={6}>
-                    <TextField
-                            id="standard-search"
-                            label="Categorias"
-                            type="search"
-                            variant="standard"
-                            fullWidth
-                        />
+                    <CheckboxesTags options = {categories} onCheckBoxTagOnChange={props.onCategoryChange}></CheckboxesTags>
                 </Grid>
 
                 <Grid item xs={4} sm={8} md={6}>
@@ -57,12 +53,6 @@ export function SearchBar(props){
 
                 <Grid item xs={4} sm={8} md={6}>
                     <></>
-                </Grid>
-
-                <Grid item xs={4} sm={8} md={6}>
-                    <Button variant="contained" startIcon={<SearchIcon />}>
-                        Buscar
-                    </Button>
                 </Grid>
         </Grid>
     )
