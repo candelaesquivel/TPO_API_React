@@ -6,13 +6,7 @@ import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import PasswordIcon from '@mui/icons-material/Password';
 
-
-class ResetPasswordBody extends Component{
-
-    
-
-    render(){
-
+export function ResetPasswordBody(props){
         return(
 
             <Container component='main' maxWidth='xs'>
@@ -44,25 +38,24 @@ class ResetPasswordBody extends Component{
                             label="Correo Electrónico"
                             name="email"
                             autoComplete="email"
-                            onChange = {this.handleCleanFields}
                             />
                         </Grid>
 
                         <Grid item xs={12}>
-                            <Typography variant='h10'>Pregunta de seguridad: </Typography>
+                            <Typography variant='h6'>Pregunta de seguridad {props.security_question} </Typography>
+                        </Grid>
+
+                        <Grid item xs={12}>
                             <TextField
                             required
                             fullWidth
-                            name="Respuesta-seg"
+                            name="security-answer"
                             label="Respuesta de seguridad"
-                            type="respuesta-seg"
-                            id="repsuesta-seg"
-                            autoComplete="respuesta-seg"
+                            type="text"
+                            id="security-answer"
+                            autoComplete
                             />
                         </Grid>
-
-
-                    
 
                         <Grid item xs={12} sm={6}>
                             <Button 
@@ -80,8 +73,4 @@ class ResetPasswordBody extends Component{
 
             </Container>
         );
-    }
-
 }
-
-export default ResetPasswordBody;

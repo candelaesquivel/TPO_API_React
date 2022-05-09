@@ -2,7 +2,7 @@ import { Component } from "react";
 
 import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
 import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
-import ResetPasswordBody from '../components/RecoverPassword/ResetPasswordBody';
+import {ResetPasswordBody} from '../components/RecoverPassword/ResetPasswordBody';
 
 class ResetPassword extends Component{
     
