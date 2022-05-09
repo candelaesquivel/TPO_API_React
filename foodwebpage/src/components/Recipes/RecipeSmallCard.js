@@ -14,7 +14,7 @@ class RecipeSmallCard extends Component{
     render()
     {
         return(
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 345, width : 'auto'}}>
                 <CardMedia
                     component="img"
                     height="140"
@@ -28,22 +28,26 @@ class RecipeSmallCard extends Component{
                     <Typography variant="body2">
                         Dificultad: {this.props.recipeDifficulty}
                     </Typography>
-                    <Stack direction='row' spacing={2}>
-                    <Typography variant='body2'>
-                        Calificación
-                    </Typography>
-                    <Rating value={this.props.recipeRanking}>
-                    </Rating>
+                    <Stack 
+                        direction={{xs : 'column', md : 'row'}} 
+                        spacing={{xs: 1, md : 2}}
+                    >
+                        <Typography variant='body2'>
+                            Calificación
+                        </Typography>
+                        <Rating value={this.props.recipeRanking}>
+                        </Rating>
                     </Stack>
                     
                 </CardContent>
                 <CardActions>
-                    <Link to={`/view-recipe/${this.props.recipeId}`}>
                     <Button 
-                        size="medium">
+                        size="medium"
+                        component={Link}
+                        to={`/view-recipe/${this.props.recipeId}`}
+                        variant='contained'>
                         Leer Mas
                     </Button>
-                    </Link>
                 </CardActions>
             </Card>
         )
