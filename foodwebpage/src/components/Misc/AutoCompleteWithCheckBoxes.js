@@ -15,6 +15,7 @@ export function CheckboxesTags(props) {
       multiple
       id="checkboxes-tags-demo"
       options={props.options}
+      defaultValue={props.selectedOptions}
       disableCloseOnSelect
       getOptionLabel={(option) => option}
       renderOption={(props, option, { selected }) => (
@@ -28,7 +29,7 @@ export function CheckboxesTags(props) {
           {option}
         </li>
       )}
-      style={{ width: 'auto' }}
+      style={{ width: props.width, fullWidth : props.fullWidth}}
       onChange={props.onCheckBoxTagOnChange}
       renderInput={(params) => (
         <TextField {...params} label={props.label} placeholder={props.placeholder} />
