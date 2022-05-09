@@ -10,6 +10,7 @@ import { UploadButton } from '../Misc/UploadButton';
 import { categories } from "../../utilities/sharedData";
 import DifficultyIndicator from './DifficultyIndicator';
 import {recipes_example} from '../../utilities/sharedData';
+import ResponsiveDialog from "../Misc/ResponsiveDialog";
 
 import React, { useState } from 'react';
 
@@ -17,7 +18,6 @@ import React, { useState } from 'react';
 
 export function RecipeEditBody(props){
 
-    let postedStr = "";
     const recipe = recipes_example.find(itr => itr.id === parseInt(props.idRecipe));
 
     const defaultCategoriesSelected = categories.filter( itr =>
@@ -66,9 +66,11 @@ export function RecipeEditBody(props){
 
             <Grid item xs={4} sm={4} md={12}>
                 <FormGroup>
-                    <FormControlLabel control={<Switch />} 
+                    <FormControlLabel 
+                        control={<Switch />}
                         label={isPosted ? 'Publicada' : 'No publicada'} 
-                        onChange = {() => setPosted(!isPosted) } />
+                        onChange = {() => setPosted(!isPosted) } 
+                    />
                 </FormGroup>
                 <FormHelperText>Presionar para que la receta se publique</FormHelperText>
             </Grid>
@@ -116,8 +118,22 @@ export function RecipeEditBody(props){
 
             <Grid item xs={4} sm={4} md={4}>
                 <Stack spacing={2} direction='row'>
-                    <Button variant='contained' color="primary">Guardar Cambios</Button>
-                    <Button variant='contained' color='error'>Eliminar Receta</Button>
+                    <ResponsiveDialog
+                        buttonText = 'Guardar Cambios'
+                        messageText = 'Cambios Guardados Exitosamente'
+                        messageTittle = ''
+                        dialogOptionText = 'Salir'
+                        dialogExitButtonColor = 'success'
+                    />
+
+                    <ResponsiveDialog
+                        buttonText = 'Eliminar Receta'
+                        buttonColor = 'error'
+                        messageText = 'Receta Eliminada Correctamente'
+                        messageTittle = ''
+                        dialogOptionText = 'Salir'
+                        dialogExitButtonColor = 'success'
+                    />
                 </Stack>
             </Grid>
         </Grid>
