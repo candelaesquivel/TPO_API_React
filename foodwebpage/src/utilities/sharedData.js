@@ -56,7 +56,7 @@ export const recipes_example = [
         'id' : 2,
         'name' : 'Sopa de Vegetales',
         'category' : [
-            'Plato Calientes'
+            'Plato Caliente'
         ],
         'procedure' : 'Hervir el agua con zanahoria, lenteja y tomate por 1 hora.',
         'ingredients' : [
