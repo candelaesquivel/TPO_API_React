@@ -1,7 +1,7 @@
 import { Component } from "react";
 import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
 import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
-import LogInBody from '../components/Login/LogInBody';
+import {LogInBody} from '../components/Login/LogInBody';
 
 class Login extends Component{
     render(){

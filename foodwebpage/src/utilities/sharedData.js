@@ -21,16 +21,16 @@ export const users_info = [
 ];
 
 export const categories = [
-    'Postre',
-    'Ensalada',
     'Bebidas',
-    'Guisos',
     'Carnes',
+    'Ensalada',
+    'Guisos',
     'Libre de Gluten',
-    'Vegetariano',
-    'Vegano',
     'Plato Caliente',
-    'Plato Frío'
+    'Plato Frío',
+    'Postre',
+    'Vegano',
+    'Vegetariano'
 ];
 
 export const recipes_example = [
@@ -128,16 +128,28 @@ export const recipes_example = [
 
 export function isValidAccount(email, password){
 
-    let isValid = false;
-
+    let values = { isValid : false, passError : '', emailNotFoundError : ''};
+    
     users_info.forEach(itr => {
 
-        if (isValid)
-            return;
-
-        isValid = (itr.email === email && itr.password === password);
+        if (itr.email === email)
+        {
+            if (itr.password !== password)
+                values.passError = 'Contraseña Incorrecta';
+            else
+                values.isValid = true
+        }
     });
 
-    return isValid;
+    if (!values.isValid && values.passError.length === 0)
+    {
+        if (email.length > 0)
+            values.emailNotFoundError = 'No se encuentra ningun mail asociado a esa cuenta'
+        else
+            values.emailNotFoundError = 'Se requiere un mail valido'
+    }
+
+
+    return values;
 }
 
