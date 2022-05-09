@@ -44,8 +44,6 @@ class RecipeBody extends Component{
 
         const recipe = recipes_example.find(itr => itr.id === parseInt(this.props.idRecipe));
 
-        console.log(recipe);
-
         return (
 
             <Grid 
