@@ -35,7 +35,11 @@ class ResponsiveDialog extends Component{
     render(){
         return (
             <>
-              <Button variant="contained" onClick={this.handleClickOpen}>
+              <Button 
+                variant={this.props.buttonVariant} 
+                onClick={this.handleClickOpen}
+                color={this.props.buttonColor}
+                >
                 {this.props.buttonText}
               </Button>
               <Dialog onClose = {this.handleDialogOnClose} open={this.state.isClosed}>
@@ -46,9 +50,9 @@ class ResponsiveDialog extends Component{
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
-                    <Button variant='contained'
+                    <Button variant={this.props.dialogExitButtonVariant}
                     onClick={this.handleDialogOnClose}
-                    color='success'
+                    color={this.props.dialogExitButtonColor}
                     >{this.props.dialogOptionText} 
                     </Button>
                   </DialogActions>
@@ -60,10 +64,13 @@ class ResponsiveDialog extends Component{
 
 
 ResponsiveDialog.defaultProps = {
+  buttonVariant : 'contained',
   buttonText : "Button Text",
+  buttonColor : 'primary',
   messageText : 'Message Text',
   messageTittle : 'Message Tittle',
   dialogOptionText : 'Dialog Option Text',
+  dialogExitButtonVariant : 'contained'
 };
 
 export default ResponsiveDialog;
