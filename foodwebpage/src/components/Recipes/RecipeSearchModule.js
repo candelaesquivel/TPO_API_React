@@ -65,6 +65,11 @@ class RecipeSearchModule extends Component{
                 ingredientRecipe : ingredient
             });
         }
+        else{
+            this.setState({
+                ingredientRecipe : ''
+            })
+        }
     }
 
     render(){
