@@ -8,7 +8,7 @@ import RegisterPage from "../pages/Register";
 import AboutUsPage from "../pages/AboutUs"
 import ProfileRecipesPage from "../pages/ProfileRecipes";
 import RecipeViewPage from "../pages/RecipeView";
-import RecipeEditPage from "../pages/RecipeEdit";
+import {RecipeEditPage} from "../pages/RecipeEdit";
 import ResetPassword from "../pages/ResetPassword";
 import ChangePassword from "../pages/ChangePassword";
 import RecipeCreatePage from '../pages/RecipeCreate';
@@ -27,7 +27,7 @@ class Main extends Component{
                     <Route path='about-us' element={<AboutUsPage></AboutUsPage>}></Route>
                     <Route path='view-recipe/:id' element={<RecipeViewPage></RecipeViewPage>}></Route>
                     <Route path='my-recipes' element={<ProfileRecipesPage></ProfileRecipesPage>}></Route>
-                    <Route path='edit-recipe' element={<RecipeEditPage></RecipeEditPage>}></Route>
+                    <Route path='edit-recipe/:id' element={<RecipeEditPage></RecipeEditPage>}></Route>
                     <Route path='create-recipe' element={<RecipeCreatePage></RecipeCreatePage>}></Route>
                     <Route path= 'ResetPassword' element={<ResetPassword></ResetPassword>}></Route>
                     <Route path= 'ChangePassword' element={<ChangePassword></ChangePassword>}></Route>
