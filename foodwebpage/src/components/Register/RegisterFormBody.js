@@ -12,7 +12,6 @@ class RegisterFormBody extends Component{
     constructor(props){
         super(props)
         this.handleOnSubmit = this.handleOnSubmit.bind(this)
-        this.handleCleanFields = this.handleCleanFields.bind(this)
 
         this.state = {
           isValidEmail : true  
@@ -23,10 +22,6 @@ class RegisterFormBody extends Component{
 
     handleOnSubmit(){
         console.log("Submit Enviado")
-    }
-
-    handleCleanFields(event){
-        console.log("Campos REstaurados")
     }
 
     handleEmailValidation(event){
