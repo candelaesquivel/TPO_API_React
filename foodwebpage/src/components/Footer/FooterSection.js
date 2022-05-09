@@ -6,7 +6,7 @@ import { ListItemIcon } from "@mui/material";
 import { ListItemText } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
-import centerBox from "../CenterBox";
+import centerBox from "../Misc/CenterBox";
 
 class FooterSection extends Component{
     
