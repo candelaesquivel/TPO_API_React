@@ -19,7 +19,7 @@ class RecipeSmallCard extends Component{
                     component="img"
                     height="140"
                     image={this.props.imgsrc}
-                    alt="green iguana"
+                    alt="recipe-card"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
@@ -44,7 +44,7 @@ class RecipeSmallCard extends Component{
                     <Button 
                         size="medium"
                         component={Link}
-                        to={`/view-recipe/${this.props.recipeId}`}
+                        to={`/${this.props.readMoreLink}/${this.props.recipeId}`}
                         variant='contained'>
                         Leer Mas
                     </Button>
