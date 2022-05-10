@@ -3,9 +3,11 @@ import { Component } from "react";
 import { Grid } from "@mui/material";
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
+import { CheckboxesTags } from "../Misc/AutoCompleteWithCheckBoxes";
+
 import { List, ListItem } from "@mui/material";
 import { Rating } from "@mui/material";
-import {recipes_example} from '../../utilities/sharedData';
+import {recipes_example, categories} from '../../utilities/sharedData';
 import DifficultyIndicator from "./DifficultyIndicator";
 
 
@@ -26,23 +28,17 @@ function ingredientList(ingredients){
     )
 }
 
-function categoriaList(categories){
-    return (
-        <>
-            <Typography>
-                Categoria: {categories.map(itr => (
-                    itr + ' | '
-                )).toString().split(',')}
-            </Typography>
-        </>
-    )
-}
-
 class RecipeBody extends Component{
     
     render(){
 
         const recipe = recipes_example.find(itr => itr.id === parseInt(this.props.idRecipe));
+
+        const defaultCategoriesSelected = categories.filter( itr =>
+            {
+                return recipe.category.includes(itr);
+            }
+        )
 
         return (
 
@@ -84,7 +80,19 @@ class RecipeBody extends Component{
                         Ingredientes:
                     </Typography>
                     {ingredientList(recipe.ingredients)}
-                    {categoriaList(recipe.category)}
+                </Grid>
+
+                <Grid item xs={4} sm={8} md={12}>
+                    <Typography mb={2}>Categorías</Typography>
+                    <CheckboxesTags 
+                        selectedOptions = {defaultCategoriesSelected}
+                        options = {categories}
+                        placeholder=''
+                        fullWidth = {true}
+                        width = {'auto'}
+                        disabled = {true}
+                    >
+                    </CheckboxesTags>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>

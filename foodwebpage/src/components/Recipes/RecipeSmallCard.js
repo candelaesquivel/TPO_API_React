@@ -35,7 +35,7 @@ class RecipeSmallCard extends Component{
                         <Typography variant='body2'>
                             Calificación
                         </Typography>
-                        <Rating value={this.props.recipeRanking}>
+                        <Rating value={this.props.recipeRanking} readOnly>
                         </Rating>
                     </Stack>
                     
