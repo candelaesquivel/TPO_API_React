@@ -39,6 +39,7 @@ class ResponsiveDialog extends Component{
                 variant={this.props.buttonVariant} 
                 onClick={this.handleClickOpen}
                 color={this.props.buttonColor}
+                fullWidth={this.props.fullWidth}
                 >
                 {this.props.buttonText}
               </Button>
