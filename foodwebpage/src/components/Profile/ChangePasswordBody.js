@@ -71,15 +71,12 @@ class ChangePasswordBody extends Component{
                         </Grid>
 
 
-                    
-
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12}>
                             <Button 
                                 sx={{mt:3, mb: 2}}
                                 variant='contained'
                                 fullWidth
                                 type='onSubmit'
-                               
                                 >
                                 Cambiar</Button>
                         </Grid>
