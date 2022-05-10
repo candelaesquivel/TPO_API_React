@@ -25,8 +25,8 @@ class AboutUsBody extends Component{
                         <br/><br/>Somos la página “Food”, nuestro objetivo es llegar a ser la mejor página de recetas de comidas. 
                         Aquí se pueden subir recetas de todo tipo tanto veganas, vegetarianas y no vegetarianas.
                         Podrán registrarse para crear su usuario y así poder explotar al máximo el sitio. 
-                        Una vez registrado, podrán subir o crear o modificar un borrador de una receta,
-                        eliminar alguna receta, comentar o calificar las recetas de otros usuarios. 
+                        Una vez registrado, podrán subir , crear , modificar , publicar o
+                        eliminar alguna receta y comentar o calificar las recetas de otros usuarios. 
                         Los invitados del sitio podrán visualizar en la página de inicio todas las recetas publicadas, 
                         pero no podrán comentar o calificar. 
                         </Typography>

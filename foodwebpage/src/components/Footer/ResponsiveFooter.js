@@ -3,27 +3,27 @@ import {Box, Typography} from '@mui/material';
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import { Grid } from "@mui/material";
 import ContactMailIcon from '@mui/icons-material/ContactMail';
-
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import HelpCenterIcon from '@mui/icons-material/HelpCenter';
-import InfoIcon from '@mui/icons-material/Info';
-
+import LanguageIcon from '@mui/icons-material/Language';
 import FooterSection from './FooterSection';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { Link } from "react-router-dom";
 
 const contactItems = [
-    {'Text' : '+54 12-34-56-78', 'Icon' : <ContactPhoneIcon/> },
-    {'Text' : 'uade@edu.ar', 'Icon' : <ContactMailIcon/> },
+    {'Text' : '+54 12-34-56-78', 'Icon' : <ContactPhoneIcon />, 'Link': '#' },
+    {'Text' : 'uade@edu.ar', 'Icon' : <ContactMailIcon/>, 'Link': '#' },
 ]
 
 const aboutItems = [
-    {'Text' : "Quienes Somos", 'Icon' : <InfoIcon/>},
-    {'Text' : "Como Usar", 'Icon' : <HelpCenterIcon/>},
+    {'Text' : "Sobre Nosotros", 'Icon' : <ArrowCircleRightIcon /> , 'Link': '/about-us'},
+    {'Text' : "Argentina", 'Icon' : <LanguageIcon/>, 'Link': '#'},
+    
 ]
 
 const socialItems = [
-    {'Text' : "Facebook", 'Icon' : <FacebookIcon/>},
-    {'Text' : "Twitter", 'Icon' : <TwitterIcon/>},
+    {'Text' : "Facebook", 'Icon' : <FacebookIcon/>, 'Link': '#'},
+    {'Text' : "Twitter", 'Icon' : <TwitterIcon/>, 'Link': '#'},
 ]
 
 class ResponsiveFooter extends Component{
@@ -43,7 +43,7 @@ class ResponsiveFooter extends Component{
                     >
                         <FooterSection sectionTittle='Contacto' sectionItems={contactItems}></FooterSection>
                         <FooterSection sectionTittle='Social' sectionItems={socialItems}></FooterSection>
-                        <FooterSection sectionTittle='Sobre Nosotros' sectionItems={aboutItems}></FooterSection>
+                        <FooterSection sectionTittle='Food Recipes' sectionItems={aboutItems}></FooterSection>
                         
                     </Grid>
 

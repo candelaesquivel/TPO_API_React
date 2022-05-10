@@ -21,7 +21,7 @@ class FooterSection extends Component{
                         <List>
                         {
                             this.props.sectionItems.map((itr, _index) => (
-                                <ListItem button component={Link} to='/' key={_index}>
+                                <ListItem button component={Link} to={itr.Link} key={_index}>
                                     <ListItemIcon>{itr.Icon}</ListItemIcon>
                                     <ListItemText primary={itr.Text}></ListItemText>
                                 </ListItem>
