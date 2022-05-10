@@ -19,9 +19,10 @@ const pagesLinks = ['home', 'about-us', 'login', 'register'];
 const settings = ['Perfil', 'Mis Recetas', 'Logout'];
 const settingsLinks = ['profile', 'my-recipes', 'logout']
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,11 +39,14 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
+  const isLogged = isGlobalLogged();
+
   let menuOptions = ['Inicio', 'Sobre nosotros', 'Conectarse', 'Registrarse'];
   let menuOptionLinks = [];
 
-  if (isGlobalLogged())
+  if (isLogged)
   {
+    console.log("Is Global Logged: ", isLogged);
     menuOptions = ['Inicio', 'Sobre Nosotros'];
     menuOptionLinks = ['home', 'about-us'];
   }
@@ -157,7 +161,7 @@ const ResponsiveAppBar = () => {
             }
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            {isGlobalLogged() ? ProfileSection() : <></> }
+            {isLogged ? ProfileSection() : <></> }
           </Box>
         </Toolbar>
       </Container>

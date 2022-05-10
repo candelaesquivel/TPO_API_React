@@ -5,5 +5,9 @@ export function setGlobalLogged(isLogged = false){
 
 export function isGlobalLogged(){
     const isLogged = sessionStorage.getItem('isGlobalLogged');
-    return isLogged;
+
+    if (isLogged === 'true')
+        return true;
+    else
+        return false;
 }
