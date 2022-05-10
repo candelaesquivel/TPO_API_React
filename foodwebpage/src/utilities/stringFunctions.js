@@ -2,6 +2,9 @@
 export function prefixStr(source, target){
     if (target.lenght === 0)
         return true;
+
+    const srcLower = source.toLowerCase();
+    const targetLower = target.toLowerCase();
     
-    return source.startsWith(target);
+    return srcLower.startsWith(targetLower);
 }
