@@ -1,5 +1,5 @@
 import { Component } from "react";
-import RecipeGrid from "./RecipeGrid";
+import {RecipeGrid} from "./RecipeGrid";
 
 import {SearchBar} from './SearchBar';
 
