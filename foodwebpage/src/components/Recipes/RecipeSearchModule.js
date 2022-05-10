@@ -13,7 +13,7 @@ class RecipeSearchModule extends Component{
 
         this.state = {
             nameRecipe : '',
-            ingredientRecipe : '',
+            ingredientRecipe : [],
             categoryRecipe : [],
             difficultyValue : 0
 
@@ -62,12 +62,12 @@ class RecipeSearchModule extends Component{
         if (ingredient.length > 0)
         {
             this.setState({
-                ingredientRecipe : ingredient
+                ingredientRecipe : ingredient.split(',')
             });
         }
         else{
             this.setState({
-                ingredientRecipe : ''
+                ingredientRecipe : []
             })
         }
     }
@@ -92,15 +92,21 @@ class RecipeSearchModule extends Component{
             if (diffValue > 0)
                 matchDiff = itr.difficulty === diffValue
 
-            const ingredientTarget = this.state.ingredientRecipe;
-
             /** Filtro por Ingrediente*/
-            if (ingredientTarget.length >= 3)
             {
-                matchIngrendients = itr.ingredients.find(ingredient =>
+                if (this.state.ingredientRecipe.length > 0)
                 {
-                    return prefixStr(ingredient, ingredientTarget);
-                });
+                    matchIngrendients = false;
+
+                    this.state.ingredientRecipe.forEach(value => {
+                        if (matchIngrendients)
+                            return;
+    
+                        matchIngrendients = itr.ingredients.find(recipeIngredient => {
+                            return prefixStr(recipeIngredient, value);
+                        }) !== undefined;
+                    });
+                }
             }
 
             /** Filtro por Categoria */
