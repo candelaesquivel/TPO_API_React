@@ -12,6 +12,7 @@ export function CheckboxesTags(props) {
 
   return (
     <Autocomplete
+      disabled={props.disabled}
       multiple
       id="checkboxes-tags-demo"
       options={props.options}
