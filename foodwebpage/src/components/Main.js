@@ -12,6 +12,7 @@ import {RecipeEditPage} from "../pages/RecipeEdit";
 import ResetPassword from "../pages/ResetPassword";
 import ChangePassword from "../pages/ChangePassword";
 import RecipeCreatePage from '../pages/RecipeCreate';
+import ResetDataView from "../pages/ResetDataView";
 
 class Main extends Component{
     render()
@@ -31,6 +32,7 @@ class Main extends Component{
                     <Route path='create-recipe' element={<RecipeCreatePage></RecipeCreatePage>}></Route>
                     <Route path= 'ResetPassword' element={<ResetPassword></ResetPassword>}></Route>
                     <Route path= 'ChangePassword' element={<ChangePassword></ChangePassword>}></Route>
+                    <Route path= 'ResetDataView' element={<ResetDataView/>}></Route>
                     <Route path='*' element={<Home />} />
                 </Routes>
             </div>

@@ -58,7 +58,7 @@ class RecipeCreate extends Component {
                         id="recipe-name"
                         label="Nombre de la Receta"
                         name="recipe-name"
-                        defaultValue={this.props.recipeName}
+                        defaultValue=''
                     />
                 </Grid>
                 
@@ -106,16 +106,16 @@ class RecipeCreate extends Component {
                 <Grid item xs={4} sm={4} md={12}>
                     <TextField
                         id="outlined-multiline-static"
-                        label="Ingredientes"
+                        label="Ingredientes (separados por comas)"
                         multiline
                         rows={4}
                         fullWidth
-                        defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                        defaultValue=''
                     />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
-                    <DifficultyIndicator disabled={false} difficultyValue='4'></DifficultyIndicator>
+                    <DifficultyIndicator disabled={false} difficultyValue=''></DifficultyIndicator>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={4}>
@@ -125,14 +125,14 @@ class RecipeCreate extends Component {
                         multiline
                         rows={4}
                         fullWidth
-                        defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                        defaultValue=""
                     />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={4}>
                     <Stack spacing={2} direction='row'>
                         <ResponsiveDialog 
-                            buttonText={'Guardar Cambios'}
+                            buttonText={'Agregar Receta'}
                             messageTittle = ''
                             messageText='Receta Guardada Correctamente'
                             dialogOptionText = 'Salir'
@@ -145,11 +145,6 @@ class RecipeCreate extends Component {
         )
     }
 }
-
-
-RecipeCreate.defaultProps = {
-    recipeName : 'Hamburguesa',
-};
 
 
 export default RecipeCreate;
