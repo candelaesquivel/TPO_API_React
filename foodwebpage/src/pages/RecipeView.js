@@ -1,4 +1,4 @@
-import RecipeBody from '../components/Recipes/RecipeBody';
+import {RecipeBody} from '../components/Recipes/RecipeBody';
 import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
 import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
 
