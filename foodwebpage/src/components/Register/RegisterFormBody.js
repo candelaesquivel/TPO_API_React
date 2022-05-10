@@ -6,16 +6,34 @@ import { Button } from "@mui/material";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import {users_info} from '../../utilities/sharedData';
 import React, {useState} from 'react';
-
+import { isNumeric } from "../../utilities/stringFunctions";
+import {isValidEmailWithRegex, isValidPassword} from '../../utilities/stringFunctions'
 
 export function RegisterFormBody(props){
 
     const [isEmailValid, setEmailValid] = useState(true);
     const [emailHelperText, setEmailHelperText] = useState('');
 
-    const validateEmail = (event) => 
+    const [isNameValid, setNameValid] = useState(true);
+    const [isLastNameValid, setLastNameValid] = useState(true);
+    const [isPhoneValid, setPhoneValid] = useState(true);
+    const [isQuestionValid, setQuestionValid] = useState(true);
+    const [isAnswerValid, setAnswerValid] = useState(true);
+    const [isPasswordValid, setPasswordValid] = useState(true);
+
+    const [passwordHelperText, setPasswordHelperText] = useState('');
+    const [questionHelperText, setQuestionHelperText] = useState('');
+    const [answerHelperText, setAnswerHelperText] = useState('');
+
+    const onEmailChange = (event) => 
     {
         const email = event.target.value;
+
+        if (!isValidEmailWithRegex(email)){
+            setEmailValid(false);
+            setEmailHelperText('Correo Electrónico no valido');
+            return;
+        }
 
         const isValid = users_info.every(itr => {
             return itr.email !== email;
@@ -29,10 +47,64 @@ export function RegisterFormBody(props){
             setEmailHelperText('Correo Electrónico en uso')
     };
 
+    const validateNameOrLastName = (name) => {
+
+        if (name.length === 0)
+            return true;
+        
+        return name.length >= 2 && !isNumeric(name);
+    }
+    
+    const validatePhone = (phone) => {
+        return phone.length >= 5 && isNumeric(phone);
+    }
+
+    const onNameChange = (event) =>
+    {
+        setNameValid(validateNameOrLastName(event.target.value));
+    }
+
+    const onLastNameChange = (event) => 
+    {
+        setLastNameValid(validateNameOrLastName(event.target.value));
+    }
+
+    const onPhoneChange = (event) =>{
+        setPhoneValid(validatePhone(event.target.value));
+    }
+
+    const onQuestionChange = (event) => {
+
+        if (event.target.value.length === 0)
+        {
+            setQuestionValid(true);
+            setQuestionHelperText('');
+        }
+        else
+        {
+            setQuestionValid(event.target.length >= 5);
+            setQuestionHelperText('La pregunta necesita ');
+        }
+    }
+
+    const onAnswerChange = (event) => {
+        setAnswerValid(event.target.length >= 2);
+    }
+
+    const onPasswordChange = (event) => {
+        setPasswordValid(isValidPassword(event.target.value))
+    }
+
     const validateForm = (event) => {
         event.preventDefault();
 
-        
+        const name = event.target.name.name.value;
+        const lastName = event.target.lastName.value;
+        const phone = event.target.phone.value;
+
+        /** Validacion de Nombre */
+        if (name.length < 2 || isNumeric(name))
+            setNameValid(false);
     };
 
     return (
@@ -59,10 +131,13 @@ export function RegisterFormBody(props){
                     <Grid item xs={12}>
                         <TextField
                             autoComplete="given-name"
-                            name='Nombre'
+                            name='name'
                             required
                             fullWidth
                             label='Nombre'
+                            onChange={onNameChange}
+                            error={!isNameValid}
+                            helperText={isNameValid ? '' : 'El nombre debe tener como minimo 2 letras'}
                         >
                         </TextField>
                     </Grid>
@@ -70,10 +145,13 @@ export function RegisterFormBody(props){
                     <Grid item xs={12}>
                         <TextField
                             autoComplete="given-name"
-                            name='Apellido'
+                            name='lastName'
                             required
                             fullWidth
                             label='Apellido'
+                            onChange={onLastNameChange}
+                            error={!isLastNameValid}
+                            helperText={isNameValid ? '' : 'El apellido debe tener como minimo 2 letras'}
                         >
                         </TextField>
                     </Grid>
@@ -86,7 +164,7 @@ export function RegisterFormBody(props){
                         label="Correo Electronico"
                         name="email"
                         autoComplete="email"
-                        onChange = {validateEmail}
+                        onChange = {onEmailChange}
                         error = {!isEmailValid}
                         helperText = {emailHelperText}
                         />
@@ -101,6 +179,9 @@ export function RegisterFormBody(props){
                         type="number"
                         id="password"
                         autoComplete="Telefono"
+                        onChange={onPhoneChange}
+                        error={!isPhoneValid}
+                        helperText={isPhoneValid ? '' : 'El telefono debe contener solo numeros y tener minimo 7 caracteres'}
                         />
                     </Grid>
 
@@ -113,6 +194,9 @@ export function RegisterFormBody(props){
                         type="password"
                         id="password"
                         autoComplete="new-password"
+                        onChange={onPasswordChange}
+                        error={!isPasswordValid}
+                        helperText={passwordHelperText}
                         />
                     </Grid>
 
@@ -125,6 +209,9 @@ export function RegisterFormBody(props){
                         type="preg-seg"
                         id="preg-seg"
                         autoComplete="Pregunta de seguridad"
+                        onChange={onQuestionChange}
+                        error={!isQuestionValid}
+                        helperText={questionHelperText}
                         />
                     </Grid>
 
@@ -137,6 +224,9 @@ export function RegisterFormBody(props){
                         type="password"
                         id="respuesta-preg-de-seg"
                         autoComplete="respuesta "
+                        onChange={onAnswerChange}
+                        error={!isAnswerValid}
+                        helperText={answerHelperText}
                         />
                     </Grid>
                 </Grid>
