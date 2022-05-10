@@ -8,7 +8,6 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LanguageIcon from '@mui/icons-material/Language';
 import FooterSection from './FooterSection';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import { Link } from "react-router-dom";
 
 const contactItems = [
     {'Text' : '+54 12-34-56-78', 'Icon' : <ContactPhoneIcon />, 'Link': '#' },
