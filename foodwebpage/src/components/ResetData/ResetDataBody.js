@@ -3,11 +3,12 @@ import { Container, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Avatar } from "@mui/material";
 import { Grid } from "@mui/material";
-import { Button } from "@mui/material";
 import PasswordIcon from '@mui/icons-material/Password';
+import ResponsiveDialog  from '../Misc/ResponsiveDialog';
 
 
 export function ResetDataBody(props){
+
         return(
 
             <Container component='main' maxWidth='xs'>
@@ -25,7 +26,7 @@ export function ResetDataBody(props){
                     <PasswordIcon/>
                 </Avatar>
                 <Typography variant='h6'>
-                    demo
+                    {props.title}
                 </Typography>
 
                 <Box component="form" noValidate sx={{ mt: 3 }} >
@@ -36,7 +37,7 @@ export function ResetDataBody(props){
                             required
                             fullWidth
                             id="name"
-                            label='demo'
+                            label={props.inputLabel}
                             name="name"
                             autoComplete="name"
                             />
@@ -45,14 +46,14 @@ export function ResetDataBody(props){
                        
 
                         <Grid item xs={12} sm={6}>
-                            <Button 
-                                sx={{mt:3, mb: 2}}
-                                variant='contained'
-                                fullWidth
-                                type='onSubmit'
-                                
-                                >
-                                Modificar</Button>
+                            <ResponsiveDialog
+                                buttonText = {'Modificar'}
+                                messageTittle = ''
+                                messageText={props.inputLabel + ' modificado correctamente'}
+                                dialogOptionText = 'Salir'
+                            >
+
+                            </ResponsiveDialog>
                         </Grid>
             
                     </Grid>

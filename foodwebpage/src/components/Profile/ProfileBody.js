@@ -42,7 +42,7 @@ class ProfileBody extends Component{
                         </Grid>
             
                         <Grid item xs={4} sm={8} md={6}>
-                            <Button variant='contained' xs={4} marginTop={12} component={Link}  to='/ResetDataView'>Modificar</Button>
+                            <Button variant='contained' xs={4} marginTop={12} component={Link}  to='/modify-name'>Modificar</Button>
                         </Grid>
 
                         <Grid item xs={4} sm={8} md={6}>
@@ -52,7 +52,7 @@ class ProfileBody extends Component{
                         </Grid>
 
                         <Grid item xs={4} sm={8} md={6}>
-                            <Button variant='contained' xs={4} paddingBottom={6} component={Link}  to ='/ChangePassword'>Modificar</Button>
+                            <Button variant='contained' xs={4} paddingBottom={6} component={Link}  to ='/modify-password'>Modificar</Button>
                         </Grid>
 
                         <Grid item xs={4} sm={8} md={6}>
@@ -62,7 +62,7 @@ class ProfileBody extends Component{
                         </Grid>
 
                         <Grid item xs={4} sm={8} md={6}>
-                            <Button variant='contained' xs={4} marginTop={12} component={Link} to='/ResetDataView'>Modificar</Button>
+                            <Button variant='contained' xs={4} marginTop={12} component={Link} to='/modify-last-name'>Modificar</Button>
                         </Grid>
 
                         <Grid item xs={4} sm={8} md={6}>
@@ -72,7 +72,7 @@ class ProfileBody extends Component{
                         </Grid>
                         
                         <Grid item xs={4} sm={8} md={6}>
-                            <Button variant='contained' xs={4} marginTop={12} component={Link} to='/ResetDataView'>Modificar</Button>
+                            <Button variant='contained' xs={4} marginTop={12} component={Link} to='/modify-phone'>Modificar</Button>
                         </Grid>
 
 
