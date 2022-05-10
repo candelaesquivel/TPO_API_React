@@ -39,7 +39,7 @@ class RecipeSearchModule extends Component{
             name = event.target.value;
 
         this.setState({
-            nameRecipe : name
+            nameRecipe : name.replaceAll(' ', '')
         });
     }
 
@@ -62,7 +62,7 @@ class RecipeSearchModule extends Component{
         if (ingredient.length > 0)
         {
             this.setState({
-                ingredientRecipe : ingredient.split(',')
+                ingredientRecipe : ingredient.replaceAll(' ', '').split(',')
             });
         }
         else{
@@ -94,18 +94,18 @@ class RecipeSearchModule extends Component{
 
             /** Filtro por Ingrediente*/
             {
-                if (this.state.ingredientRecipe.length > 0)
+                const selectedIngredients = this.state.ingredientRecipe;
+
+                if (selectedIngredients.length > 0)
                 {
                     matchIngrendients = false;
 
-                    this.state.ingredientRecipe.forEach(value => {
-                        if (matchIngrendients)
-                            return;
-    
-                        matchIngrendients = itr.ingredients.find(recipeIngredient => {
-                            return prefixStr(recipeIngredient, value);
+                    matchIngrendients = selectedIngredients.every(userIngredient => {
+
+                        return itr.ingredients.find(recipeIngredient => {
+                            return prefixStr(recipeIngredient, userIngredient);
                         }) !== undefined;
-                    });
+                    })
                 }
             }
 
@@ -117,12 +117,9 @@ class RecipeSearchModule extends Component{
                 {
                     matchCategory = false;
 
-                    selectedCategories.forEach(value => {
-                        if (matchCategory)
-                            return;
-    
-                        matchCategory = itr.category.includes(value);
-                    });
+                    matchCategory = selectedCategories.every(userCategory => {
+                        return itr.category.includes(userCategory);
+                    })
                 }
             }
 
