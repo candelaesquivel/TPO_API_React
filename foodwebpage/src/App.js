@@ -4,7 +4,7 @@ import Main from './components/Main';
 
 function App() {
 
-  {document.title = 'Food Recipes'}
+  document.title = 'Food Recipes'
 
   return (
     <BrowserRouter>
