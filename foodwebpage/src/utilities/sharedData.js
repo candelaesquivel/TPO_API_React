@@ -153,3 +153,29 @@ export function isValidAccount(email, password){
     return values;
 }
 
+export function getSecurityQuestion(email) {
+
+    for (let index in users_info){
+        const userData = users_info[index];
+
+        if (userData.email === email){
+            return userData.question;
+        }
+    }
+
+    return '';
+}
+
+export function matchAnswerWithSecurityQuestion(email, answer) {
+
+    for (let index in users_info){
+        const userData = users_info[index];
+
+        if (userData.email === email){
+            return userData.security_answer === answer;            
+        }
+    }
+
+    return false;
+}
+
