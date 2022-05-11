@@ -4,18 +4,21 @@ import { LogoutBody } from "../components/Logout/LogoutBody";
 import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { setGlobalLogged } from '../utilities/UserSession'
+import { isGlobalLogged, setGlobalLogged } from '../utilities/UserSession'
 
 export default function LogoutView(props){
     
-    setGlobalLogged(false);
+    setGlobalLogged(false, '');
 
     const navigate = useNavigate();
 
     useEffect( () => {
-        setTimeout( () => {
-            navigate('/home')
-        }, 3000);
+
+        if (!isGlobalLogged()){
+            setTimeout( () => {
+                navigate('/home')
+            }, 3000);
+        }
     });
 
     return (
