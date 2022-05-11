@@ -12,7 +12,7 @@ import {RecipeEditPage} from "../pages/RecipeEdit";
 import ResetPassword from "../pages/ResetPassword";
 import ChangePassword from "../pages/ChangePassword";
 import RecipeCreatePage from '../pages/RecipeCreate';
-import {ResetDataView} from "../pages/ResetDataView";
+import {ModifyProfileDataView} from "../pages/ModifyProfileDataView";
 import LogoutView from '../pages/LogoutView';
 
 class Main extends Component{
@@ -33,9 +33,9 @@ class Main extends Component{
                     <Route path='create-recipe' element={<RecipeCreatePage></RecipeCreatePage>}></Route>
                     <Route path= 'ResetPassword' element={<ResetPassword></ResetPassword>}></Route>
                     <Route path= 'modify-password' element={<ChangePassword></ChangePassword>}></Route>
-                    <Route path= 'modify-name' element={<ResetDataView title={'Cambiar Nombre'} inputLabel={'Nombre'} />}></Route>
-                    <Route path= 'modify-last-name' element={<ResetDataView title={'Cambiar Apellido'} inputLabel={'Apellido'} />}></Route>
-                    <Route path= 'modify-phone' element={<ResetDataView title={'Cambiar Teléfono'} inputLabel={'Teléfono'} />}></Route>
+                    <Route path= 'modify-name' element={<ModifyProfileDataView title={'Cambiar Nombre'} inputLabel={'Nombre'} />}></Route>
+                    <Route path= 'modify-last-name' element={<ModifyProfileDataView title={'Cambiar Apellido'} inputLabel={'Apellido'} />}></Route>
+                    <Route path= 'modify-phone' element={<ModifyProfileDataView title={'Cambiar Teléfono'} inputLabel={'Teléfono'} />}></Route>
                     <Route path= 'logout' element={<LogoutView></LogoutView>}></Route>
                     <Route path='*' element={<Home />} />
                 </Routes>
