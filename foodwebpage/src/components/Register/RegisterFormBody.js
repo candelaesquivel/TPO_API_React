@@ -5,53 +5,59 @@ import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import {users_info} from '../../utilities/sharedData';
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 import { isNumeric } from "../../utilities/stringFunctions";
 import {isValidEmailWithRegex, isValidPassword} from '../../utilities/stringFunctions'
+import { BasicDialog } from "../Misc/BasicDialog";
 
 export function RegisterFormBody(props){
 
-    const [isEmailValid, setEmailValid] = useState(true);
-    const [emailHelperText, setEmailHelperText] = useState('');
+    const [isResultDialogOpen, setResultDialogOpen] = useState(false);
+    const [resultDialogText, setResultDialogText] = useState('');
 
-    const [isNameValid, setNameValid] = useState(true);
-    const [isLastNameValid, setLastNameValid] = useState(true);
-    const [isPhoneValid, setPhoneValid] = useState(true);
-    const [isQuestionValid, setQuestionValid] = useState(true);
-    const [isAnswerValid, setAnswerValid] = useState(true);
-    const [isPasswordValid, setPasswordValid] = useState(true);
+    const [userData, setUserData] = useState({
+        'name' : '',
+        'lastName' : '',
+        'email' : '',
+        'phone' : '',
+        'password' : '',
+        'securityQuestion' : '',
+        'securityAnswer' : ''
+    });
 
-    const [passwordHelperText, setPasswordHelperText] = useState('');
-    const [questionHelperText, setQuestionHelperText] = useState('');
-    const [answerHelperText, setAnswerHelperText] = useState('');
+    const [errorMsg, setErrorMsg] = useState({
+        name : '',
+        lastName : '',
+        email : '',
+        phone : '',
+        password : '',
+        securityQuestion : '',
+        securityAnswer : ''
+    });
 
-    const onEmailChange = (event) => 
-    {
-        const email = event.target.value;
+    const [hasError, setHasError] = useState({
+        name : false,
+        lastName : false,
+        email : false,
+        phone : false,
+        password : false,
+        securityQuestion : false,
+        securityAnswer : false
+    });
 
-        if (!isValidEmailWithRegex(email)){
-            setEmailValid(false);
-            setEmailHelperText('Correo Electrónico no valido');
-            return;
-        }
+    const onInputChange = (event) => {
 
-        const isValid = users_info.every(itr => {
-            return itr.email !== email;
-        });
+        const inputTarget = event.target;
+        const inputName = inputTarget.name;
+        const inputValue = inputTarget.value;
 
-        setEmailValid(isValid);
-
-        if (isValid)
-            setEmailHelperText('')
-        else
-            setEmailHelperText('Correo Electrónico en uso')
-    };
+        setUserData({...userData, [inputName] : inputValue})
+        setErrorMsg({...errorMsg, [inputName] : ''})
+        setHasError({...hasError, [inputName] : false})
+    }
 
     const validateNameOrLastName = (name) => {
 
-        if (name.length === 0)
-            return true;
-        
         return name.length >= 2 && !isNumeric(name);
     }
     
@@ -59,53 +65,88 @@ export function RegisterFormBody(props){
         return phone.length >= 5 && isNumeric(phone);
     }
 
-    const onNameChange = (event) =>
-    {
-        setNameValid(validateNameOrLastName(event.target.value));
-    }
+    const validateInput = (target, func, errorMsg, errors, errorsMsgs) => {
+        const inputValue = userData[target];
+        const isValidInput = func(inputValue);
 
-    const onLastNameChange = (event) => 
-    {
-        setLastNameValid(validateNameOrLastName(event.target.value));
-    }
+        errors[target] = !isValidInput;
 
-    const onPhoneChange = (event) =>{
-        setPhoneValid(validatePhone(event.target.value));
-    }
-
-    const onQuestionChange = (event) => {
-
-        if (event.target.value.length === 0)
-        {
-            setQuestionValid(true);
-            setQuestionHelperText('');
-        }
+        if (!isValidInput)
+            errorsMsgs[target] = errorMsg;
         else
-        {
-            setQuestionValid(event.target.length >= 5);
-            setQuestionHelperText('La pregunta necesita ');
-        }
+            errorsMsgs[target] = '';
     }
 
-    const onAnswerChange = (event) => {
-        setAnswerValid(event.target.length >= 2);
+    const validateEmailRegex = (email) => {
+        return !isValidEmailWithRegex(email);
     }
 
-    const onPasswordChange = (event) => {
-        setPasswordValid(isValidPassword(event.target.value))
+    const validateEmailExist = (email) => {
+        return users_info.every(itr => {
+            return itr.email !== email;
+        });
     }
 
     const validateForm = (event) => {
+
+        console.log('OnSubmit Enviado');
         event.preventDefault();
 
-        const name = event.target.name.name.value;
-        const lastName = event.target.lastName.value;
-        const phone = event.target.phone.value;
+        let errors = hasError;
+        let errorsMsgs = errorMsg;
 
-        /** Validacion de Nombre */
-        if (name.length < 2 || isNumeric(name))
-            setNameValid(false);
+        // /** Validacion de Nombre */
+        validateInput('name', validateNameOrLastName, 'Se requieren al menos 2 caracteres para el nombre', errors, errorsMsgs);
+
+        // /** Validacion de Nombre */
+        validateInput('lastName', validateNameOrLastName, 'Se requieren al menos 2 caracteres para el apellido', errors, errorsMsgs);
+
+        // /** Validacion de Telefono */
+        validateInput('phone', validatePhone, 'Se requieren al menos 5 caracteres para el tlf y que sean todos numericos', errors, errorsMsgs);
+
+        // /** Validacion de Pregunta de Seguridad */
+        validateInput('securityQuestion', (question) => {return question.length >= 5}, 'La pregunta necesita al menos 5 caracteres', errors, errorsMsgs);
+
+        // /** Validacion de Respuesta de Seguridad */
+        validateInput('securityAnswer', (answer) => {return answer.length >= 2}, 'La respuesta necesita al menos 2 caracteres', errors, errorsMsgs);
+
+        // /** Validacion de Password */
+        validateInput('password', isValidPassword, 'Password no valido, se requieren al menos 5 caracteres', errors, errorsMsgs);
+
+        // /** Validacion de Email */
+        validateInput('email', validateEmailRegex, 'Correo Electrónico no valido', errors, errorsMsgs);
+        validateInput('email', validateEmailExist, 'Correo Electrónico en uso', errors, errorsMsgs);
+
+
+        setHasError(errors);
+        setErrorMsg(errorsMsgs);
+
+        console.log('Errors: ', errors);
+
+        let isValidForm = true;
+
+        for (let item in errors){
+
+            console.log('Item: ', errors[item], "Value: ", item)
+
+            if (errors[item] === true){
+                isValidForm = false;
+                break;
+            }
+        }
+
+        if (isValidForm)
+            setResultDialogText('Registro Exitoso');
+        else
+            setResultDialogText('Alguno de los campos contienen errores, verifiquelos e intente de nuevo');
+
+        setResultDialogOpen(true);
+        
     };
+
+    const onExitClicked = (event) => {
+        setResultDialogOpen(!isResultDialogOpen);
+    }
 
     return (
         <Container component='main' maxWidth='xs'>
@@ -135,9 +176,10 @@ export function RegisterFormBody(props){
                             required
                             fullWidth
                             label='Nombre'
-                            onChange={onNameChange}
-                            error={!isNameValid}
-                            helperText={isNameValid ? '' : 'El nombre debe tener como minimo 2 letras'}
+                            value={userData['name']}
+                            onChange={onInputChange}
+                            error={hasError['name']}
+                            helperText={errorMsg['name']}
                         >
                         </TextField>
                     </Grid>
@@ -149,9 +191,9 @@ export function RegisterFormBody(props){
                             required
                             fullWidth
                             label='Apellido'
-                            onChange={onLastNameChange}
-                            error={!isLastNameValid}
-                            helperText={isNameValid ? '' : 'El apellido debe tener como minimo 2 letras'}
+                            onChange={onInputChange}
+                            error={hasError['lastName']}
+                            helperText={errorMsg['lastName']}
                         >
                         </TextField>
                     </Grid>
@@ -160,13 +202,12 @@ export function RegisterFormBody(props){
                         <TextField
                         required
                         fullWidth
-                        id="email"
                         label="Correo Electronico"
                         name="email"
                         autoComplete="email"
-                        onChange = {onEmailChange}
-                        error = {!isEmailValid}
-                        helperText = {emailHelperText}
+                        onChange = {onInputChange}
+                        error={hasError['email']}
+                        helperText={errorMsg['email']}
                         />
                     </Grid>
 
@@ -174,14 +215,12 @@ export function RegisterFormBody(props){
                         <TextField
                         required
                         fullWidth
-                        name="telefono"
+                        name="phone"
                         label="Telefono"
                         type="number"
-                        id="password"
-                        autoComplete="Telefono"
-                        onChange={onPhoneChange}
-                        error={!isPhoneValid}
-                        helperText={isPhoneValid ? '' : 'El telefono debe contener solo numeros y tener minimo 7 caracteres'}
+                        onChange={onInputChange}
+                        error={hasError['phone']}
+                        helperText={errorMsg['phone']}
                         />
                     </Grid>
 
@@ -192,11 +231,9 @@ export function RegisterFormBody(props){
                         name="password"
                         label="Contraseña"
                         type="password"
-                        id="password"
-                        autoComplete="new-password"
-                        onChange={onPasswordChange}
-                        error={!isPasswordValid}
-                        helperText={passwordHelperText}
+                        onChange={onInputChange}
+                        error={hasError['password']}
+                        helperText={errorMsg['password']}
                         />
                     </Grid>
 
@@ -204,14 +241,13 @@ export function RegisterFormBody(props){
                         <TextField
                         required
                         fullWidth
-                        name="pregunta-seg"
+                        name="securityQuestion"
                         label="Pregunta de seguridad"
-                        type="preg-seg"
-                        id="preg-seg"
+                        type="text"
                         autoComplete="Pregunta de seguridad"
-                        onChange={onQuestionChange}
-                        error={!isQuestionValid}
-                        helperText={questionHelperText}
+                        onChange={onInputChange}
+                        error={hasError['securityQuestion']}
+                        helperText={errorMsg['securityQuestion']}
                         />
                     </Grid>
 
@@ -219,14 +255,13 @@ export function RegisterFormBody(props){
                         <TextField
                         required
                         fullWidth
-                        name="repuesta"
+                        name="securityAnswer"
                         label="Respuesta de pregunta de seguridad"
-                        type="password"
-                        id="respuesta-preg-de-seg"
+                        type="text"
                         autoComplete="respuesta "
-                        onChange={onAnswerChange}
-                        error={!isAnswerValid}
-                        helperText={answerHelperText}
+                        onChange={onInputChange}
+                        error={hasError['securityAnswer']}
+                        helperText={errorMsg['securityAnswer']}
                         />
                     </Grid>
                 </Grid>
@@ -236,10 +271,19 @@ export function RegisterFormBody(props){
                         sx={{mt:3, mb: 2}}
                         variant='contained'
                         fullWidth
-                        type='onSubmit'
+                        type='submit'
                         >
                         Registrar</Button>
                 </Grid>
+
+                <BasicDialog
+                    open={isResultDialogOpen}
+                    dialogContentText={resultDialogText}
+                    onExitButtonPressed={onExitClicked}
+                >
+
+                </BasicDialog>
+
             </Box>
 
         </Container>
