@@ -46,7 +46,6 @@ const ResponsiveAppBar = (props) => {
 
   if (isLogged)
   {
-    console.log("Is Global Logged: ", isLogged);
     menuOptions = ['Inicio', 'Sobre Nosotros'];
     menuOptionLinks = ['home', 'about-us'];
   }

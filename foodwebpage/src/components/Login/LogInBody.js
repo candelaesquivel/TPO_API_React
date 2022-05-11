@@ -28,7 +28,7 @@ export function LogInBody(props){
         setLogged(validateValues.isValid);
 
         if (validateValues.isValid){
-            setGlobalLogged(true);
+            setGlobalLogged(true, email);
         }
         else{
             event.preventDefault();
