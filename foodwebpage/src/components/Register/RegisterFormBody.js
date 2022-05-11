@@ -9,11 +9,14 @@ import React, { useState} from 'react';
 import { isNumeric } from "../../utilities/stringFunctions";
 import {isValidEmailWithRegex, isValidPassword} from '../../utilities/stringFunctions'
 import { BasicDialog } from "../Misc/BasicDialog";
+import {useNavigate } from "react-router-dom";
 
 export function RegisterFormBody(props){
 
     const [isResultDialogOpen, setResultDialogOpen] = useState(false);
     const [resultDialogText, setResultDialogText] = useState('');
+    const [isValidForm, setValidForm] = useState('false');
+    const navigate = useNavigate();
 
     const [userData, setUserData] = useState({
         'name' : '',
@@ -123,25 +126,30 @@ export function RegisterFormBody(props){
 
         console.log('Errors: ', errors);
 
-        let isValidForm = true;
+        let hasNotErrors = true;
 
         for (let item in errors){
 
             console.log('Item: ', errors[item], "Value: ", item)
 
             if (errors[item] === true){
-                isValidForm = false;
+                hasNotErrors = false;
                 break;
             }
         }
 
-        if (isValidForm)
-            setResultDialogText('Registro Exitoso');
+        setValidForm(hasNotErrors);
+
+        if (hasNotErrors){
+            setResultDialogText('Registro Exitoso, en breve sera redirigido a la pagina de login');
+            setTimeout(() => {
+                navigate('/login')
+            }, 1000);
+        }
         else
             setResultDialogText('Alguno de los campos contienen errores, verifiquelos e intente de nuevo');
 
         setResultDialogOpen(true);
-        
     };
 
     const onExitClicked = (event) => {
