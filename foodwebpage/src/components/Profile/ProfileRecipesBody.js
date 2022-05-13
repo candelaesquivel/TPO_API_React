@@ -24,7 +24,7 @@ class ProfileRecipesBody extends Component{
                     </Grid>
 
                 </Grid>
-                    <RecipeSearchModule readMoreLink = 'edit-recipe'></RecipeSearchModule>
+                    <RecipeSearchModule readMoreLink = 'edit-recipe' isOnProfileRecipes={true}></RecipeSearchModule>
                 </Box>
             </>
         )

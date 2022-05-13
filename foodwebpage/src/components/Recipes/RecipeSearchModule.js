@@ -75,6 +75,7 @@ class RecipeSearchModule extends Component{
     render(){
 
         const diffValue = this.state.difficultyValue;
+        const isOnProfileRecipes = this.props.isOnProfileRecipes;
 
         const recipeList = recipes_example.filter( itr => 
         {
@@ -123,8 +124,14 @@ class RecipeSearchModule extends Component{
                 }
             }
 
+            let matchPosted = false;
 
-            return matchName && matchDiff && matchIngrendients && matchCategory;
+            if (isOnProfileRecipes)
+                matchPosted = true;
+            else
+                matchPosted = itr.isPublic;
+
+            return matchName && matchDiff && matchIngrendients && matchCategory && matchPosted;
         });
 
         return (

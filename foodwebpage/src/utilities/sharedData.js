@@ -49,7 +49,8 @@ export const recipes_example = [
 
         'difficulty' : 4,
         'ranking' : 2,
-        'img' : 'assets/img/burger.jpg'
+        'img' : 'assets/img/burger.jpg',
+        'isPublic' : true
     },
 
     {
@@ -67,8 +68,8 @@ export const recipes_example = [
 
         'difficulty' : 2,
         'ranking' : 4,
-        'img' : 'assets/img/sopa-vegetales.jpg'
-        
+        'img' : 'assets/img/sopa-vegetales.jpg',
+        'isPublic' : true
     },
 
     {
@@ -86,7 +87,8 @@ export const recipes_example = [
 
         'difficulty' : 5,
         'ranking' : 3,
-        'img' : 'assets/img/tacos-pollo.jpg'
+        'img' : 'assets/img/tacos-pollo.jpg',
+        'isPublic' : true
     },
 
     {
@@ -104,7 +106,8 @@ export const recipes_example = [
 
         'difficulty' : 4,
         'ranking' : 1,
-        'img' : 'assets/img/torta-chocolate.jpg'
+        'img' : 'assets/img/torta-chocolate.jpg',
+        'isPublic' : true
     },
 
     {
@@ -122,7 +125,8 @@ export const recipes_example = [
 
         'difficulty' : 2,
         'ranking' : 4,
-        'img' : 'assets/img/flan.jpg'
+        'img' : 'assets/img/flan.jpg',
+        'isPublic' : false
     },
 ];
 

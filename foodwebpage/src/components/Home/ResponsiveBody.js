@@ -8,7 +8,7 @@ class ResponsiveBody extends Component{
         return(
             <>
                 <Box sx={{ flexGrow: 1 }} component='body'>
-                    <RecipeSearchModule readMoreLink = 'view-recipe'></RecipeSearchModule>
+                    <RecipeSearchModule readMoreLink = 'view-recipe' isOnProfileRecipes={false}></RecipeSearchModule>
                 </Box>
             </>
             

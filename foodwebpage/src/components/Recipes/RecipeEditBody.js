@@ -26,7 +26,7 @@ export function RecipeEditBody(props){
         }
     )
 
-    const [isPosted, setPosted] = useState(false);
+    const [isPosted, setPosted] = useState(recipe.isPublic);
 
     return (
         <>
@@ -69,7 +69,8 @@ export function RecipeEditBody(props){
                     <FormControlLabel 
                         control={<Switch />}
                         label={isPosted ? 'Publicada' : 'No publicada'} 
-                        onChange = {() => setPosted(!isPosted) } 
+                        onChange = {() => setPosted(!isPosted) }
+                        checked={isPosted} 
                     />
                 </FormGroup>
                 <FormHelperText>Presionar para que la receta se publique</FormHelperText>
