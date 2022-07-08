@@ -1,4 +1,5 @@
 import urlWebServices from '../controllers/WebServices';
+import { setLogged, setUserLoggedData } from '../utilities/UserSession';
 
 export const login= async function(login)
 {
@@ -23,11 +24,11 @@ export const login= async function(login)
             body: formData,
             
         });
+
         
         let rdo = response.status;
         console.log("response",response);
         let data = await response.json();
-        console.log("jsonresponse",data);
             switch(rdo)
             {
                 case 201:
@@ -36,8 +37,8 @@ export const login= async function(login)
                     localStorage.setItem("x",data.loginUser.token);
                     //guardo usuario logueado
                     let user = data.loginUser.user;
-                    localStorage.setItem("nombre",user.name);
-                    localStorage.setItem("email",user.email);
+                    setUserLoggedData(data.loginUser.user)
+                    setLogged(true)
                     
                     return ({rdo:0,mensaje:"Ok"});//correcto
                 }

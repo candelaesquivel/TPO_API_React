@@ -6,7 +6,7 @@ import { List, ListItem } from "@mui/material";
 import { Rating } from "@mui/material";
 import {recipes_example, categories} from '../../utilities/sharedData';
 import DifficultyIndicator from "./DifficultyIndicator";
-import { isGlobalLogged } from "../../utilities/UserSession";
+import { isLogged } from "../../utilities/UserSession";
 import React, {useState} from 'react';
 import { Dialog } from "@mui/material";
 import { DialogTitle } from "@mui/material";
@@ -51,7 +51,7 @@ export function RecipeBody(props){
 
     const ratingChange = (event) => {
         setDialogOpen(true);
-        if(isGlobalLogged()){
+        if(isLogged()){
             setDialogText('Se califico correctamente')
         }else{
             setDialogText('ERROR/ tiene que logearse para calificar')

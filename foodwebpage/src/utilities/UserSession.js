@@ -1,30 +1,55 @@
 import {users_info} from './sharedData';
 
-export function setGlobalLogged(isLogged = false, email = ''){
-    sessionStorage.setItem('isGlobalLogged', isLogged.toString());
-    sessionStorage.setItem('loggedEmail', email);
+
+export function setUserLoggedData(userData){
+
+    console.log("User Data: ", userData)
+
+    sessionStorage.setItem('isLogged', 'true');
+    sessionStorage.setItem('user-name', userData.name);
+    sessionStorage.setItem('user-email', userData.email);
+    sessionStorage.setItem('user-lastname', userData.lastName);
+    sessionStorage.setItem('user-phone', userData.phone);
+}
+
+
+export function isLogged(){
+    return sessionStorage.getItem('isLogged') === 'true'
+}
+
+export function setLogged(isLogged){
+
+    sessionStorage.setItem('isLogged', isLogged.toString())
 }
 
 export function getLoggedEmail(){
     return sessionStorage.getItem('loggedEmail');
 }
 
+export function getUserName(){
+    return sessionStorage.getItem('user-name');
+}
+
+export function getUserLastName(){
+    return sessionStorage.getItem('user-lastname');
+}
+
+export function getUserEmail(){
+    return sessionStorage.getItem('user-email')
+}
+
+export function getUserPhone(){
+    return sessionStorage.getItem('user-phone')
+}
+
 export function getUserData(){
-    const email = getLoggedEmail();
 
-    let values = {};
-
-    for (let index in users_info){
-        const userData = users_info[index];
-
-        if (userData.email === email){
-            values.name = userData.name;
-            values.lastName = userData.last_name;
-            values.phone = userData.phone;
-            values.email = email;
-            return values;
-        }
-    }
+    let values = {
+        name : getUserName(),
+        lastName : getUserLastName(),
+        phone : getUserPhone(),
+        email : getUserEmail()
+    };
 
     return values;
 }
@@ -40,13 +65,4 @@ export function emailMatchWithPassword(password) {
     });
 
     return matchPassword;
-}
-
-export function isGlobalLogged(){
-    const isLogged = sessionStorage.getItem('isGlobalLogged');
-
-    if (isLogged === 'true')
-        return true;
-    else
-        return false;
 }
