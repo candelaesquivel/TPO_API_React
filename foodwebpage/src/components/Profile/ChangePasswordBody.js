@@ -5,7 +5,6 @@ import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import React, { useEffect, useState} from 'react';
-import { emailMatchWithPassword } from "../../utilities/UserSession";
 import {useNavigate } from "react-router-dom";
 import { isValidPassword } from "../../utilities/stringFunctions";
 
@@ -47,19 +46,6 @@ export function ChangePasswordBody(props){
         }
 
         // Backend Validation
-
-        if (newPassword !== confirmNewPassword)
-        {
-            event.preventDefault();
-            setSamePasswords(false);
-        }
-        else if (!emailMatchWithPassword(currentPassword)){
-            event.preventDefault();
-            setIsCurrentPassRight(false);
-        }
-        else{
-            setIsFormValid(true);
-        }
     }
 
     useEffect( () => {

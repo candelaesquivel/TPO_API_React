@@ -1,5 +1,63 @@
 import urlWebServices from '../controllers/WebServices';
-import { setLogged, setUserLoggedData } from '../utilities/UserSession';
+import { setLogged, setUserLoggedData, setUserToken } from '../utilities/UserSession';
+
+export const register = async function(registerForm){
+        //url webservices
+        let url = urlWebServices.register;
+        //armo json con datos
+        const formData = new URLSearchParams();
+
+        formData.append('name', registerForm.name);
+        formData.append('lastName', registerForm.lastName);
+        formData.append('email', registerForm.email);
+        formData.append('password', registerForm.password);
+        formData.append('phone', registerForm.phone);
+        formData.append('securityQ', registerForm.securityQuestion);
+        formData.append('answer', registerForm.securityAnswer);
+        //console.log("dato",formData);
+        //console.log("url",url);
+        try
+        {
+            let response = await fetch(url,{
+                method: 'POST', // or 'PUT'
+                mode: "cors",
+                headers:{
+                    'Accept':'application/x-www-form-urlencoded',
+                   // 'x-access-token': WebToken.webToken,
+                    'Origin':'http://localhost:3000',
+                    'Content-Type': 'application/x-www-form-urlencoded'},
+                body: formData,
+                
+            });
+    
+            
+            let rdo = response.status;
+            console.log("response",response);
+            let data = await response.json();
+            console.log("Data Response: ", data)
+            switch(rdo)
+            {
+                case 201:
+                {
+                    return ({rdo:0,mensaje:"Ok"});//correcto
+                }
+                case 400:
+                {
+                    console.log("Error: 400");
+                    return ({rdo:400, mensaje: data.message, errorCode: data.errorCode})
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:"Ha ocurrido un error"});                
+                }
+            }
+        }
+        catch(error)
+        {
+            console.log("error",error);
+        };
+}
 
 export const login= async function(login)
 {
@@ -29,28 +87,24 @@ export const login= async function(login)
         let rdo = response.status;
         console.log("response",response);
         let data = await response.json();
+        console.log("Data Response: ", data)
             switch(rdo)
             {
                 case 201:
                 {
                     //guardo token
-                    localStorage.setItem("x",data.loginUser.token);
+                    setUserToken(data.loginUser.token);
                     //guardo usuario logueado
-                    let user = data.loginUser.user;
-                    setUserLoggedData(data.loginUser.user)
+                    const user = data.loginUser.user;
+                    setUserLoggedData(user)
                     setLogged(true)
                     
                     return ({rdo:0,mensaje:"Ok"});//correcto
                 }
-                case 202:
+                case 400:
                 {
-                    //error mail
-                    return ({rdo:1,mensaje:"El mail ingresado no existe en nuestra base."});
-                }
-                case 203:
-                {
-                    //error password
-                    return ({rdo:1,mensaje:"La contraseña no es correcta."});
+                    console.log("Error: 400");
+                    return ({rdo:400, mensaje: data.message, errorCode: data.errorCode})
                 }
                 default:
                 {

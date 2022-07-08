@@ -3,6 +3,7 @@ console.log("url",urlApi);
 
 const urlWebServices = {
     login:urlApi +"login",
+    register:urlApi + "register",
 }
 
 export default urlWebServices;

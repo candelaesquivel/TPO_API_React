@@ -10,14 +10,15 @@ import { Navigate } from "react-router-dom";
 
 import { isValidEmailWithRegex } from '../../utilities/stringFunctions';
 
-import { login as LoginController } from '../../controllers/MyAppController'; 
+import { login as LoginController } from '../../controllers/MyAppController';
+import { ErrorCodes } from '../../controllers/Constants';
 
 export function LogInBody(props){
 
     const [isValidPassword, setValidPassword] = useState(true);
     const [isValidEmail, setValidEmail] = useState(true);
-    const [isLogged, setLogged] = useState(false);
-    const [errorPassMsg, setErrorPassword] = useState('');
+    const [hasLogin, setHasLogin] = useState(false);
+    const [errorPassMsg, setPasswordErrorMsg] = useState('');
     const [emailErrorMsg, setEmailErrorMsg] = useState('');
 
  
@@ -34,13 +35,50 @@ export function LogInBody(props){
         return result;
     }
 
-    const handleOnLoginSubmit = (event) => {
+    const validateLogin = async function(email, password){
+        const datos = {
+            email : email,
+            password : password
+        }
+
+        let loginResult = await LoginController(datos);
+
+        if (loginResult.rdo === 400)
+        {
+            switch (loginResult.errorCode)
+            {
+                case ErrorCodes.ERROR_MAIL_NOT_ASSOCIATED:
+                {
+                    setValidEmail(false);
+                    setEmailErrorMsg(loginResult.mensaje);
+                    break;
+                }
+
+                case ErrorCodes.ERROR_PASSWORD_NOT_VALID:{
+                    setValidPassword(false);
+                    setPasswordErrorMsg(loginResult.mensaje);
+                    break;
+                }
+            }
+        }
+        else if (loginResult.rdo == 0)
+        {
+            setHasLogin(true);
+        }
+    }
+
+    const handleOnLoginSubmit = async (event) => {
         console.log("On Login");
 
         const email = event.target.email.value;
         const password = event.target.password.value;
         const emailValidation = validateEmailSyntax(email)
 
+        setValidEmail(true);
+        setEmailErrorMsg('');
+
+        setValidPassword(true);
+        setPasswordErrorMsg('');
 
         console.log("Email Validation: " , emailValidation)
 
@@ -54,19 +92,13 @@ export function LogInBody(props){
 
         if (password === "")
         {
-            setErrorPassword("Password no puede ser vacio");
+            setPasswordErrorMsg("Password no puede ser vacio");
             setValidPassword(false);
             event.preventDefault();
             return;
         }
 
-        const datos = {
-            email : email,
-            password : password
-        }
-
-        let loginResultController = LoginController(datos);
-        console.log(loginResultController);
+        validateLogin(email, password);
         event.preventDefault();
     };
 
@@ -76,7 +108,7 @@ export function LogInBody(props){
     }
 
     const handlePassChange = (event) => {
-        setErrorPassword('');
+        setPasswordErrorMsg('');
         setValidPassword(true);
     }
 
@@ -150,7 +182,7 @@ export function LogInBody(props){
                 </Grid>
 
                 {
-                    isLogged && <Navigate to='/profile' replace={true}></Navigate>
+                    hasLogin && <Navigate to='/profile' replace={true}></Navigate>
                 }
 
             </Box>

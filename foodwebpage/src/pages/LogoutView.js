@@ -4,11 +4,11 @@ import { LogoutBody } from "../components/Logout/LogoutBody";
 import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { isLogged, setLogged } from '../utilities/UserSession'
+import { closeSession, isLogged } from '../utilities/UserSession'
 
 export default function LogoutView(props){
     
-    setLogged(false);
+    closeSession();
 
     const navigate = useNavigate();
 

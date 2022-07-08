@@ -1,5 +1,20 @@
-import {users_info} from './sharedData';
 
+export function closeSession(){
+    sessionStorage.clear();
+    setLogged(false)
+}
+
+export function hasToken(){
+    return localStorage.getItem('x-token') !== ''
+}
+
+export function getToken(){
+    return localStorage.getItem('x-token')
+}
+
+export function setUserToken(token){
+    localStorage.setItem('x-token', token)
+}
 
 export function setUserLoggedData(userData){
 
@@ -52,17 +67,4 @@ export function getUserData(){
     };
 
     return values;
-}
-
-export function emailMatchWithPassword(password) {
-    const email = getLoggedEmail();
-    let matchPassword = false;
-
-    users_info.forEach( userData => {
-        if (userData.email === email){
-            matchPassword = userData.password === password;
-        }
-    });
-
-    return matchPassword;
 }

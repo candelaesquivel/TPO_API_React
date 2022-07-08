@@ -160,7 +160,7 @@ const ResponsiveAppBar = (props) => {
             }
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            {isLogged ? ProfileSection() : <></> }
+            {hasLogin ? ProfileSection() : <></> }
           </Box>
         </Toolbar>
       </Container>

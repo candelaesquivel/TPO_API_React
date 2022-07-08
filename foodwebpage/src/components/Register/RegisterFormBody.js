@@ -6,8 +6,10 @@ import { Button } from "@mui/material";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import React, { useState} from 'react';
 import {isValidPassword} from '../../utilities/stringFunctions'
-import { BasicDialog } from "../Misc/BasicDialog";
 import {useNavigate } from "react-router-dom";
+import {register as RegisterFunction} from '../../controllers/MyAppController';
+import {login as LoginFunction} from '../../controllers/MyAppController';
+
 
 import { validateNameOrLastName, validatePhone, validateEmailEmpty, 
 validateEmailSyntax, validateSecurityAnswerSyntax, validateSecurityQuestionSyntax } from "../../utilities/ValidateHandlers";
@@ -16,18 +18,16 @@ validateEmailSyntax, validateSecurityAnswerSyntax, validateSecurityQuestionSynta
 export function RegisterFormBody(props){
 
     const [isResultDialogOpen, setResultDialogOpen] = useState(false);
-    const [resultDialogText, setResultDialogText] = useState('');
-    const [isValidForm, setValidForm] = useState('false');
     const navigate = useNavigate();
 
     const [userData, setUserData] = useState({
-        'name' : '',
-        'lastName' : '',
-        'email' : '',
-        'phone' : '',
-        'password' : '',
-        'securityQuestion' : '',
-        'securityAnswer' : ''
+        name: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        password: '',
+        securityQuestion: '',
+        securityAnswer: ''
     });
 
     const [errorMsg, setErrorMsg] = useState({
@@ -40,7 +40,7 @@ export function RegisterFormBody(props){
         securityAnswer : ''
     });
 
-    const [hasError, setHasError] = useState({
+    const [errorInField, setErrorInField] = useState({
         name : false,
         lastName : false,
         email : false,
@@ -58,7 +58,7 @@ export function RegisterFormBody(props){
 
         setUserData({...userData, [inputName] : inputValue})
         setErrorMsg({...errorMsg, [inputName] : ''})
-        setHasError({...hasError, [inputName] : false})
+        setErrorInField({...errorInField, [inputName] : false})
     }
 
     const validateInput = (target, func, errorMsg, errors, errorsMsgs) => {
@@ -73,13 +73,42 @@ export function RegisterFormBody(props){
             errorsMsgs[target] = '';
     }
 
-    const validateForm = (event) => {
+    const validateRegister = async function () {
+        let resultRegister = await RegisterFunction(userData);
+
+        if (resultRegister.rdo == 400)
+        {
+            setErrorInField({...errorInField, ['email'] : true});
+            setErrorMsg({...errorMsg, ['email'] : resultRegister.mensaje})
+        }
+        else if (resultRegister.rdo == 0){
+            // Call to login and redirect to My Profile
+            const loginData = {
+                email : userData['email'],
+                password : userData['password']
+            }
+
+            let loginResult = await LoginFunction(loginData);
+
+            if (loginResult.rdo == 0)
+            {
+                setTimeout( () => {
+                    navigate('/profile')
+                }, 500);
+            }
+        }
+    }
+
+    const validateForm =  (event) => {
 
         console.log('OnSubmit Enviado');
         event.preventDefault();
 
-        let errors = hasError;
+
+        let errors = errorInField;
         let errorsMsgs = errorMsg;
+
+        console.log("Errors Before Validate: ", errorInField)
 
         // /** Validacion de Nombre */
         validateInput('name', validateNameOrLastName, 'Se requieren al menos 2 caracteres para el nombre', errors, errorsMsgs);
@@ -99,17 +128,26 @@ export function RegisterFormBody(props){
         // /** Validacion de Password */
         validateInput('password', isValidPassword, 'Password no valido, se requieren al menos 7 caracteres y debe contener al menos 1 letra y 1 un numero', errors, errorsMsgs);
 
-        console.log(isValidPassword(userData['password']))
-
         // /** Validacion de Email */
         validateInput('email', validateEmailEmpty, 'El mail no puede ser vacio', errors, errorsMsgs);
 
-        if (!hasError['email'])
+
+        if (!errors['email'])
             validateInput('email', validateEmailSyntax, 'El mail no tiene un formato valido', errors, errorsMsgs);
 
+        setErrorInField(errorInField => (
+            {
+                ...errorInField,
+                ...errors
+            }
+        ))
 
-        setHasError(errors);
-        setErrorMsg(errorsMsgs);
+        setErrorMsg(oldErrorMsgs => (
+            {
+                ...oldErrorMsgs,
+                ...errorsMsgs
+            }
+        ))
 
         console.log('Errors: ', errors);
 
@@ -117,26 +155,35 @@ export function RegisterFormBody(props){
 
         for (let item in errors){
 
-            console.log('Item: ', errors[item], "Value: ", item)
-
             if (errors[item] === true){
                 hasNotErrors = false;
                 break;
             }
         }
 
-        setValidForm(hasNotErrors);
-
-        if (hasNotErrors){
-            setResultDialogText('Registro Exitoso, en breve sera redirigido a la pagina de login');
-            setTimeout(() => {
-                navigate('/login')
-            }, 1000);
+        if (hasNotErrors)
+        {
+            validateRegister();
         }
         else
-            setResultDialogText('Alguno de los campos contienen errores, verifiquelos e intente de nuevo');
+            return;
 
-        setResultDialogOpen(true);
+
+
+
+        // Backend Code
+        //RegisterFunction(userData)
+
+        // if (hasNotErrors){
+        //     setResultDialogText('Registro Exitoso, en breve sera redirigido a la pagina de login');
+        //     setTimeout(() => {
+        //         navigate('/login')
+        //     }, 1000);
+        // }
+        // else
+        //     setResultDialogText('Alguno de los campos contienen errores, verifiquelos e intente de nuevo');
+
+        // setResultDialogOpen(true);
     };
 
     const onExitClicked = (event) => {
@@ -144,6 +191,7 @@ export function RegisterFormBody(props){
     }
 
     return (
+
         <Container component='main' maxWidth='xs'>
             <Box
                 sx={{
@@ -173,7 +221,7 @@ export function RegisterFormBody(props){
                             label='Nombre'
                             value={userData['name']}
                             onChange={onInputChange}
-                            error={hasError['name']}
+                            error={errorInField['name']}
                             helperText={errorMsg['name']}
                         >
                         </TextField>
@@ -187,7 +235,7 @@ export function RegisterFormBody(props){
                             fullWidth
                             label='Apellido'
                             onChange={onInputChange}
-                            error={hasError['lastName']}
+                            error={errorInField['lastName']}
                             helperText={errorMsg['lastName']}
                         >
                         </TextField>
@@ -201,7 +249,7 @@ export function RegisterFormBody(props){
                         name="email"
                         autoComplete="email"
                         onChange = {onInputChange}
-                        error={hasError['email']}
+                        error={errorInField['email']}
                         helperText={errorMsg['email']}
                         />
                     </Grid>
@@ -214,7 +262,7 @@ export function RegisterFormBody(props){
                         label="Telefono"
                         type="number"
                         onChange={onInputChange}
-                        error={hasError['phone']}
+                        error={errorInField['phone']}
                         helperText={errorMsg['phone']}
                         />
                     </Grid>
@@ -227,7 +275,7 @@ export function RegisterFormBody(props){
                         label="Contraseña"
                         type="password"
                         onChange={onInputChange}
-                        error={hasError['password']}
+                        error={errorInField['password']}
                         helperText={errorMsg['password']}
                         />
                     </Grid>
@@ -241,7 +289,7 @@ export function RegisterFormBody(props){
                         type="text"
                         autoComplete="Pregunta de seguridad"
                         onChange={onInputChange}
-                        error={hasError['securityQuestion']}
+                        error={errorInField['securityQuestion']}
                         helperText={errorMsg['securityQuestion']}
                         />
                     </Grid>
@@ -255,7 +303,7 @@ export function RegisterFormBody(props){
                         type="text"
                         autoComplete="respuesta "
                         onChange={onInputChange}
-                        error={hasError['securityAnswer']}
+                        error={errorInField['securityAnswer']}
                         helperText={errorMsg['securityAnswer']}
                         />
                     </Grid>
@@ -270,17 +318,7 @@ export function RegisterFormBody(props){
                         >
                         Registrar</Button>
                 </Grid>
-
-                <BasicDialog
-                    open={isResultDialogOpen}
-                    dialogContentText={resultDialogText}
-                    onExitButtonPressed={onExitClicked}
-                >
-
-                </BasicDialog>
-
             </Box>
-
         </Container>
     )
 }
