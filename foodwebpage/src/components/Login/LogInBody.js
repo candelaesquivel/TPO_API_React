@@ -8,8 +8,9 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
-import { isValidAccount } from "../../utilities/sharedData";
-import { setGlobalLogged } from '../../utilities/UserSession';
+import { isValidEmailWithRegex } from '../../utilities/stringFunctions';
+
+import { login as LoginController } from '../../controllers/MyAppController'; 
 
 export function LogInBody(props){
 
@@ -19,31 +20,54 @@ export function LogInBody(props){
     const [errorPassMsg, setErrorPassword] = useState('');
     const [emailErrorMsg, setEmailErrorMsg] = useState('');
 
+ 
+    const validateEmailSyntax = (mail) => {
+        let result = {status : true, errorMsg : "" }
+
+        console.log("Mail Value: ", mail)
+
+        if (mail === "")
+            result = {status : false, errorMsg : "El mail no puede ser vacio"}
+        else if (!isValidEmailWithRegex(mail))
+            result = { status : false, errorMsg : "El mail no tiene un formato valido" }
+
+        return result;
+    }
 
     const handleOnLoginSubmit = (event) => {
+        console.log("On Login");
+
         const email = event.target.email.value;
         const password = event.target.password.value;
-        const validateValues = isValidAccount(email, password);
+        const emailValidation = validateEmailSyntax(email)
 
-        setLogged(validateValues.isValid);
 
-        if (validateValues.isValid){
-            setGlobalLogged(true, email);
-        }
-        else{
+        console.log("Email Validation: " , emailValidation)
+
+        if (!emailValidation.status)
+        {
+            setValidEmail(emailValidation.status);
+            setEmailErrorMsg(emailValidation.errorMsg);
             event.preventDefault();
-
-            if (validateValues.passError.length > 0)
-            {
-                setErrorPassword(validateValues.passError);
-                setValidPassword(false);
-            }
-            else if (validateValues.emailNotFoundError.length > 0)
-            {
-                setEmailErrorMsg(validateValues.emailNotFoundError);
-                setValidEmail(false);
-            }
+            return
         }
+
+        if (password === "")
+        {
+            setErrorPassword("Password no puede ser vacio");
+            setValidPassword(false);
+            event.preventDefault();
+            return;
+        }
+
+        const datos = {
+            email : email,
+            password : password
+        }
+
+        let loginResultController = LoginController(datos);
+        console.log(loginResultController);
+        event.preventDefault();
     };
 
     const handleMailChange = (event) => {

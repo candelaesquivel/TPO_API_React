@@ -4,12 +4,14 @@ import { Avatar } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import {users_info} from '../../utilities/sharedData';
 import React, { useState} from 'react';
-import { isNumeric } from "../../utilities/stringFunctions";
-import {isValidEmailWithRegex, isValidPassword} from '../../utilities/stringFunctions'
+import {isValidPassword} from '../../utilities/stringFunctions'
 import { BasicDialog } from "../Misc/BasicDialog";
 import {useNavigate } from "react-router-dom";
+
+import { validateNameOrLastName, validatePhone, validateEmailEmpty, 
+validateEmailSyntax, validateSecurityAnswerSyntax, validateSecurityQuestionSyntax } from "../../utilities/ValidateHandlers";
+
 
 export function RegisterFormBody(props){
 
@@ -59,15 +61,6 @@ export function RegisterFormBody(props){
         setHasError({...hasError, [inputName] : false})
     }
 
-    const validateNameOrLastName = (name) => {
-
-        return name.length >= 2 && !isNumeric(name);
-    }
-    
-    const validatePhone = (phone) => {
-        return phone.length >= 5 && isNumeric(phone);
-    }
-
     const validateInput = (target, func, errorMsg, errors, errorsMsgs) => {
         const inputValue = userData[target];
         const isValidInput = func(inputValue);
@@ -78,16 +71,6 @@ export function RegisterFormBody(props){
             errorsMsgs[target] = errorMsg;
         else
             errorsMsgs[target] = '';
-    }
-
-    const validateEmailRegex = (email) => {
-        return !isValidEmailWithRegex(email);
-    }
-
-    const validateEmailExist = (email) => {
-        return users_info.every(itr => {
-            return itr.email !== email;
-        });
     }
 
     const validateForm = (event) => {
@@ -108,17 +91,21 @@ export function RegisterFormBody(props){
         validateInput('phone', validatePhone, 'Se requieren al menos 5 caracteres para el tlf y que sean todos numericos', errors, errorsMsgs);
 
         // /** Validacion de Pregunta de Seguridad */
-        validateInput('securityQuestion', (question) => {return question.length >= 5}, 'La pregunta necesita al menos 5 caracteres', errors, errorsMsgs);
+        validateInput('securityQuestion', validateSecurityQuestionSyntax, 'La pregunta necesita al menos 5 caracteres', errors, errorsMsgs);
 
         // /** Validacion de Respuesta de Seguridad */
-        validateInput('securityAnswer', (answer) => {return answer.length >= 2}, 'La respuesta necesita al menos 2 caracteres', errors, errorsMsgs);
+        validateInput('securityAnswer', validateSecurityAnswerSyntax, 'La respuesta necesita al menos 2 caracteres', errors, errorsMsgs);
 
         // /** Validacion de Password */
-        validateInput('password', isValidPassword, 'Password no valido, se requieren al menos 5 caracteres', errors, errorsMsgs);
+        validateInput('password', isValidPassword, 'Password no valido, se requieren al menos 7 caracteres y debe contener al menos 1 letra y 1 un numero', errors, errorsMsgs);
+
+        console.log(isValidPassword(userData['password']))
 
         // /** Validacion de Email */
-        validateInput('email', validateEmailRegex, 'Correo Electrónico no valido', errors, errorsMsgs);
-        validateInput('email', validateEmailExist, 'Correo Electrónico en uso', errors, errorsMsgs);
+        validateInput('email', validateEmailEmpty, 'El mail no puede ser vacio', errors, errorsMsgs);
+
+        if (!hasError['email'])
+            validateInput('email', validateEmailSyntax, 'El mail no tiene un formato valido', errors, errorsMsgs);
 
 
         setHasError(errors);

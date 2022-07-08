@@ -15,24 +15,19 @@ export function isNumeric(str){
 
 export function isValidPassword(password){
 
-    if (password.length === 0)
-        return true;
-
     if (password.length < 7)
         return false;
 
-    const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
+    // La expresion regular evalua que la contrasse;a tenga
+    /**
+     * Letras Mayusculas o minusculas
+     * Al menos 1 digito numerico
+     * al menos 7 letras minimo
+     */
+    const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{7,}$');
     return validPassword.test(password);
 }
 
 export function isValidEmailWithRegex(email){
-
-    if (email.length === 0)
-        return true;
-
-    const validEmail = new RegExp(
-        '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
-     );
-
-    return validEmail.test(email);
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
 }

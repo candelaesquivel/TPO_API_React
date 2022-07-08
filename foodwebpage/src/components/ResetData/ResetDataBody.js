@@ -5,60 +5,85 @@ import { Avatar } from "@mui/material";
 import { Grid } from "@mui/material";
 import PasswordIcon from '@mui/icons-material/Password';
 import ResponsiveDialog  from '../Misc/ResponsiveDialog';
-
+import { validateNameOrLastName, validatePhone } from "../../utilities/ValidateHandlers";
+import React, { useState} from 'react';
 
 export function ResetDataBody(props){
 
-        return(
+    const [hasError, setHasError] = useState(false)
 
-            <Container component='main' maxWidth='xs'>
-                <Box
-                    sx={{
-                        mt: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                    >
-                </Box>
+    let validateFunc;
+    let defaultErrorMsg;
 
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <PasswordIcon/>
-                </Avatar>
-                <Typography variant='h6'>
-                    {props.title}
-                </Typography>
+    if (props.inputLabel == 'Nombre')
+    {
+        validateFunc = validateNameOrLastName
+        defaultErrorMsg = 'Se requieren al menos 2 caracteres para el nombre'
 
-                <Box component="form" noValidate sx={{ mt: 3 }} >
-                    <Grid container spacing={2}>
-                    
-                        <Grid item xs={12}>
-                            <TextField
-                            required
-                            fullWidth
-                            id="name"
-                            label={props.inputLabel}
-                            name="name"
-                            autoComplete="name"
-                            />
-                        </Grid>
+    }
+    else if (props.inputLabel == 'Apellido')
+    {
+        validateFunc = validateNameOrLastName
+        defaultErrorMsg = 'Se requieren al menos 2 caracteres para el apellido'
+    }
+    else if (props.inputLabel == 'Teléfono')
+    {
+        validateFunc = validatePhone
+        defaultErrorMsg = 'Se requieren al menos 5 caracteres para el tlf y que sean todos numericos'
+    }
 
-                       
+    return(
 
-                        <Grid item xs={12} sm={6}>
-                            <ResponsiveDialog
-                                buttonText = {'Modificar'}
-                                messageTittle = ''
-                                messageText={props.inputLabel + ' modificado correctamente'}
-                                dialogOptionText = 'Salir'
-                            >
+        <Container component='main' maxWidth='xs'>
+            <Box
+                sx={{
+                    mt: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+                >
+            </Box>
 
-                            </ResponsiveDialog>
-                        </Grid>
-            
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <PasswordIcon/>
+            </Avatar>
+            <Typography variant='h6'>
+                {props.title}
+            </Typography>
+
+            <Box component="form" noValidate sx={{ mt: 3 }} >
+                <Grid container spacing={2}>
+                
+                    <Grid item xs={12}>
+                        <TextField
+                        required
+                        fullWidth
+                        id="name"
+                        label={props.inputLabel}
+                        name="name"
+                        autoComplete="name"
+                        error={hasError}
+                        helperText={hasError ? defaultErrorMsg : ""}
+                        />
                     </Grid>
-                </Box>
 
-            </Container>
-        );
+                    
+
+                    <Grid item xs={12} sm={6}>
+                        <ResponsiveDialog
+                            buttonText = {'Modificar'}
+                            messageTittle = ''
+                            messageText={props.inputLabel + ' modificado correctamente'}
+                            dialogOptionText = 'Salir'
+                        >
+
+                        </ResponsiveDialog>
+                    </Grid>
+        
+                </Grid>
+            </Box>
+
+        </Container>
+    );
 }

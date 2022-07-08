@@ -7,6 +7,7 @@ import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import React, { useEffect, useState} from 'react';
 import { emailMatchWithPassword } from "../../utilities/UserSession";
 import {useNavigate } from "react-router-dom";
+import { isValidPassword } from "../../utilities/stringFunctions";
 
 export function ChangePasswordBody(props){
         
@@ -16,6 +17,7 @@ export function ChangePasswordBody(props){
     const [areSamePasswords, setSamePasswords] = useState(true);
     const [isCurrentPassRight, setIsCurrentPassRight] = useState(true);
     const [isFormValid, setIsFormValid] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('')
 
     const navigate = useNavigate();
 
@@ -35,6 +37,16 @@ export function ChangePasswordBody(props){
     }
 
     const onSubmitData = (event) => {
+
+        if (!isValidPassword(newPassword))
+        {
+            setErrorMsg('Password no valido, se requieren al menos 7 caracteres y debe contener al menos 1 letra y 1 un numero')
+            setIsCurrentPassRight(false);
+            event.preventDefault();
+            return;
+        }
+
+        // Backend Validation
 
         if (newPassword !== confirmNewPassword)
         {

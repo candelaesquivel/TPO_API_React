@@ -7,51 +7,68 @@ import PasswordIcon from '@mui/icons-material/Password';
 import { getSecurityQuestion, matchAnswerWithSecurityQuestion } from "../../utilities/sharedData";
 import React, {useState } from 'react';
 import { useNavigate} from "react-router-dom";
-import { BasicDialog } from "../Misc/BasicDialog";
+
+import { isValidEmailWithRegex } from "../../utilities/stringFunctions";
 
 export function ResetPasswordBody(props){
 
         const [emailInput, setEmailInput] = useState('');
+        const [isValidEmail, setValidEmail] = useState(true);
+        const [emailErrorMsg, setEmailErrorMsg] = useState('');
+
         const [answerInput, setAnswerInput] = useState('');
+        const [isValidAnswer, setValidAnswer] = useState(true);
+
         const [securityQuestion, setSecurityQuestion] = useState('');
         const [showQuestion, setShowQuestion] = useState(false);
-        const [answerDialogText, setAnswerDialogText] = useState('');
-        const [questionSearchDialogText, setQuestionSearchDialogText] = useState('');
-        const [isOpenAnswerDialog, setIsOpenAnswerDialog] = useState(false);
-        const [isOpenQuestionSearchDialog, setOpenQuestionSearchDialog] = useState(false);
 
         const navigate = useNavigate();
+
+        const validateEmailSyntax = (mail) => {
+            let result = {status : true, errorMsg : "" }
+            
+            console.log("Mail Validation: ", mail)
+
+            if (mail === "")
+                result = {status : false, errorMsg : "El mail no puede ser vacio"}
+            else if (!isValidEmailWithRegex(mail))
+                result = { status : false, errorMsg : "El mail no tiene un formato valido" }
+    
+            return result;
+        }
         
         const onSearchQuestionPressed = (event) => {
+
+            const emailValidation = validateEmailSyntax(emailInput)
+
+            console.log("On Search Pressed", emailValidation)
+
+            if (!emailValidation.status)
+            {
+                setValidEmail(emailValidation.status)
+                setEmailErrorMsg(emailValidation.errorMsg)
+                return;
+            }
+
+            event.preventDefault();
+            return;
             const question = getSecurityQuestion(emailInput);
             const hasQuestion = question.length > 0;
 
             setSecurityQuestion(question);
-            setOpenQuestionSearchDialog(!hasQuestion);
             setShowQuestion(hasQuestion);
-
-            if (!hasQuestion)
-                setQuestionSearchDialogText('El mail ingresado no se encuentra registrado');
-
-        }
-
-        const onExitQuestionDialogClicked = (event) => {
-            setOpenQuestionSearchDialog(!isOpenQuestionSearchDialog);
         }
 
         const onEmailInputChange = (event) => {
             setEmailInput(event.target.value);
+            setValidEmail(true)
+            setEmailErrorMsg('')
             setSecurityQuestion('');
             setShowQuestion(false);
         }
 
         const onAnswerChange = (event) => {
             setAnswerInput(event.target.value);
-            setAnswerDialogText('');
-        }
-
-        const onExitDialogButtonPressed = (event) => {
-            setIsOpenAnswerDialog(!isOpenAnswerDialog);
         }
 
         const onSubmitData = (event) => {
@@ -59,16 +76,12 @@ export function ResetPasswordBody(props){
                 event.preventDefault();
             else{
                 const matchAnswer = matchAnswerWithSecurityQuestion(emailInput, answerInput);
-                setIsOpenAnswerDialog(true);
                 
                 if (!matchAnswer)
                 {
-                    setAnswerDialogText('Respuesta Incorrecta, intente de nuevo')
                 }
                 else
                 {
-                    setAnswerDialogText('Respuesta correcta, su contraseña se ha enviado a su mail. En breve sera redirigido a la pagina de inicio')
-
                     setTimeout(() => {
                         navigate('/home');
                     }, 1000);
@@ -110,15 +123,10 @@ export function ResetPasswordBody(props){
                             name="email"
                             autoComplete="email"
                             onChange={onEmailInputChange}
+                            helperText = {emailErrorMsg}
+                            error = {!isValidEmail}
                             />
                         </Grid>
-
-                        <BasicDialog
-                            open = {isOpenQuestionSearchDialog}
-                            dialogContentText={questionSearchDialogText}
-                            onExitButtonPressed = {onExitQuestionDialogClicked}
-                            >
-                        </BasicDialog>
 
                         <Grid item xs={12}>
                             {!showQuestion && <Button variant='contained' onClick = {onSearchQuestionPressed}>Buscar Correo</Button>}
@@ -143,13 +151,6 @@ export function ResetPasswordBody(props){
                                     autoComplete
                                     />
                                 </Grid>
-
-                                <BasicDialog
-                                    open = {isOpenAnswerDialog}
-                                    dialogContentText={answerDialogText}
-                                    onExitButtonPressed = {onExitDialogButtonPressed}
-                                    >
-                                </BasicDialog>
 
                                 <Grid item xs={12} sm={6}>
                                     <Button 
