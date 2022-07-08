@@ -4,11 +4,13 @@ import { Avatar } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import PasswordIcon from '@mui/icons-material/Password';
-import { getSecurityQuestion, matchAnswerWithSecurityQuestion } from "../../utilities/sharedData";
 import React, {useState } from 'react';
 import { useNavigate} from "react-router-dom";
 
 import { isValidEmailWithRegex } from "../../utilities/stringFunctions";
+import {recoveryPasswordQuestion as GetRecoveryQuestion} from '../../controllers/MyAppController';
+import {recoveryPasswordAnswer as ValidateAnswerBack} from '../../controllers/MyAppController';
+import {validateSecurityAnswerSyntax} from '../../utilities/ValidateHandlers';
 
 export function ResetPasswordBody(props){
 
@@ -18,6 +20,7 @@ export function ResetPasswordBody(props){
 
         const [answerInput, setAnswerInput] = useState('');
         const [isValidAnswer, setValidAnswer] = useState(true);
+        const [answerErrorMsg, setAnswerErrorMsg] = useState('');
 
         const [securityQuestion, setSecurityQuestion] = useState('');
         const [showQuestion, setShowQuestion] = useState(false);
@@ -36,13 +39,61 @@ export function ResetPasswordBody(props){
     
             return result;
         }
+
+        const getSecurityQuestion = async () => {
+            const email = emailInput
+            let questionResult = await GetRecoveryQuestion(email);
+
+            console.log(questionResult);
+
+            if (questionResult.rdo === 400)
+            {
+                setValidEmail(false);
+                setEmailErrorMsg(questionResult.mensaje);
+            }
+            else if (questionResult.rdo === 0){
+                setSecurityQuestion(questionResult.securityQuestion)
+                setShowQuestion(true);
+            }
+
+        }
+
+        const validateSecurityAnswerBack = async () => {
+
+            const email = emailInput;
+            const answer = answerInput;
+
+            let answerValidateResult = await ValidateAnswerBack(email, answer);
+
+            console.log("Answer Result: ", answerValidateResult)
+
+            if (answerValidateResult.rdo === 0){
+                const isValidAnswer = answerValidateResult.isAnswerValid;
+                setValidAnswer(isValidAnswer)
+
+                if (isValidAnswer){
+                    setValidAnswer(true)
+                    setAnswerErrorMsg('Respuesta correcta')
+                    // setTimeout( () => {
+                    //     navigate('/home');
+                    // }, 1000);
+                }else{
+                    setValidAnswer(false)
+                    setAnswerErrorMsg(answerValidateResult.rdo.mensaje)
+                }
+            }
+            else if (answerValidateResult.rdo === 400){
+                setValidAnswer(false)
+                setAnswerErrorMsg(answerValidateResult.mensaje)
+            }
+
+        }
         
         const onSearchQuestionPressed = (event) => {
 
             const emailValidation = validateEmailSyntax(emailInput)
 
-            console.log("On Search Pressed", emailValidation)
-
+            // Syntax Validation
             if (!emailValidation.status)
             {
                 setValidEmail(emailValidation.status)
@@ -50,13 +101,8 @@ export function ResetPasswordBody(props){
                 return;
             }
 
-            event.preventDefault();
-            return;
-            const question = getSecurityQuestion(emailInput);
-            const hasQuestion = question.length > 0;
-
-            setSecurityQuestion(question);
-            setShowQuestion(hasQuestion);
+            // Backend Validation
+            getSecurityQuestion();
         }
 
         const onEmailInputChange = (event) => {
@@ -69,24 +115,27 @@ export function ResetPasswordBody(props){
 
         const onAnswerChange = (event) => {
             setAnswerInput(event.target.value);
+            setAnswerErrorMsg('')
+            setValidAnswer(true)
         }
 
         const onSubmitData = (event) => {
             if (!showQuestion)
                 event.preventDefault();
             else{
-                const matchAnswer = matchAnswerWithSecurityQuestion(emailInput, answerInput);
-                
-                if (!matchAnswer)
-                {
+                // Validate Answer Syntax
+                const answerSyntaxResult = validateSecurityAnswerSyntax(answerInput);
+
+                console.log('Answer Syntax: ', answerSyntaxResult)
+
+                if (!answerSyntaxResult){
+                    setValidAnswer(false);
+                    setAnswerErrorMsg('La respuesta necesita al menos 2 caracteres');
                 }
-                else
-                {
-                    setTimeout(() => {
-                        navigate('/home');
-                    }, 1000);
+                else {
+                    // Backend Validation
+                    validateSecurityAnswerBack();
                 }
-                
             }
 
             event.preventDefault();
@@ -148,6 +197,8 @@ export function ResetPasswordBody(props){
                                     type="text"
                                     id="securityAnswer"
                                     onChange={onAnswerChange}
+                                    helperText = {answerErrorMsg}
+                                    error = {!isValidAnswer}
                                     autoComplete
                                     />
                                 </Grid>

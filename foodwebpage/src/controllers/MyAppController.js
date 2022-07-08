@@ -1,6 +1,111 @@
 import urlWebServices from '../controllers/WebServices';
 import { setLogged, setUserLoggedData, setUserToken } from '../utilities/UserSession';
 
+export const recoveryPasswordQuestion = async function(email){
+    //url webservices
+    let url = urlWebServices.securityQuestion;
+    //armo json con datos
+    const formData = new URLSearchParams();
+
+    formData.append('email', email);
+    //console.log("dato",formData);
+    //console.log("url",url);
+
+    try
+        {
+            let response = await fetch(url,{
+                method: 'POST', // or 'PUT'
+                mode: "cors",
+                headers:{
+                    'Accept':'application/x-www-form-urlencoded',
+                   // 'x-access-token': WebToken.webToken,
+                    'Origin':'http://localhost:3000',
+                    'Content-Type': 'application/x-www-form-urlencoded'},
+                body: formData,
+                
+            });
+    
+            
+            let rdo = response.status;
+            console.log("response",response);
+            let data = await response.json();
+            console.log("Data Response: ", data)
+            switch(rdo)
+            {
+                case 201:
+                {
+                    return ({rdo:0,mensaje:"Ok", securityQuestion:data.data});//correcto
+                }
+                case 400:
+                {
+                    console.log("Error: 400");
+                    return ({rdo:400, mensaje: data.message, errorCode: data.errorCode})
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:"Ha ocurrido un error"});                
+                }
+            }
+        }
+        catch(error)
+        {
+            console.log("error",error);
+        };
+}
+
+export const recoveryPasswordAnswer = async function(email, answer){
+    //url webservices
+    let url = urlWebServices.securityAnswer;
+    //armo json con datos
+    const formData = new URLSearchParams();
+
+    formData.append('email', email);
+    formData.append('answer', answer)
+
+    try
+        {
+            let response = await fetch(url,{
+                method: 'POST', // or 'PUT'
+                mode: "cors",
+                headers:{
+                    'Accept':'application/x-www-form-urlencoded',
+                   // 'x-access-token': WebToken.webToken,
+                    'Origin':'http://localhost:3000',
+                    'Content-Type': 'application/x-www-form-urlencoded'},
+                body: formData,
+                
+            });
+    
+            
+            let rdo = response.status;
+            console.log("response",response);
+            let data = await response.json();
+            console.log("Data Response: ", data)
+            switch(rdo)
+            {
+                case 201:
+                {
+                    return ({rdo:0,mensaje:"Ok", isAnswerValid : data.data});//correcto
+                }
+                case 400:
+                {
+                    console.log("Error: 400");
+                    return ({rdo:400, mensaje: data.message, errorCode: data.errorCode})
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:"Ha ocurrido un error"});                
+                }
+            }
+        }
+        catch(error)
+        {
+            console.log("error",error);
+        };
+}
+
 export const register = async function(registerForm){
         //url webservices
         let url = urlWebServices.register;
