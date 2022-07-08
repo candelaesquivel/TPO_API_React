@@ -5,7 +5,8 @@ const urlWebServices = {
     login:urlApi +"login",
     register:urlApi + "register",
     securityQuestion:urlApi + "securityQ",
-    securityAnswer:urlApi + "securityQ/answer"
+    securityAnswer:urlApi + "securityQ/answer",
+    updateUserData:urlApi + "profile/modify"
 }
 
 export default urlWebServices;

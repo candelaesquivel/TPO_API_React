@@ -65,8 +65,6 @@ export function ResetPasswordBody(props){
 
             let answerValidateResult = await ValidateAnswerBack(email, answer);
 
-            console.log("Answer Result: ", answerValidateResult)
-
             if (answerValidateResult.rdo === 0){
                 const isValidAnswer = answerValidateResult.isAnswerValid;
                 setValidAnswer(isValidAnswer)

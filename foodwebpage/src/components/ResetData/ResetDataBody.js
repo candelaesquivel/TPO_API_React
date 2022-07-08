@@ -1,5 +1,5 @@
 
-import { Container, TextField, Typography } from "@mui/material";
+import { Button, Container, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Avatar } from "@mui/material";
 import { Grid } from "@mui/material";
@@ -7,29 +7,68 @@ import PasswordIcon from '@mui/icons-material/Password';
 import ResponsiveDialog  from '../Misc/ResponsiveDialog';
 import { validateNameOrLastName, validatePhone } from "../../utilities/ValidateHandlers";
 import React, { useState} from 'react';
+import { getUserData } from "../../utilities/UserSession";
+import {updateUserData as UpdateUserData } from '../../controllers/MyAppController'
 
 export function ResetDataBody(props){
 
-    const [hasError, setHasError] = useState(false)
+    const [fieldError, setFieldError] = useState(false);
+    const [fieldErrorMsg, setErrorMsg] = useState('');
+    const [fieldValue, setFieldValue] = useState('');
 
     let validateFunc;
     let defaultErrorMsg;
+    let fieldName;
 
     if (props.inputLabel == 'Nombre')
     {
+        fieldName = 'name';
         validateFunc = validateNameOrLastName
         defaultErrorMsg = 'Se requieren al menos 2 caracteres para el nombre'
 
     }
     else if (props.inputLabel == 'Apellido')
     {
+        fieldName = 'lastName';
         validateFunc = validateNameOrLastName
         defaultErrorMsg = 'Se requieren al menos 2 caracteres para el apellido'
     }
     else if (props.inputLabel == 'Teléfono')
     {
+        fieldName = 'phone';
         validateFunc = validatePhone
         defaultErrorMsg = 'Se requieren al menos 5 caracteres para el tlf y que sean todos numericos'
+    }
+
+    const updateUserData = async function() {
+        const userData = getUserData();
+        userData[fieldName] = fieldValue;
+
+        let updateResults = await UpdateUserData(userData);
+    }
+
+    const modifyData = (event) => {
+        // Syntax Validation
+        event.preventDefault();
+        const isValidInput = validateFunc(fieldValue)
+
+        console.log("Value: ", fieldValue);
+        console.log('Is Valid Input:', isValidInput)
+
+        if (!isValidInput){
+            setFieldError(true);
+            setErrorMsg(defaultErrorMsg);
+        }
+        else{
+            // Backend Validation
+            console.log('Kio')
+            updateUserData();
+        }
+    }
+
+    const onFieldChange = (event) => {
+        setFieldValue(event.target.value);
+        setFieldError(false);
     }
 
     return(
@@ -63,22 +102,18 @@ export function ResetDataBody(props){
                         label={props.inputLabel}
                         name="name"
                         autoComplete="name"
-                        error={hasError}
-                        helperText={hasError ? defaultErrorMsg : ""}
+                        onChange={onFieldChange}
+                        error={fieldError}
+                        helperText={fieldError ? defaultErrorMsg : ""}
                         />
                     </Grid>
 
-                    
-
                     <Grid item xs={12} sm={6}>
-                        <ResponsiveDialog
-                            buttonText = {'Modificar'}
-                            messageTittle = ''
-                            messageText={props.inputLabel + ' modificado correctamente'}
-                            dialogOptionText = 'Salir'
-                        >
-
-                        </ResponsiveDialog>
+                        <Button
+                        variant = 'contained'
+                        onClick={modifyData}>
+                            Modificar
+                        </Button>
                     </Grid>
         
                 </Grid>

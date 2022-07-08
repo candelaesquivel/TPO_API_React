@@ -1,5 +1,62 @@
 import urlWebServices from '../controllers/WebServices';
 import { setLogged, setUserLoggedData, setUserToken } from '../utilities/UserSession';
+import { getToken } from '../utilities/UserSession';
+
+export const updateUserData = async function(userData){
+    //url webservices
+    let url = urlWebServices.updateUserData;
+    //armo json con datos
+    const formData = new URLSearchParams();
+
+    formData.append('name', userData.name);
+    formData.append('lastName', userData.lastName);
+    formData.append('email', userData.email);
+    formData.append('phone', userData.phone);
+
+    try
+        {
+            let response = await fetch(url,{
+                method: 'POST', // or 'PUT'
+                mode: "cors",
+                headers:{
+                    'Accept':'application/x-www-form-urlencoded',
+                    'x-access-token': getToken(),
+                    'Origin':'http://localhost:3000',
+                    'Content-Type': 'application/x-www-form-urlencoded'},
+                body: formData,
+                
+            });
+    
+            
+            let rdo = response.status;
+            console.log("response",response);
+            let data = await response.json();
+            console.log("Data Response: ", data)
+            switch(rdo)
+            {
+                case 201:
+                {
+                    const user = data.userData;
+                    setUserLoggedData(user)
+                    return ({rdo:0,mensaje:"Ok", userData : user});//correcto
+                }
+                case 400:
+                {
+                    console.log("Error: 400");
+                    return ({rdo:400, mensaje: data.message, errorCode: data.errorCode})
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:"Ha ocurrido un error"});                
+                }
+            }
+        }
+        catch(error)
+        {
+            console.log("error",error);
+        };
+}
 
 export const recoveryPasswordQuestion = async function(email){
     //url webservices
