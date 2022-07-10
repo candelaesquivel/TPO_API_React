@@ -167,23 +167,6 @@ export function RegisterFormBody(props){
         }
         else
             return;
-
-
-
-
-        // Backend Code
-        //RegisterFunction(userData)
-
-        // if (hasNotErrors){
-        //     setResultDialogText('Registro Exitoso, en breve sera redirigido a la pagina de login');
-        //     setTimeout(() => {
-        //         navigate('/login')
-        //     }, 1000);
-        // }
-        // else
-        //     setResultDialogText('Alguno de los campos contienen errores, verifiquelos e intente de nuevo');
-
-        // setResultDialogOpen(true);
     };
 
     const onExitClicked = (event) => {
