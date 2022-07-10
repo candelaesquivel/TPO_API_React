@@ -38,6 +38,6 @@ export const validateRecipeIngredients = (ingredients) => {
     return ingredients.length !== 0
 }
 
-export const validateCategories = (categories) => {
+export const validateRecipeCategories = (categories) => {
     return categories.length >= 1;
 }
