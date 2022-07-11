@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { Grid, Stack, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { FormGroup } from "@mui/material";
@@ -11,22 +10,21 @@ import { categories } from "../../utilities/sharedData";
 import DifficultyIndicator from './DifficultyIndicator';
 import {Button} from "@mui/material";
 import React, { useState} from 'react';
-import { createRecipe as CreateRecipeController } from "../../controllers/MyAppController";
+import { createRecipe as CreateRecipeController, uploadFileImgLocal, saveImgInCloud } from "../../controllers/MyAppController";
 import { red } from '@mui/material/colors';
 import {getUserEmail} from '../../utilities/UserSession';
 
 // Syntax Validators
-import {validateRecipeName, validateRecipeIngredients, validateRecipeProcess, validateRecipeCategories} from '../../utilities/ValidateHandlers'
+import {validateRecipeName, validateRecipeIngredients, validateRecipeProcess, validateRecipeCategories, validateRecipePhoto} from '../../utilities/ValidateHandlers'
 
 export default function RecipeCreate(props){
 
-    const [publishState, setPublishState] = useState(false);
     const [checkedCategories, setCheckedCategories] = useState([]);
 
     const [fieldData, setFieldData] = useState({
         recipe_name : '',
         recipe_photo : '',
-        recipe_state : '',
+        recipe_state : false,
         recipe_categories : [],
         recipe_ingredients : '',
         recipe_difficulty : '',
@@ -88,6 +86,12 @@ export default function RecipeCreate(props){
         setFieldErrorState({...fieldErrorState, ['recipe_state'] : false})
     }
 
+    const onPhotoChange = (image) => {
+        setFieldData({...fieldData, ['recipe_photo'] : image})
+        setFieldErrorMsg({...fieldErrorMsg, ['recipe_photo'] : ''})
+        setFieldErrorState({...fieldErrorState, ['recipe_photo'] : false})
+    }
+
     const onInputChange = (event) => {
 
         const inputTarget = event.target;
@@ -99,9 +103,50 @@ export default function RecipeCreate(props){
         setFieldErrorState({...fieldErrorState, [inputName] : false})
     }
 
+    const uploadImage = async function(image) {
+        let files=[];
+        let fileNames=[];
+        let archivoImagen = '';
+        
+        console.log("image",image);
+        files.push(image);
+        //buscar extension archivo
+        let archivoOrig = image.name;
+        let posExt = archivoOrig.indexOf('.');
+        let extension = archivoOrig.substring(posExt,archivoOrig.length);
+        let aleatorio = Math.random().toString().substring(2,15);
+        fileNames.push("img"+localStorage.getItem('nombre')+"_"+aleatorio+extension);
+        //subir archivo a servidor
+        archivoImagen = await uploadFileImgLocal(files,fileNames);
+        //Si la imagen se subio bien la guardo en la BD
+        console.log(archivoImagen);
+        if (archivoImagen.ok)
+        {
+            let imgUser={
+                email: getUserEmail(),
+                imagen: fileNames[0]
+            }
+            let rdo = await saveImgInCloud(imgUser);
+            if (rdo)
+            {
+                alert("Tu imagen se ha almacenado correctamente.")
+                return rdo.imgUrl;
+            }
+        }
+        else
+            alert ("Ocurrio un error al subir tu imagen al servidor. Intenta mas tarde.")
+
+        return '';
+    }
+
     const createRecipe = async function() {
 
         console.log(fieldData['recipe_state']);
+
+        let imgUrl = await uploadImage(fieldData['recipe_photo']);
+
+        if (imgUrl === '')
+            return;
 
         var recipeData = {
             name :          fieldData['recipe_name'],
@@ -111,13 +156,14 @@ export default function RecipeCreate(props){
             state :         fieldData['recipe_state'],
             difficulty :    fieldData['recipe_difficulty'],
             userEmail   :   getUserEmail(),
+            photo       :   imgUrl
         }
 
         let result = await CreateRecipeController(recipeData);
 
         console.log("Recipe Create Data: ", result)
 
-        if (result.rdo == 400)
+        if (result.rdo === 400)
         {
             setFieldErrorState({...fieldErrorState, ['recipe_process'] : true});
             setFieldErrorMsg({...fieldErrorMsg, ['recipe_process'] : result.mensaje})
@@ -156,8 +202,14 @@ export default function RecipeCreate(props){
         validateInput('recipe_ingredients', validateRecipeIngredients, 'Se requieren al menos 1 palabra para los ingredientes', errorsState, errorsMsg);
         validateInput('recipe_categories', validateRecipeCategories, 'Se requieren al menos 1 categoria seleccionada', errorsState, errorsMsg);
         validateInput('recipe_process', validateRecipeProcess, 'Se requieren al menos 3 caracteres para el proceso', errorsState, errorsMsg);
+        validateInput('recipe_photo', validateRecipePhoto, 'Se requiere subir una foto para la receta', errorsState, errorsMsg);
 
         const hasError = hasSyntaxErrors(errorsState);
+
+        if (hasError && errorsState['recipe_photo'])
+        {
+            alert(errorsMsg['recipe_photo']);
+        }
 
         setFieldErrorMsg(fieldErrorMsg => (
             {
@@ -190,6 +242,20 @@ export default function RecipeCreate(props){
         postedStr = "Publicada";
     else
         postedStr = "No publicada";
+
+    let imageLabelInfo = "";
+    let showImageLabel = false;
+
+    if (fieldErrorState['recipe_photo'])
+    {
+        imageLabelInfo = fieldErrorMsg['recipe_photo']
+        showImageLabel = true;
+    }
+    else if (fieldData['recipe_photo'] !== '')
+    {
+        imageLabelInfo = fieldData['recipe_photo'].name;
+        showImageLabel = true;
+    }
 
     return (
             <>
@@ -225,14 +291,21 @@ export default function RecipeCreate(props){
                 >
                     
                 </Grid>
-
+                
                 <Grid item xs={4} sm={4} md={12}>
-                    <UploadButton text='Subir Imagen'></UploadButton>
+                    <Stack direction = 'row' spacing={2}>
+                        <UploadButton text='Subir Imagen' 
+                            setImageData = {onPhotoChange}
+                            name = 'recipe_photo'
+                            >
+                        </UploadButton>
+                        {showImageLabel && <Typography>{imageLabelInfo}</Typography>}
+                    </Stack>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={12}>
                     <FormGroup>
-                        <FormControlLabel control={<Switch defaultChecked={publishState} 
+                        <FormControlLabel control={<Switch defaultChecked={false} 
                             onChange={onStatusChanged} name='recipe_state' />} label={postedStr} />
                     </FormGroup>
                     <FormHelperText>Presionar para que la receta se publique despues de crearla</FormHelperText>

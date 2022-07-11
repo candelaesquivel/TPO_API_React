@@ -9,7 +9,9 @@ const urlWebServices = {
     updateUserData:urlApi + "profile/modify",
     createRecipe:urlApi + "recipes/create",
     deleteRecipe:urlApi + "recipes/delete",
-    califyRecipe:urlApi + "recipes/calify"
+    califyRecipe:urlApi + "recipes/calify",
+    uploadFileImg : urlApi + "recipes/uploadImage",
+    saveRecipeImg : urlApi + 'recipes/saveRecipeImg'
 }
 
 export default urlWebServices;

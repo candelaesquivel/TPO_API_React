@@ -15,6 +15,7 @@ export const createRecipe = async function(recipe){
     formData.append('difficulty', recipe.difficulty);
     formData.append('process', recipe.process);
     formData.append('userEmail', recipe.userEmail);
+    formData.append('photo', recipe.photo);
 
     console.log("Recipe data: ", recipe)
     
@@ -339,15 +340,15 @@ export const login= async function(login)
     };
 }
 
-export const guardarImgUser = async function(message)
+export const saveImgInCloud = async function(message)
 {
     //url webservices
-    let url = urlWebServices.guardarImgUser;
+    let url = urlWebServices.saveRecipeImg;
     //console.log("url",url);
     //console.log("token",WebToken.webToken);
     const formData = new URLSearchParams();
     formData.append('email', message.email);
-    formData.append('nombreImagen',message.imagen);
+    formData.append('imageName',message.imagen);
     
     try
     {
@@ -356,18 +357,31 @@ export const guardarImgUser = async function(message)
             mode: "cors",
             headers:{
                 'Accept':'application/x-www-form-urlencoded',
-                'x-access-token': localStorage.getItem('x'),
+                'x-access-token': getToken(),
                 'Origin':'http://localhost:3000',
                 'Content-Type': 'application/x-www-form-urlencoded'},
             body:formData
         });
-        if (response.status===201)
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("Data Response: ", data)
+        switch(rdo)
         {
-            return true;
-        }
-        else
-        {
-           return false; 
+            case 201:
+            {
+                return ({rdo:0,mensaje:"Ok", imgUrl : data.imgUrl});//correcto
+            }
+            case 400:
+            {
+                console.log("Error: 400");
+                return ({rdo:400, mensaje: data.message, errorCode: data.errorCode})
+            }
+            default:
+            {
+                //otro error
+                return ({rdo:1,mensaje:"Ha ocurrido un error"});                
+            }
         }
     }
     catch(error)
@@ -377,20 +391,17 @@ export const guardarImgUser = async function(message)
     };
 }
 
-export const uploadFileImg= async function(files,nombres)
+export const uploadFileImgLocal= async function(files,fileNames)
 {
      //url webservices
      let url = urlWebServices.uploadFileImg;
-  
     console.log('files', files)
-    console.log('nombres',nombres)
+    console.log('nombres',fileNames)
     const formData = new FormData();
     //agrego archivos para subir
     for (let i = 0; i < files.length; i++)
-    {
-        formData.append('files', files[i], nombres[i])
-    }
-   
+        formData.append('files', files[i], fileNames[i])
+    
     try
     {
         let response = await fetch(url,{
@@ -398,7 +409,7 @@ export const uploadFileImg= async function(files,nombres)
             mode: "cors",
             headers:{
                 'Accept':'application/form-data',
-                'x-access-token': localStorage.getItem('x'),
+                'x-access-token': getToken(),
                 'Origin':'http://localhost:3000',
                 //'Content-Type': 'application/form-data'
             },
@@ -413,44 +424,4 @@ export const uploadFileImg= async function(files,nombres)
         console.log('Error uploading the files', err)
     }
 }
-export const getImagenesByUser = async function()
-{
-    //url webservices
-    let url = urlWebServices.getImgUser;
-    //console.log("url",url);
-    //console.log("token",WebToken.webToken);
-    const formData = new URLSearchParams();
-    formData.append('email', localStorage.getItem('email'));
-    
-    try
-    {
-        let response = await fetch(url,{
-            method: 'POST', // or 'PUT'
-            mode: "cors",
-            headers:{
-                'Accept':'application/x-www-form-urlencoded',
-                'x-access-token': localStorage.getItem('x'),
-                'Origin':'http://localhost:3000',
-                'Content-Type': 'application/x-www-form-urlencoded'},
-            body:formData
-        });
-        if (response.status===200)
-        {
-            let data = await response.json();
-            console.log("imagenesUser",data);
-            let listaImg = data.data.docs;
-            return listaImg;
-        }
-        else
-        {
-            let vacio=[];
-            console.log("No hay imagenes")
-            return (vacio);
-            
-        }
-    }
-    catch(error)
-    {
-        console.log("error",error);
-    };
-}
+

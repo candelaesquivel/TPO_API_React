@@ -41,3 +41,7 @@ export const validateRecipeIngredients = (ingredients) => {
 export const validateRecipeCategories = (categories) => {
     return categories.length >= 1;
 }
+
+export const validateRecipePhoto = (photo) => {
+    return photo !== ''
+}
