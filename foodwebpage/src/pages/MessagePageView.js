@@ -13,11 +13,15 @@ export default function MessagePageView(props){
     const navigate = useNavigate();
 
     useEffect( () => {
-
         if (!isLogged()){
             setTimeout( () => {
                 navigate(props.url)
             }, 3000);
+        }
+        else{
+            setTimeout( () => {
+                navigate(props.url)
+            }, 2000);
         }
     });
 
