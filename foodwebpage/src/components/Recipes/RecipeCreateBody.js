@@ -12,6 +12,7 @@ import {Button} from "@mui/material";
 import React, { useState} from 'react';
 import { createRecipe as CreateRecipeController, uploadFileImgLocal, saveImgInCloud } from "../../controllers/MyAppController";
 import { red } from '@mui/material/colors';
+import {useNavigate } from "react-router-dom";
 import {getUserEmail} from '../../utilities/UserSession';
 
 // Syntax Validators
@@ -20,6 +21,7 @@ import {validateRecipeName, validateRecipeIngredients, validateRecipeProcess, va
 export default function RecipeCreate(props){
 
     const [checkedCategories, setCheckedCategories] = useState([]);
+    const navigate = useNavigate();
 
     const [fieldData, setFieldData] = useState({
         recipe_name : '',
@@ -148,6 +150,7 @@ export default function RecipeCreate(props){
         if (imgUrl === '')
             return;
 
+
         var recipeData = {
             name :          fieldData['recipe_name'],
             categories :    fieldData['recipe_categories'],
@@ -167,6 +170,12 @@ export default function RecipeCreate(props){
         {
             setFieldErrorState({...fieldErrorState, ['recipe_process'] : true});
             setFieldErrorMsg({...fieldErrorMsg, ['recipe_process'] : result.mensaje})
+        }
+        else if (result.rdo === 0)
+        {
+            setTimeout( () => {
+                navigate('/my-recipes')
+            }, 500);
         }
     }
 
