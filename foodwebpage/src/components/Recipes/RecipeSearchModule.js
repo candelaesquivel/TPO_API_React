@@ -17,7 +17,13 @@ export default function RecipeSearchModule(props){
     const isInHome = !props.isOnProfileRecipes;
     
     const getMyRecipes = async function(){
-        let result = await getRecipesFromUser(getUserEmail());
+        const filters = {
+            name : nameSearched,
+            ingredients : ingredientSearched,
+            difficulty : difficultySearched,
+            categories : categoriesSearched
+        };
+        let result = await getRecipesFromUser(getUserEmail(), filters);
         setRecipes(result.data);
     }
 
@@ -69,7 +75,7 @@ export default function RecipeSearchModule(props){
 
         const ingredient = event.target.value
 
-        if (ingredient.lenght > 0)
+        if (ingredient.length > 0)
             setIngredientSearched(ingredient.replace(' ', '').split(','))
         else
             setIngredientSearched([])

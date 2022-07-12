@@ -61,12 +61,65 @@ export const createRecipe = async function(recipe){
         };
 }
 
-export const getRecipesFromUser = async function(userEmail){
+export const deleteRecipeById = async function(id){
+  //url webservices
+  let url = urlWebServices.deleteRecipe;
+  //armo json con datos
+  const formData = new URLSearchParams();
+  formData.append('idRecipe', id);
+  
+  try{
+          let response = await fetch(url,{
+              method: 'POST', // or 'PUT'
+              mode: "cors",
+              headers:{
+                  'Accept':'application/x-www-form-urlencoded',
+                  'x-access-token': getToken(),
+                  'Origin':'http://localhost:3000',
+                  'Content-Type': 'application/x-www-form-urlencoded'},
+              body: formData,
+          });
+  
+          
+          let rdo = response.status;
+          console.log("response",response);
+          let responseData = await response.json();
+          console.log("Data Response: ", responseData)
+          switch(rdo)
+          {
+              case 201:
+              {
+                  return ({rdo:0,mensaje:"Ok", data : responseData.data});//correcto
+              }
+              case 400:
+              {
+                  console.log("Error: 400");
+                  return ({rdo:400, mensaje: responseData.message, errorCode: responseData.errorCode})
+              }
+              default:
+              {
+                  //otro error
+                  return ({rdo:1,mensaje:"Ha ocurrido un error"});                
+              }
+          }
+      }
+      catch(error)
+      {
+          console.log("error",error);
+      };  
+}
+
+export const getRecipesFromUser = async function(userEmail, filters){
     //url webservices
     let url = urlWebServices.getRecipesFromUser;
     //armo json con datos
     const formData = new URLSearchParams();
+
     formData.append('userEmail', userEmail);
+    formData.append('name', filters.name)
+    formData.append('ingredients', filters.ingredients)
+    formData.append('difficulty', filters.difficulty)
+    formData.append('categories', filters.categories)
     
     try{
             let response = await fetch(url,{
@@ -115,6 +168,7 @@ export const getRecipeById = async function(id){
     //armo json con datos
     const formData = new URLSearchParams();
     formData.append('idRecipe', id);
+    console.log("Receta by Id: ", id)
     
     try{
             let response = await fetch(url,{
