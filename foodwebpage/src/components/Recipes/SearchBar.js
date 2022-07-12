@@ -29,7 +29,7 @@ export function SearchBar(props){
                 <Grid item xs={4} sm={8} md={6}>
                     <TextField
                             id="standard-search"
-                            label="Ingredientes"
+                            label="Ingredientes (separar por comas)"
                             type="search"
                             variant="outlined"
                             fullWidth
