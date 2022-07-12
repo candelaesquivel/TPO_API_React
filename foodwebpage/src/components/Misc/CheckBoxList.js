@@ -1,6 +1,5 @@
 import { List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
 import { Checkbox } from "@mui/material";
-import { useState } from "react";
 
 export function CheckBoxList(props)
 {

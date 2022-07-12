@@ -11,12 +11,12 @@ import DifficultyIndicator from './DifficultyIndicator';
 import {useNavigate } from "react-router-dom";
 
 import {validateRecipeName, validateRecipeIngredients, validateRecipeProcess, validateRecipeCategories, validateRecipePhoto} from '../../utilities/ValidateHandlers'
-import { getRecipeById, deleteRecipeById as DeleteRecipeInController } from "../../controllers/MyAppController";
+import { deleteRecipeById as DeleteRecipeInController } from "../../controllers/MyAppController";
 import { uploadFileImgLocal, saveImgInCloud } from "../../controllers/MyAppController";
 import {getUserEmail} from '../../utilities/UserSession';
 import { CheckBoxList } from "../Misc/CheckBoxList";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 
 export function RecipeEditBody(props){
@@ -144,17 +144,6 @@ export function RecipeEditBody(props){
     }
 
     const updateRecipe = async function() {
-
-        var recipeData = {
-            name :          fieldData['recipe_name'],
-            categories :    fieldData['recipe_categories'],
-            ingredients :   fieldData['recipe_ingredients'].split(','),
-            process :       fieldData['recipe_process'],
-            state :         fieldData['recipe_state'],
-            difficulty :    fieldData['recipe_difficulty'],
-            userEmail   :   getUserEmail(),
-            photo       :   imgUrl
-        }
 
         return;
 
@@ -296,16 +285,6 @@ export function RecipeEditBody(props){
     {
         imageLabelInfo = fieldData['recipe_photo'].name;
         showImageLabel = true;
-    }
-
-    const deleteRecipeById = async function () {
-        let result = await DeleteRecipeInController(props.idRecipe)
-        console.log('Response Delete: ', result);
-    }
-
-    const deletePressed = (event) => {
-        event.preventDefault();
-        deleteRecipeById();
     }
 
     return (
