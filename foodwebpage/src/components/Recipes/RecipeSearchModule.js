@@ -1,157 +1,99 @@
-import { Component } from "react";
 import {RecipeGrid} from "./RecipeGrid";
-
 import {SearchBar} from './SearchBar';
 
-import {prefixStr} from '../../utilities/stringFunctions';
-import {recipes_example} from "../../utilities/sharedData";
+import { useEffect, useState } from "react";
+import {getRecipesFromUser, getAllRecipes} from '../../controllers/MyAppController';
+import { getUserEmail } from "../../utilities/UserSession";
 
-class RecipeSearchModule extends Component{
+export default function RecipeSearchModule(props){
+
+    const [recipes, setRecipes] = useState([])
+    const [nameSearched, setNameSearched] = useState('');
+    const [ingredientSearched, setIngredientSearched] = useState([])
+    const [difficultySearched, setDifficultySearched] = useState(0)
+    const [categoriesSearched, setCategoriesSearched] = useState([])
+    const [triggerRender, setTriggerRender] = useState(false)
+
+    const isInHome = !props.isOnProfileRecipes;
     
-    constructor(props){
-        super(props)
+    const getMyRecipes = async function(){
+        let result = await getRecipesFromUser(getUserEmail());
+        setRecipes(result.data);
+    }
 
-        this.state = {
-            nameRecipe : '',
-            ingredientRecipe : [],
-            categoryRecipe : [],
-            difficultyValue : 0
-
+    const getAllRecipesFromSite = async function(){
+        const filters = {
+            name : nameSearched,
+            ingredients : ingredientSearched,
+            difficulty : difficultySearched,
+            categories : categoriesSearched
         };
-
-        this.handleSearchByName = this.handleSearchByName.bind(this);
-        this.handleToggleRanking = this.handleToggleRanking.bind(this);
-        this.handleSearchByIngredient = this.handleSearchByIngredient.bind(this);
-        this.handleSearchByCategory = this.handleSearchByCategory.bind(this);
+        
+        let result = await getAllRecipes(filters)
+        setRecipes(result.data);
     }
 
-    handleSearchByCategory(_event, value){
-        this.setState({
-            categoryRecipe : value
-        });
-    }
-
-    handleSearchByName(event) {
-
-        let name = '';
-
-        if (event.target.value.length > 0)
-            name = event.target.value;
-
-        this.setState({
-            nameRecipe : name.replaceAll(' ', '')
-        });
-    }
-
-    handleToggleRanking(_event, value){
-        if (value == null)
-        {
-            this.setState({
-                difficultyValue : 0
-            })
-        }else{
-            this.setState({
-                difficultyValue : value
-            });
-        }
-    }
-
-    handleSearchByIngredient(event){
-        const ingredient = event.target.value;
-
-        if (ingredient.length > 0)
-        {
-            this.setState({
-                ingredientRecipe : ingredient.replaceAll(' ', '').split(',')
-            });
+    useEffect( () => {
+        setTriggerRender(false)
+        if (!isInHome){
+            getMyRecipes();
         }
         else{
-            this.setState({
-                ingredientRecipe : []
-            })
+            getAllRecipesFromSite();
         }
-    }
+    }, [triggerRender])
 
-    render(){
-
-        const diffValue = this.state.difficultyValue;
-        const isOnProfileRecipes = this.props.isOnProfileRecipes;
-
-        const recipeList = recipes_example.filter( itr => 
+    const handleSearchByName = (event) => {
+        setTriggerRender(true)
+        const name = event.target.value
+        if (name.length > 0)
         {
-            let matchName = true;
-            let matchDiff = true;
-            let matchIngrendients = true;
-            let matchCategory = true;
-
-            /** Filtro por Nombre */
-            if (itr.name.length > 0)
-                matchName = prefixStr(itr.name, this.state.nameRecipe);
-
-
-            /** Filtro por Dificultad */
-            if (diffValue > 0)
-                matchDiff = itr.difficulty === diffValue
-
-            /** Filtro por Ingrediente*/
-            {
-                const selectedIngredients = this.state.ingredientRecipe;
-
-                if (selectedIngredients.length > 0)
-                {
-                    matchIngrendients = false;
-
-                    matchIngrendients = selectedIngredients.every(userIngredient => {
-
-                        return itr.ingredients.find(recipeIngredient => {
-                            return prefixStr(recipeIngredient, userIngredient);
-                        }) !== undefined;
-                    })
-                }
-            }
-
-            /** Filtro por Categoria */
-            {
-                const selectedCategories = this.state.categoryRecipe;
-
-                if (selectedCategories.length > 0)
-                {
-                    matchCategory = false;
-
-                    matchCategory = selectedCategories.every(userCategory => {
-                        return itr.category.includes(userCategory);
-                    })
-                }
-            }
-
-            let matchPosted = false;
-
-            if (isOnProfileRecipes)
-                matchPosted = true;
-            else
-                matchPosted = itr.isPublic;
-
-            return matchName && matchDiff && matchIngrendients && matchCategory && matchPosted;
-        });
-
-        return (
-            <>
-                
-                <SearchBar 
-                    onNameChange={this.handleSearchByName} 
-                    onDifficultChange={this.handleToggleRanking}
-                    onIngredientChange={this.handleSearchByIngredient}
-                    onCategoryChange={this.handleSearchByCategory}
-                >
-                </SearchBar>
-                <RecipeGrid 
-                    recipes={recipeList}
-                    readMoreLink={this.props.readMoreLink}
-                >
-                </RecipeGrid>
-            </>
-        )
+            console.log("NAME CHANGED")
+            setNameSearched(name)
+        }
+        else
+            setNameSearched('')
     }
-}
 
-export default RecipeSearchModule;
+    const handleToggleRanking = (_event, value) => {
+        setTriggerRender(true)
+
+        if (value !== null)
+            setDifficultySearched(value)
+        else
+            setDifficultySearched(0)
+    }
+
+    const handleSearchByIngredient = (event) => {
+        setTriggerRender(true)
+
+        const ingredient = event.target.value
+
+        if (ingredient.lenght > 0)
+            setIngredientSearched(ingredient.replace(' ', '').split(','))
+        else
+            setIngredientSearched([])
+    }
+
+    const handleSearchByCategory = (_event, value) => {
+        setTriggerRender(true)
+        setCategoriesSearched(value);
+    }
+
+    return (
+        <>
+            <SearchBar 
+                onNameChange={handleSearchByName} 
+                onDifficultChange={handleToggleRanking}
+                onIngredientChange={handleSearchByIngredient}
+                onCategoryChange={handleSearchByCategory}
+            >
+            </SearchBar>
+            <RecipeGrid 
+                recipes={recipes}
+                readMoreLink={props.readMoreLink}
+            >
+            </RecipeGrid>
+        </>
+    )
+}

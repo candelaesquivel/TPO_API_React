@@ -14,12 +14,12 @@ export function RecipeGrid(props){
                 <Grid item xs={4} sm={4} md={4}>
                     <RecipeSmallCard 
                         recipeName = {itr.name} 
-                        recipeProcedure = {itr.procedure}
-                        recipeRanking = {itr.ranking}
+                        recipeProcedure = {itr.process}
+                        recipeRanking = {itr.averageMark}
                         recipeDifficulty = {itr.difficulty}
-                        recipeId = {itr.id}
+                        recipeId = {itr.idRecipe}
                         readMoreLink = {props.readMoreLink}
-                        imgsrc = {itr.img}
+                        imgsrc = {itr.photo}
                     >
                     </RecipeSmallCard>
                 </Grid>
