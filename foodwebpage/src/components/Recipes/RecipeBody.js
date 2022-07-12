@@ -7,7 +7,7 @@ import { Rating } from "@mui/material";
 import {recipes_example, categories} from '../../utilities/sharedData';
 import DifficultyIndicator from "./DifficultyIndicator";
 import { isLogged } from "../../utilities/UserSession";
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Dialog } from "@mui/material";
 import { DialogTitle } from "@mui/material";
 import { DialogContent } from "@mui/material";
@@ -15,6 +15,7 @@ import { DialogActions } from "@mui/material";
 import { DialogContentText } from "@mui/material";
 import { Button } from "@mui/material";
 
+import {getRecipeById} from '../../controllers/MyAppController'
 
 function ingredientList(ingredients){
     return (
@@ -37,17 +38,24 @@ export function RecipeBody(props){
     const [isDialogOpen, setDialogOpen]=useState(false);
     const[dialogText,setDialogText]=useState("");
 
-    const recipe = recipes_example.find(itr => itr.id === parseInt(props.idRecipe));
+    const [recipeData, setRecipeData] = useState(null)
 
     const isExitToggle=(event)=>{
         setDialogOpen(false);
     }
 
-    const defaultCategoriesSelected = categories.filter( itr =>
-        {
-            return recipe.category.includes(itr);
-        }
-    )
+    const getRecipeDataById = async function(){
+        const idRecipe = props.idRecipe
+        let result = await getRecipeById(idRecipe)
+        console.log("Recipe Data: ", result.data)
+        const recipeInfo = result.data;
+
+        setRecipeData(recipeInfo)
+    }
+
+    useEffect( () => {
+        getRecipeDataById();
+    }, [])
 
     const ratingChange = (event) => {
         setDialogOpen(true);
@@ -58,20 +66,23 @@ export function RecipeBody(props){
         }
     };
 
+    console.log('Recipe Data: ', recipeData)
 
-    return (
-
-        <Grid 
-            container 
-            spacing={{ xs: 2, md: 3 }} 
-            columns={{ xs: 4, sm: 8, md: 12 }} 
-            p={12}
-            direction='column'
-        >
+    const Body = (props) => {
+        const recipeData = props.recipeData;
+        return (
+            <>
+            <Grid 
+                container 
+                spacing={{ xs: 2, md: 3 }} 
+                columns={{ xs: 4, sm: 8, md: 12 }} 
+                p={12}
+                direction='column'
+            >
 
             <Grid item xs={4} sm={8} md={12}>
                 <Typography variant='h4'>
-                    {recipe.name}
+                    {recipeData.name}
                 </Typography>
             </Grid>
             
@@ -86,8 +97,8 @@ export function RecipeBody(props){
             >
 
                 <Grid item xs={4} sm={8} md={12}>
-                    <img src={'/' + recipe.img}
-                    style={{height: 'auto', width: '70%'}}
+                    <img src={recipeData.photo}
+                    style={{height: 'auto', width: '50%'}}
                     alt='recipe-img'
                     >
                     </img>
@@ -98,13 +109,13 @@ export function RecipeBody(props){
                 <Typography>
                     Ingredientes:
                 </Typography>
-                {ingredientList(recipe.ingredients)}
+                {ingredientList(recipeData.ingredients)}
             </Grid>
 
             <Grid item xs={4} sm={8} md={12}>
                 <Typography mb={2}>Categorías</Typography>
                 <CheckboxesTags 
-                    selectedOptions = {defaultCategoriesSelected}
+                    selectedOptions = {recipeData.categories}
                     options = {categories}
                     placeholder=''
                     fullWidth = {true}
@@ -115,7 +126,7 @@ export function RecipeBody(props){
             </Grid>
 
             <Grid item xs={4} sm={4} md={12}>
-                <DifficultyIndicator difficultyValue={recipe.difficulty} disabled = {true}></DifficultyIndicator>
+                <DifficultyIndicator difficultyValue={recipeData.difficulty} disabled = {true}></DifficultyIndicator>
             </Grid>
 
             <Grid item xs={4} sm={4} md={4}>
@@ -123,7 +134,7 @@ export function RecipeBody(props){
                     Procedimiento
                 </Typography>
                 <Typography>
-                    {recipe.procedure}
+                    {recipeData.process}
                 </Typography>
             </Grid>
 
@@ -153,7 +164,23 @@ export function RecipeBody(props){
             
 
         </Grid>
-    )
+            </>
+        )
+    }
+
+    if (recipeData !== null)
+    {
+        return (
+            <><Body recipeData = {recipeData}></Body></>
+        )
+    }
+    else{
+        return (
+            <>
+                
+            </>
+        )
+    }
 }
 
 export default RecipeBody;
