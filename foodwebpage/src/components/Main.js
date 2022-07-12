@@ -13,11 +13,51 @@ import ResetPassword from "../pages/ResetPassword";
 import ChangePassword from "../pages/ChangePassword";
 import RecipeCreatePage from '../pages/RecipeCreate';
 import {ModifyProfileDataView} from "../pages/ModifyProfileDataView";
-import LogoutView from '../pages/LogoutView';
+import MessagePageView from '../pages/MessagePageView';
 
 class Main extends Component{
     render()
     {
+        const LogoutView = () => {
+            return <MessagePageView
+            closeSession = {true}
+            message = 'Se ha cerrado la sesión correctamente, en breve sera redirigido a la página principal'
+            url = '/home'>
+            </MessagePageView>
+        }
+
+        const RecipeCreateSuccesfulView = () => {
+            return <MessagePageView
+            closeSession = {false}
+            message = 'Se ha creado con exito la receta'
+            url = '/my-recipes'>
+            </MessagePageView>
+        }
+
+        const RecipedUpdateSuccesfulView = () => {
+            return <MessagePageView
+            closeSession = {false}
+            message = 'Se ha actualizado con exito los datos de la receta'
+            url = '/my-recipes'>
+            </MessagePageView>
+        }
+
+        const RecipeDeletedSuccesfulView = () => {
+            return <MessagePageView
+            closeSession = {false}
+            message = 'Se ha eliminado correctamente la receta'
+            url = '/my-recipes'>
+            </MessagePageView>
+        }
+
+        const ForbiddenAccessView = () => {
+            return <MessagePageView
+            closeSession = {false}
+            message = 'Acceso no autorizado a usuarios no registrados'
+            url = '/home'>
+            </MessagePageView>
+        }
+
         return (
             <div>
                 <Routes>
@@ -37,6 +77,10 @@ class Main extends Component{
                     <Route path= 'modify-last-name' element={<ModifyProfileDataView title={'Cambiar Apellido'} inputLabel={'Apellido'} />}></Route>
                     <Route path= 'modify-phone' element={<ModifyProfileDataView title={'Cambiar Teléfono'} inputLabel={'Teléfono'} />}></Route>
                     <Route path= 'logout' element={<LogoutView></LogoutView>}></Route>
+                    <Route path= 'recipe-created' element={<RecipeCreateSuccesfulView/>}></Route>
+                    <Route path= 'recipe-modified' element={<RecipedUpdateSuccesfulView/>}></Route>
+                    <Route path= 'recipe-deleted' element={<RecipeDeletedSuccesfulView/>}></Route>
+                    <Route path= 'forbidden-access' element={<ForbiddenAccessView/>}></Route>
                     <Route path='*' element={<Home />} />
                 </Routes>
             </div>

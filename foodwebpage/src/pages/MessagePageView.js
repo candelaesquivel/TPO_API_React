@@ -1,14 +1,14 @@
-
 import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
-import { LogoutBody } from "../components/Logout/LogoutBody";
+import { MessagePageBody } from "../components/Misc/MessagePageBody";
 import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { closeSession, isLogged } from '../utilities/UserSession'
 
-export default function LogoutView(props){
+export default function MessagePageView(props){
     
-    closeSession();
+    if (props.closeSession)
+        closeSession();
 
     const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ export default function LogoutView(props){
 
         if (!isLogged()){
             setTimeout( () => {
-                navigate('/home')
+                navigate(props.url)
             }, 3000);
         }
     });
@@ -24,7 +24,10 @@ export default function LogoutView(props){
     return (
         <>
             <ResponsiveAppBar></ResponsiveAppBar>
-            <LogoutBody></LogoutBody>
+            <MessagePageBody 
+                message = {props.message}
+            >
+            </MessagePageBody>
             <ResponsiveFooter></ResponsiveFooter>
         </>
     )
