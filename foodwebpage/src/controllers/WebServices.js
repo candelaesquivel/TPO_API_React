@@ -11,7 +11,10 @@ const urlWebServices = {
     deleteRecipe:urlApi + "recipes/delete",
     califyRecipe:urlApi + "recipes/calify",
     uploadFileImg : urlApi + "recipes/uploadImage",
-    saveRecipeImg : urlApi + 'recipes/saveRecipeImg'
+    saveRecipeImg : urlApi + 'recipes/saveRecipeImg',
+    getRecipesFromUser : urlApi + 'recipes/my-recipes',
+    getRecipeById : urlApi + 'recipes/view-recipe',
+    getAllRecipes : urlApi
 }
 
 export default urlWebServices;
