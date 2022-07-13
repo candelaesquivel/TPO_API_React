@@ -1,12 +1,14 @@
 
-# TPO_API - Food Web page
+# TPO_API - Food Recipes
+
 # Tabla de Contenidos
 1. [Introducción](#Introducción)
 2. [Requerimientos](#Requerimientos)
 3. [Instalación](#Instalación)
-4. [Documentación](#Documentación)
-5. [Equipo de Trabajo](#EquipodeTrabajo)
-6. [Conclusión](#Conclusión)
+4. [Funcionalidades](#Funcionalidades)
+5. [Documentación](#Documentación)
+6. [Equipo de Trabajo](#EquipodeTrabajo)
+
 
 ## Introducción
 Este proyecto es una página web de recetas llamada *“Food Recipes”*. En la pagina web se podrán observar distintos platos de comida y bebidas con la explicación de como cocinarlas, que ingredientes son requeridos y una calificación que es en base a la votación de los usuarios. Estando registrado se pueden subir recetas y calificar la de los demás.
@@ -31,8 +33,10 @@ $ npm install
 ```console
 $ npm start
 ```
-Si todo se ejecuto correctamente deberas ser redirigido a la pagina principal de Food Web Page 
-img
+Si todo se ejecuto correctamente deberas ser redirigido a la pagina principal de Food Recipes
+
+<img width="897" alt="image" src="https://user-images.githubusercontent.com/80803466/178839520-8a23f9fe-2399-4479-94bf-776abe9c8e1e.png">
+
 
 Instrucciones de instalación backend
 ```console
@@ -48,6 +52,42 @@ Si todo se conecto exitosamente aparecera esto en la terminal
 Archivo env.
 
 <img width="215" alt="image" src="https://user-images.githubusercontent.com/80803466/178826725-6aaf2f85-7dc9-4a85-a32e-2c2994a52bee.png">
+
+## Funcionalidades
+
+En la página principal se pueden ver todas las recetas de los usuarios. Si la persona desea buscar recetas especificas puede usar el buscador el cual posee los campos para completar nombre , ingredientes ( que se deben separar por comas en caso de poner más de uno ), categorías de las cuales solo puede seleccionar entre 10 y por último la dificultad que va del 1 al 5.
+
+<img width="898" alt="image" src="https://user-images.githubusercontent.com/80803466/178844622-6b72da76-697a-455d-9911-e19cc94dbce9.png">
+
+Dentro del header el usuario puede seleccionar:
+
+-"Sobre nosotros " y será redirigido a una página que explicará detalles sobre Food recipes.
+
+<img width="896" alt="image" src="https://user-images.githubusercontent.com/80803466/178845335-46958e00-8a4a-4f97-b593-8b253d70d308.png">
+
+-"Conectarse" y será redirigido a una página para poder hacer log in.
+
+<img width="901" alt="image" src="https://user-images.githubusercontent.com/80803466/178845551-210e8497-7515-4fed-a19a-5b67a7d9a6e4.png">
+
+-"Registrarse" y será redirigido a una página para poder registrarse como nuevo usuario.
+
+<img width="886" alt="image" src="https://user-images.githubusercontent.com/80803466/178845593-23c63087-8e6f-4e03-8e26-55687bb504b1.png">
+
+Dentro de cada receta esta la opción de "leer más" , eso redirigirá a la persona a una pantalla donde podrá observar los detalles de la receta y si esta logeado podra calificarla.
+
+![image](https://user-images.githubusercontent.com/80803466/178845940-2fda5ecf-fffb-4600-aa1d-e5ef554b50bd.png)
+
+<img width="456" alt="image" src="https://user-images.githubusercontent.com/80803466/178846573-aa71f896-cb85-49f6-aa6f-8e6ddeed3fa0.png">
+
+Si al intentar hacer log in no recuerda su contraseña, puede seleccionar la opción de "olvide contraseña" y será redirigido a la página de recuperar contraseña. En la misma se le pedirá su email y se buscara si es un usuario registrado para mostrarle la pregunta de seguridad que agrego cuando creo su cuenta, usted deberá contestar la respuesta y de ser correcta será redirigido a una página donde podrá recuperar su contraseña.
+
+![image](https://user-images.githubusercontent.com/80803466/178847088-b37c07fe-7412-44a4-9ca3-ab9bb5449024.png)
+<img width="420" alt="image" src="https://user-images.githubusercontent.com/80803466/178847852-b8c2d0c8-767c-49c6-8640-204ff1349060.png">
+
+<img width="507" alt="image" src="https://user-images.githubusercontent.com/80803466/178847795-df7b2f13-4468-48e1-8d02-e017186fdcda.png">
+
+
+
 
 ## Documentación
 Diagrama de relaciones
@@ -103,21 +143,20 @@ Codigos de error
 
 <img width="208" alt="image" src="https://user-images.githubusercontent.com/80803466/178833275-b1031232-6a59-4ca9-9896-483fc33e9597.png">
 
-Autenticación por token
+Autenticación por token , libreria usada : JSON Web Token (JWT).   Se pedira en las siguientes peticiones : 
 
-Libreria usada : JSON Web Token (JWT)       
+                          -Actualizar información del usuario
+                          -Actualizar información de la receta
+                          -Obtener recetas del usuario
+                          -Eliminar una receta
+                          -Crear una receta
+                          -Calificar una receta
 
-Se pedira en las siguientes peticiones :
+Peticiones
 
--Actualizar información del usuario
--Actualizar información de la receta
--Obtener recetas del usuario
--Eliminar una receta
--Crear una receta
--Calificar una receta
+<img width="219" alt="image" src="https://user-images.githubusercontent.com/80803466/178844087-0c9c5e04-ba06-4bc2-9729-91b712e0ad49.png">
 
-Endpoints
-<img width="210" alt="image" src="https://user-images.githubusercontent.com/80803466/178838163-7be452b0-5be5-4df5-906d-7b43261d8844.png">
+<img width="464" alt="image" src="https://user-images.githubusercontent.com/80803466/178842531-40f88dec-47bf-44df-b9de-bc87529c5de4.png">
 
 
 
@@ -126,7 +165,7 @@ Antonio Berti
 
 Candela Esquivel
 
-## Conclusión
+
 
 
 
