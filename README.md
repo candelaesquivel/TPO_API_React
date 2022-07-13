@@ -11,9 +11,15 @@ Lenguajes y librerías utilizadas en el backend: JavaScript , NodeJS y Mongoose.
 
 Base de datos: NO SQL (MongoDB).
 
-## Instrucciones de instalación
+## Instrucciones de instalación frontend
 
 ```console
 $ npm install
+```
+
+## Instrucciones de instalación backend
+
+```console
+$ nodemon install
 ```
 
