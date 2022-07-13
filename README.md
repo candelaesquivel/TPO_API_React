@@ -15,11 +15,13 @@ Base de datos: NO SQL (MongoDB).
 
 ```console
 $ npm install
+$ npm start
 ```
 
 ## Instrucciones de instalación backend
 
 ```console
-$ nodemon install
+$ npm install -g nodemon
+$ nodemon app.js
 ```
 
