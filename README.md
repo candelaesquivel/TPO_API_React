@@ -90,7 +90,7 @@ Si al intentar hacer log in no recuerda su contraseña, puede seleccionar la opc
 
 
 ## Documentación
-Diagrama de relaciones
+Diagrama de flujo
 ```mermaid
 flowchart LR
    User == email ==> Recipe
@@ -98,7 +98,7 @@ flowchart LR
    Recipe == idRecipe ==> CalifycationUser
    
 ```
-Diagrama de clases
+Diagrama de estructura de la base de datos MongoDB
 
 ```mermaid
 classDiagram
@@ -141,16 +141,22 @@ Estados de response del backend hacia el frontend
 
 Codigos de error 
 
-<img width="208" alt="image" src="https://user-images.githubusercontent.com/80803466/178833275-b1031232-6a59-4ca9-9896-483fc33e9597.png">
+                                             ERROR_PASSWORD_NOT_VALID    : 1,
+                                             ERROR_MAIL_NOT_ASSOCIATED   : 2,
+                                             ERROR_SECURITY_ANSWER_WRONG : 3,
+                                             ERROR_MAIL_IN_USE           : 4,
+                                             ERROR_IN_DB_OPERATION       : 5,
+                                             ERROR_RECIPE_NOT_FOUND      : 6,
+                                             ERROR_RECIPE_ID_IN_USE      : 7,
+                                             ERROR_DUPLICATE_CALIFY      : 8
 
 Autenticación por token , libreria usada : JSON Web Token (JWT).   Se pedira en las siguientes peticiones : 
-
-                          -Actualizar información del usuario
-                          -Actualizar información de la receta
-                          -Obtener recetas del usuario
-                          -Eliminar una receta
-                          -Crear una receta
-                          -Calificar una receta
+   -Actualizar información del usuario
+   -Actualizar información de la receta
+   -Obtener recetas del usuario
+   -Eliminar una receta
+   -Crear una receta
+   -Calificar una receta
 
 Peticiones
 
