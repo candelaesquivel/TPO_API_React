@@ -6,7 +6,7 @@ import { List, ListItem } from "@mui/material";
 import { Rating } from "@mui/material";
 import {recipes_example, categories} from '../../utilities/sharedData';
 import DifficultyIndicator from "./DifficultyIndicator";
-import { isLogged } from "../../utilities/UserSession";
+import { getUserEmail, isLogged } from "../../utilities/UserSession";
 import React, {useEffect, useState} from 'react';
 import { Dialog } from "@mui/material";
 import { DialogTitle } from "@mui/material";
@@ -14,10 +14,9 @@ import { DialogContent } from "@mui/material";
 import { DialogActions } from "@mui/material";
 import { DialogContentText } from "@mui/material";
 import { Button } from "@mui/material";
+import {califyRecipe as CalifyRecipeController} from '../../controllers/MyAppController'
 
-import {getRecipeById} from '../../controllers/MyAppController'
-
-function ingredientList(ingredients){
+const ingredientList = function (ingredients){
     return (
         <>
             <List>
@@ -38,39 +37,35 @@ export function RecipeBody(props){
     const [isDialogOpen, setDialogOpen]=useState(false);
     const[dialogText,setDialogText]=useState("");
 
-    const [recipeData, setRecipeData] = useState(null)
-
     const isExitToggle=(event)=>{
         setDialogOpen(false);
     }
+    
+    const recipe = props.recipe;
 
-    const getRecipeDataById = async function(){
-        const idRecipe = props.idRecipe
-        let result = await getRecipeById(idRecipe)
-        console.log("Recipe Data: ", result.data)
-        const recipeInfo = result.data;
+    const califyRecipe = async function (califyValue){
 
-        setRecipeData(recipeInfo)
+        const califyInfo = {
+            email : getUserEmail(),
+            calification : califyValue,
+            idRecipe : recipe.idRecipe
+        }
+
+        let response = CalifyRecipeController(califyInfo)
+        console.log('Calify Response: ', response)
     }
-
-    useEffect( () => {
-        getRecipeDataById();
-    }, [])
 
     const ratingChange = (event) => {
         setDialogOpen(true);
         if(isLogged()){
+            califyRecipe(event.target.value)
             setDialogText('Se califico correctamente')
         }else{
-            setDialogText('ERROR/ tiene que logearse para calificar')
+            setDialogText('ERROR tiene que logearse para calificar')
         }
     };
 
-    console.log('Recipe Data: ', recipeData)
-
-    const Body = (props) => {
-        const recipeData = props.recipeData;
-        return (
+    return (
             <>
             <Grid 
                 container 
@@ -82,7 +77,7 @@ export function RecipeBody(props){
 
             <Grid item xs={4} sm={8} md={12}>
                 <Typography variant='h4'>
-                    {recipeData.name}
+                    {recipe.name}
                 </Typography>
             </Grid>
             
@@ -97,7 +92,7 @@ export function RecipeBody(props){
             >
 
                 <Grid item xs={4} sm={8} md={12}>
-                    <img src={recipeData.photo}
+                    <img src={recipe.photo}
                     style={{height: 'auto', width: '50%'}}
                     alt='recipe-img'
                     >
@@ -109,13 +104,13 @@ export function RecipeBody(props){
                 <Typography>
                     Ingredientes:
                 </Typography>
-                {ingredientList(recipeData.ingredients)}
+                {ingredientList(recipe.ingredients)}
             </Grid>
 
             <Grid item xs={4} sm={8} md={12}>
                 <Typography mb={2}>Categorías</Typography>
                 <CheckboxesTags 
-                    selectedOptions = {recipeData.categories}
+                    selectedOptions = {recipe.categories}
                     options = {categories}
                     placeholder=''
                     fullWidth = {true}
@@ -126,7 +121,7 @@ export function RecipeBody(props){
             </Grid>
 
             <Grid item xs={4} sm={4} md={12}>
-                <DifficultyIndicator difficultyValue={recipeData.difficulty} disabled = {true}></DifficultyIndicator>
+                <DifficultyIndicator difficultyValue={recipe.difficulty} disabled = {true}></DifficultyIndicator>
             </Grid>
 
             <Grid item xs={4} sm={4} md={4}>
@@ -134,7 +129,7 @@ export function RecipeBody(props){
                     Procedimiento
                 </Typography>
                 <Typography>
-                    {recipeData.process}
+                    {recipe.process}
                 </Typography>
             </Grid>
 
@@ -142,8 +137,11 @@ export function RecipeBody(props){
                 <Typography variant='h6'>
                     Calificar Receta
                 </Typography>
-                <Rating onChange={ratingChange}>
+                <Rating 
+                    onChange={ratingChange}
+                    defaultValue={recipe.averageMark}
                     name={'simple-controlled'}
+                >
                 </Rating>
                 <Dialog  open={isDialogOpen}>
                 <DialogTitle></DialogTitle>
@@ -166,21 +164,6 @@ export function RecipeBody(props){
         </Grid>
             </>
         )
-    }
-
-    if (recipeData !== null)
-    {
-        return (
-            <><Body recipeData = {recipeData}></Body></>
-        )
-    }
-    else{
-        return (
-            <>
-                
-            </>
-        )
-    }
 }
 
 export default RecipeBody;

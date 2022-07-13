@@ -61,6 +61,56 @@ export const createRecipe = async function(recipe){
         };
 }
 
+export const califyRecipe = async function(califyInfo){
+    //url webservices
+    let url = urlWebServices.califyRecipe;
+    //armo json con datos
+    const formData = new URLSearchParams();
+    formData.append('idRecipe', califyInfo.idRecipe);
+    formData.append('email', califyInfo.email);
+    formData.append('calification', califyInfo.calification)
+    
+    try{
+            let response = await fetch(url,{
+                method: 'POST', // or 'PUT'
+                mode: "cors",
+                headers:{
+                    'Accept':'application/x-www-form-urlencoded',
+                    'x-access-token': getToken(),
+                    'Origin':'http://localhost:3000',
+                    'Content-Type': 'application/x-www-form-urlencoded'},
+                body: formData,
+            });
+    
+            
+            let rdo = response.status;
+            console.log("response",response);
+            let responseData = await response.json();
+            console.log("Data Response: ", responseData)
+            switch(rdo)
+            {
+                case 201:
+                {
+                    return ({rdo:0,mensaje:"Ok", data : responseData.data});//correcto
+                }
+                case 400:
+                {
+                    console.log("Error: 400");
+                    return ({rdo:400, mensaje: responseData.message, errorCode: responseData.errorCode})
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:"Ha ocurrido un error"});                
+                }
+            }
+        }
+        catch(error)
+        {
+            console.log("error",error);
+        };  
+  }
+
 export const deleteRecipeById = async function(id){
   //url webservices
   let url = urlWebServices.deleteRecipe;

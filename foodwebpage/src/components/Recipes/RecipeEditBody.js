@@ -30,6 +30,7 @@ export function RecipeEditBody(props){
     const [imageChanged, setImageChanged] = useState(false)
     const recipe = props.recipe
     const navigate = useNavigate();
+    console.log("Dificultad: ", recipe.difficulty);
 
     const [fieldData, setFieldData] = useState({
         recipe_name : recipe.name,
