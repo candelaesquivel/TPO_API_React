@@ -30,6 +30,9 @@ $ npm install
 ```console
 $ npm start
 ```
+Si todo se ejecuto correctamente deberas ser redirigido a la pagina principal de Food Web Page 
+img
+
 Instrucciones de instalación backend
 ```console
 $ npm install -g nodemon
@@ -37,31 +40,32 @@ $ npm install -g nodemon
 ```console
 $ nodemon app.js
 ```
-## Archivo env.
+Si todo se conecto exitosamente aparecera esto en la terminal 
 
-SECRET=
+<img width="752" alt="image" src="https://user-images.githubusercontent.com/80803466/178825049-e2f3a632-ee49-4965-94a3-3a53142bc98e.png">
 
-DATABASE1=mongodb+srv://@.ybuns.mongodb.net/
+Archivo env.
 
-DATABASE2=DB?retryWrites
-
-DATABASE3=true&w
-
-DATABASE4=majority
-
-HOST=127.0.0.1
-
-PORT=4000
-
-DATABASE_NAME=TestUser
-
-DB_PORT=27017 
-
-UPLOAD_DIR= imagenes/
-
-CLOUDINARY_URL=cloudinary://312588935631792:ZbbYlm3KzTXVOieH1RTfbGE_8zU@drcuhadnu
+<img width="215" alt="image" src="https://user-images.githubusercontent.com/80803466/178826725-6aaf2f85-7dc9-4a85-a32e-2c2994a52bee.png">
 
 ## Documentación
+Diagrama de relaciones de la base de datos 
+```mermaid
+graph TD;
+client-->user_profile;
+client-->user_recipes;
+client-->user_califycation;
+```
+Diagrama de clases
+```mermaid
+classDiagram
+ class User {
+    -idCard : IdCard
+  }
+ User "1" --> "*" Recipe
+ CalificationUser "1" --> "*" User
+```
+
 
 ## Equipo de Trabajo
 Antonio Berti
