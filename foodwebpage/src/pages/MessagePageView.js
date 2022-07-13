@@ -21,7 +21,7 @@ export default function MessagePageView(props){
         else{
             setTimeout( () => {
                 navigate(props.url)
-            }, 2000);
+            }, 1000);
         }
     });
 
