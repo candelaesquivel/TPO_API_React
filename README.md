@@ -5,7 +5,7 @@
 2. [Requerimientos](#Requerimientos)
 3. [Instalación](#Instalación)
 4. [Documentación](#Documentación)
-5. [Equipo de Trabajo](#Equipo de Trabajo)
+5. [Equipo de Trabajo](#EquipodeTrabajo)
 6. [Conclusión](#Conclusión)
 
 ## Introducción
