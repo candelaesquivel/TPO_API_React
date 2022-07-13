@@ -262,6 +262,66 @@ export const getAllRecipes = async function(filters){
         };
 }
 
+export const updateRecipeData = async function(recipe){
+    //url webservices
+    let url = urlWebServices.updateRecipe;
+    //armo json con datos
+    const formData = new URLSearchParams();
+
+    formData.append('idRecipe', recipe.idRecipe)
+    formData.append('name', recipe.name);
+    formData.append('state', recipe.state)
+    formData.append('ingredients', recipe.ingredients);
+    formData.append('categories', recipe.categories);
+    formData.append('difficulty', recipe.difficulty);
+    formData.append('process', recipe.process);
+    formData.append('userEmail', recipe.userEmail);
+    formData.append('photo', recipe.photo);
+
+    console.log("Recipe Update to data: ", recipe)
+    
+    try
+        {
+            let response = await fetch(url,{
+                method: 'POST', // or 'PUT'
+                mode: "cors",
+                headers:{
+                    'Accept':'application/x-www-form-urlencoded',
+                    'x-access-token': getToken(),
+                    'Origin':'http://localhost:3000',
+                    'Content-Type': 'application/x-www-form-urlencoded'},
+                body: formData,
+            });
+    
+            
+            let rdo = response.status;
+            console.log("response",response);
+            let data = await response.json();
+            console.log("Data Response: ", data)
+            switch(rdo)
+            {
+                case 201:
+                {
+                    return ({rdo:0,mensaje:"Ok", data : data});//correcto
+                }
+                case 400:
+                {
+                    console.log("Error: 400");
+                    return ({rdo:400, mensaje: data.message, errorCode: data.errorCode})
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:"Ha ocurrido un error"});                
+                }
+            }
+        }
+        catch(error)
+        {
+            console.log("error",error);
+        };
+}
+
 export const updateUserData = async function(userData){
     //url webservices
     let url = urlWebServices.updateUserData;

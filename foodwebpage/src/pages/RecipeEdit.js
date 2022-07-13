@@ -14,7 +14,7 @@ export function RecipeEditPage(props){
     const getRecipeDataById = async function(){
         const idRecipe = id
         let result = await getRecipeById(idRecipe)
-        console.log("Recipe Data: ", result.data)
+        console.log("Recipe Data By Id: ", result.data)
         const recipeInfo = result.data;
         setRecipeData(recipeInfo)
     }

@@ -12,7 +12,6 @@ export default function RecipeSearchModule(props){
     const [ingredientSearched, setIngredientSearched] = useState([])
     const [difficultySearched, setDifficultySearched] = useState(0)
     const [categoriesSearched, setCategoriesSearched] = useState([])
-    const [triggerRender, setTriggerRender] = useState(false)
 
     const isInHome = !props.isOnProfileRecipes;
     
@@ -40,29 +39,24 @@ export default function RecipeSearchModule(props){
     }
 
     useEffect( () => {
-        setTriggerRender(false)
         if (!isInHome){
             getMyRecipes();
         }
         else{
             getAllRecipesFromSite();
         }
-    }, [triggerRender])
+    }, [nameSearched, ingredientSearched, categoriesSearched, difficultySearched])
 
     const handleSearchByName = (event) => {
-        setTriggerRender(true)
         const name = event.target.value
         if (name.length > 0)
-        {
-            console.log("NAME CHANGED")
             setNameSearched(name)
-        }
         else
             setNameSearched('')
+
     }
 
     const handleToggleRanking = (_event, value) => {
-        setTriggerRender(true)
 
         if (value !== null)
             setDifficultySearched(value)
@@ -71,7 +65,6 @@ export default function RecipeSearchModule(props){
     }
 
     const handleSearchByIngredient = (event) => {
-        setTriggerRender(true)
 
         const ingredient = event.target.value
 
@@ -82,7 +75,6 @@ export default function RecipeSearchModule(props){
     }
 
     const handleSearchByCategory = (_event, value) => {
-        setTriggerRender(true)
         setCategoriesSearched(value);
     }
 

@@ -12,7 +12,7 @@ import {useNavigate } from "react-router-dom";
 
 import {validateRecipeName, validateRecipeIngredients, validateRecipeProcess, validateRecipeCategories, validateRecipePhoto} from '../../utilities/ValidateHandlers'
 import { deleteRecipeById as DeleteRecipeInController } from "../../controllers/MyAppController";
-import { uploadFileImgLocal, saveImgInCloud } from "../../controllers/MyAppController";
+import { uploadFileImgLocal, saveImgInCloud, updateRecipeData } from "../../controllers/MyAppController";
 import {getUserEmail} from '../../utilities/UserSession';
 import { CheckBoxList } from "../Misc/CheckBoxList";
 
@@ -21,7 +21,13 @@ import React, { useState } from 'react';
 
 export function RecipeEditBody(props){
 
-    const [checkedCategories, setCheckedCategories] = useState([]);
+    const [checkedCategories, setCheckedCategories] = useState(
+        props.recipe.categories.map( (itr, index) => {
+            return categories.indexOf(itr)
+        })
+    );
+
+    const [imageChanged, setImageChanged] = useState(false)
     const recipe = props.recipe
     const navigate = useNavigate();
 
@@ -56,15 +62,10 @@ export function RecipeEditBody(props){
     });
 
     const onCategorySelected = (event) => {
-
-        console.log("Checked: ", event.target.id)
-
         const categoryindex = parseInt(event.target.id);
         const currentIndex = checkedCategories.indexOf(categoryindex);
         const newChecked = [...checkedCategories];
         
-        console.log(typeof(categoryindex))
-
         if (currentIndex === -1) {
             newChecked.push(categoryindex);
         } else {
@@ -91,6 +92,7 @@ export function RecipeEditBody(props){
     }
 
     const onPhotoChange = (image) => {
+        setImageChanged(true)
         setFieldData({...fieldData, ['recipe_photo'] : image})
         setFieldErrorMsg({...fieldErrorMsg, ['recipe_photo'] : ''})
         setFieldErrorState({...fieldErrorState, ['recipe_photo'] : false})
@@ -145,17 +147,18 @@ export function RecipeEditBody(props){
 
     const updateRecipe = async function() {
 
-        return;
+        let imgUrl = ''
 
-        console.log(fieldData['recipe_state']);
+        if (imageChanged)
+            imgUrl = await uploadImage(fieldData['recipe_photo']);
+        else
+            imgUrl = fieldData['recipe_photo']
 
-        let imgUrl = await uploadImage(fieldData['recipe_photo']);
-
-        if (imgUrl === '')
+        if (imgUrl == '')
             return;
 
-
         var recipeData = {
+            idRecipe : recipe.idRecipe,
             name :          fieldData['recipe_name'],
             categories :    fieldData['recipe_categories'],
             ingredients :   fieldData['recipe_ingredients'].split(','),
@@ -166,21 +169,23 @@ export function RecipeEditBody(props){
             photo       :   imgUrl
         }
 
-        // let result = await CreateRecipeController(recipeData);
+        console.log('Recipe to Update', recipeData)
 
-        // console.log("Recipe Create Data: ", result)
+        let result = await updateRecipeData(recipeData);
 
-        // if (result.rdo === 400)
-        // {
-        //     setFieldErrorState({...fieldErrorState, ['recipe_process'] : true});
-        //     setFieldErrorMsg({...fieldErrorMsg, ['recipe_process'] : result.mensaje})
-        // }
-        // else if (result.rdo === 0)
-        // {
-        //     setTimeout( () => {
-        //         navigate('/my-recipes')
-        //     }, 500);
-        // }
+        console.log("Recipe Updated Data: ", result)
+
+        if (result.rdo === 400)
+        {
+            setFieldErrorState({...fieldErrorState, ['recipe_process'] : true});
+            setFieldErrorMsg({...fieldErrorMsg, ['recipe_process'] : result.mensaje})
+        }
+        else if (result.rdo === 0)
+        {
+            setTimeout( () => {
+                navigate('/recipe-modified')
+            }, 500);
+        }
     }
 
     const deleteRecipe = async function(){
@@ -234,7 +239,13 @@ export function RecipeEditBody(props){
         validateInput('recipe_process', validateRecipeProcess, 'Se requieren al menos 3 caracteres para el proceso', errorsState, errorsMsg);
         validateInput('recipe_photo', validateRecipePhoto, 'Se requiere subir una foto para la receta', errorsState, errorsMsg);
 
+        if (!imageChanged){
+            errorsState['recipe_photo']= false
+            errorsMsg['recipe_photo'] = ''
+        }
+
         const hasError = hasSyntaxErrors(errorsState);
+
 
         if (hasError && errorsState['recipe_photo'])
         {

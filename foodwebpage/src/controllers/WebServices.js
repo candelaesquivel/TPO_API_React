@@ -8,6 +8,7 @@ const urlWebServices = {
     securityAnswer:urlApi + "securityQ/answer",
     updateUserData:urlApi + "profile/modify",
     createRecipe:urlApi + "recipes/create",
+    updateRecipe:urlApi + 'recipes/update-recipe',
     deleteRecipe:urlApi + "recipes/delete",
     califyRecipe:urlApi + "recipes/calify",
     uploadFileImg : urlApi + "recipes/uploadImage",
