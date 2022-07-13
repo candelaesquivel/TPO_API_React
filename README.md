@@ -22,6 +22,7 @@ Base de datos: NO SQL (MongoDB).
 
 Sistema Operativo :  Microsoft Windows (si se usa Mac OS o Linux los comandos seran diferentes)
 
+
 ## Instalación
  Instrucciones de instalación frontend
 ```console
@@ -49,14 +50,16 @@ Archivo env.
 <img width="215" alt="image" src="https://user-images.githubusercontent.com/80803466/178826725-6aaf2f85-7dc9-4a85-a32e-2c2994a52bee.png">
 
 ## Documentación
-Diagrama de relaciones de la base de datos 
+Diagrama de relaciones
 ```mermaid
-graph TD;
-client-->user_profile;
-client-->user_recipes;
-client-->user_califycation;
+flowchart LR
+   User == email ==> Recipe
+   User == email ==> CalifycationUser
+   Recipe == idRecipe ==> CalifycationUser
+   
 ```
 Diagrama de clases
+
 ```mermaid
 classDiagram
  class User {
@@ -69,7 +72,7 @@ classDiagram
     -answer: String
   }
   class Recipe {
-  idRecipe: Number,
+    -idRecipe: Number,
     -name: String,
     -ingredients: Array,
     -categories: Array,
@@ -87,10 +90,35 @@ classDiagram
     -idRecipe: Number
     }
     
- User "1" --> "*" Recipe
- User "1" --> "*" CalificationUser
+ User "1" --> "0..n" Recipe
+ User "1" --> "0..n" CalificationUser
  CalificationUser "1" --> "1" Recipe
 ```
+Estados de response del backend hacia el frontend
+
+-Status 400 : Error
+-Status 201: Todo se ejecuto correctamente
+
+Codigos de error 
+
+<img width="208" alt="image" src="https://user-images.githubusercontent.com/80803466/178833275-b1031232-6a59-4ca9-9896-483fc33e9597.png">
+
+Autenticación por token
+
+Libreria usada : JSON Web Token (JWT)       
+
+Se pedira en las siguientes peticiones :
+
+-Actualizar información del usuario
+-Actualizar información de la receta
+-Obtener recetas del usuario
+-Eliminar una receta
+-Crear una receta
+-Calificar una receta
+
+Endpoints
+<img width="210" alt="image" src="https://user-images.githubusercontent.com/80803466/178838163-7be452b0-5be5-4df5-906d-7b43261d8844.png">
+
 
 
 ## Equipo de Trabajo
