@@ -2,17 +2,17 @@
 # TPO_API - Food Web page
 # Tabla de Contenidos
 1. [Introducción](#Introducción)
-2. [Requerimientos](#requirements)
+2. [Requerimientos](#Requerimientos)
 3. [Instalación](#Instalación)
-4. [Documentación](#doc)
-5. [Equipo de Trabajo](#team)
-6. [Conclusión](#end)
+4. [Documentación](#Documentación)
+5. [Equipo de Trabajo](#Equipo de Trabajo)
+6. [Conclusión](#Conclusión)
+
 ## Introducción
 Este proyecto es una página web de recetas llamada *“Food Recipes”*. En la pagina web se podrán observar distintos platos de comida y bebidas con la explicación de como cocinarlas, que ingredientes son requeridos y una calificación que es en base a la votación de los usuarios. Estando registrado se pueden subir recetas y calificar la de los demás.
 Esta página web se realizó con fines educativos para la materia API .
 
 ## Requerimientos
-
 
 Lenguajes y librerías utilizadas en el frontend: HTML/CSS, React, JavaScript y NodeJS.
 
@@ -23,15 +23,14 @@ Base de datos: NO SQL (MongoDB).
 Sistema Operativo :  Microsoft Windows (si se usa Mac OS o Linux los comandos seran diferentes)
 
 ## Instalación
-## Instrucciones de instalación frontend
+ Instrucciones de instalación frontend
 ```console
 $ npm install
 ```
 ```console
 $ npm start
 ```
-## Instrucciones de instalación backend
-
+Instrucciones de instalación backend
 ```console
 $ npm install -g nodemon
 ```
