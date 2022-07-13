@@ -60,10 +60,36 @@ Diagrama de clases
 ```mermaid
 classDiagram
  class User {
-    -idCard : IdCard
+    -name: String,
+    -lastName:String,
+    -email: String,
+    -password: String,
+    -phone:String,
+    -securityQ:String,
+    -answer: String
   }
+  class Recipe {
+  idRecipe: Number,
+    -name: String,
+    -ingredients: Array,
+    -categories: Array,
+    -difficulty: Number,
+    -process : String,
+    -averageMark: Number,
+    -countMark: Number,
+    -photo: String,
+    -publicationStatus : Boolean,
+    -userEmail: String 
+    }
+    class CalificationUser {
+    -email: String,
+    -calification: Number,
+    -idRecipe: Number
+    }
+    
  User "1" --> "*" Recipe
- CalificationUser "1" --> "*" User
+ User "1" --> "*" CalificationUser
+ CalificationUser "1" --> "1" Recipe
 ```
 
 
