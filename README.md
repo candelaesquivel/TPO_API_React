@@ -37,7 +37,6 @@ Si todo se ejecuto correctamente deberas ser redirigido a la pagina principal de
 
 <img width="897" alt="image" src="https://user-images.githubusercontent.com/80803466/178839520-8a23f9fe-2399-4479-94bf-776abe9c8e1e.png">
 
-
 Instrucciones de instalación backend
 ```console
 $ npm install -g nodemon
@@ -50,6 +49,29 @@ Si todo se conecto exitosamente aparecera esto en la terminal
 <img width="752" alt="image" src="https://user-images.githubusercontent.com/80803466/178825049-e2f3a632-ee49-4965-94a3-3a53142bc98e.png">
 
 Archivo env.
+
+-SECRET, la contraseña para poder crear el token que durara 24 horas.
+
+-DATABASE1, se deberá completar con la información del usuario de la base de datos MongoDB
+
+-DATABASE2, se deberá completar con la información de la base de datos MongoDB
+
+-DATABASE3=true&w
+
+-DATABASE4=majority
+
+-HOST, completar con el número del HOST.
+
+-PORT, completar con el número de puerto.
+
+-DATABASE_NAME=TestUser
+
+-DB_PORT, numero de puerto
+
+-UPLOAD_DIR= imagenes/
+
+-CLOUDINARY_URL, link de cloudinary.
+
 
 <img width="215" alt="image" src="https://user-images.githubusercontent.com/80803466/178826725-6aaf2f85-7dc9-4a85-a32e-2c2994a52bee.png">
 
@@ -86,6 +108,17 @@ Si al intentar hacer log in no recuerda su contraseña, puede seleccionar la opc
 
 <img width="507" alt="image" src="https://user-images.githubusercontent.com/80803466/178847795-df7b2f13-4468-48e1-8d02-e017186fdcda.png">
 
+Si al hacer log in puede ingresar sin problemas, será redirigido a la página de su perfil donde podrá modificar cualquiera de sus datos excepto por el email.
+<img width="903" alt="image" src="https://user-images.githubusercontent.com/80803466/179027574-62c132a9-c8c9-4294-ac57-ce1641dea330.png">
+
+<img width="901" alt="image" src="https://user-images.githubusercontent.com/80803466/179027694-5ffbe0b3-8e83-4cd2-bb7d-46b4b741a533.png">
+<img width="906" alt="image" src="https://user-images.githubusercontent.com/80803466/179027748-bd1583f4-cb5e-4066-862c-febbae5d505b.png">
+<img width="896" alt="image" src="https://user-images.githubusercontent.com/80803466/179027788-17486295-e3a6-41c0-aaf7-e274b7ce94d7.png">
+<img width="903" alt="image" src="https://user-images.githubusercontent.com/80803466/179027831-e276e364-6c22-4b58-8514-5b60aaf63da4.png">
+
+Si aprieta el botón de "mis recetas" en su perfil o en la barra header, podrá visualizar todas las recetas que usted subió .
+![image](https://user-images.githubusercontent.com/80803466/179028239-207fe519-3a72-4cc2-bcb3-a8603cbc7447.png)
+![image](https://user-images.githubusercontent.com/80803466/179028387-a66fd2b6-6779-4bdf-848c-040078513b51.png)
 
 
 
