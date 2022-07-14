@@ -22,7 +22,7 @@ Lenguajes y librerías utilizadas en el backend: JavaScript , NodeJS y Mongoose.
 
 Base de datos: NO SQL (MongoDB).
 
-Sistema Operativo :  Microsoft Windows (si se usa Mac OS o Linux los comandos seran diferentes)
+Link para descargarse Node.js : https://nodejs.org/es/
 
 
 ## Instalación
@@ -90,14 +90,7 @@ Si al intentar hacer log in no recuerda su contraseña, puede seleccionar la opc
 
 
 ## Documentación
-Diagrama de flujo
-```mermaid
-flowchart LR
-   User == email ==> Recipe
-   User == email ==> CalifycationUser
-   Recipe == idRecipe ==> CalifycationUser
-   
-```
+
 Diagrama de estructura de la base de datos MongoDB
 
 ```mermaid
@@ -126,17 +119,18 @@ classDiagram
     }
     class CalificationUser {
     -email: String,
-    -calification: Number,
-    -idRecipe: Number
+    -idRecipe: Number,
+     -calification: Number
     }
     
- User "1" --> "0..n" Recipe
- User "1" --> "0..n" CalificationUser
- CalificationUser "1" --> "1" Recipe
+ User "1" *-- "0..n" Recipe : email
+ User "1" *-- "0..n" CalificationUser : email
+ CalificationUser "0..n" *-- "1" Recipe : idRecipe
 ```
 Estados de response del backend hacia el frontend
 
 -Status 400 : Error
+
 -Status 201: Todo se ejecuto correctamente
 
 Codigos de error 
@@ -150,20 +144,9 @@ Codigos de error
                                              ERROR_RECIPE_ID_IN_USE      : 7,
                                              ERROR_DUPLICATE_CALIFY      : 8
 
-Autenticación por token , libreria usada : JSON Web Token (JWT).   Se pedira en las siguientes peticiones : 
-   -Actualizar información del usuario
-   -Actualizar información de la receta
-   -Obtener recetas del usuario
-   -Eliminar una receta
-   -Crear una receta
-   -Calificar una receta
+Autenticación por token , libreria usada : JSON Web Token (JWT).  
 
-Peticiones
-
-<img width="219" alt="image" src="https://user-images.githubusercontent.com/80803466/178844087-0c9c5e04-ba06-4bc2-9729-91b712e0ad49.png">
-
-<img width="464" alt="image" src="https://user-images.githubusercontent.com/80803466/178842531-40f88dec-47bf-44df-b9de-bc87529c5de4.png">
-
+Documentacion de las peticiones : https://documenter.getpostman.com/view/21197481/UzQuN4zt
 
 
 ## Equipo de Trabajo
