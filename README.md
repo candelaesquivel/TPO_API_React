@@ -179,7 +179,7 @@ classDiagram
     
  User "1" *-- "0..n" Recipe : email
  User "1" *-- "0..n" CalificationUser : email
- CalificationUser "0..n" *-- "1" Recipe : idRecipe
+ Recipe "0..n" *-- "1" CalificationUser : idRecipe
 ```
 Estados de response del backend hacia el frontend
 
