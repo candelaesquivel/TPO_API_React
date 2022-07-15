@@ -324,6 +324,10 @@ export default function RecipeCreate(props){
                     <Typography>Categorías</Typography>
                 </Grid>
 
+                <Grid item xs={4} sm={4} md={12}>
+                    {fieldErrorState['recipe_categories'] && <Typography style={{color: 'red'}}>{fieldErrorMsg['recipe_categories']}</Typography>}
+                </Grid>
+
                 <Grid container item xs={4} sm={4} md={4}>
                     <Grid item xs={4} sm={4} md={4}>
                         <CheckBoxList items = {categories.slice(0, 3)} 
@@ -350,9 +354,7 @@ export default function RecipeCreate(props){
                     </Grid>
                 </Grid>
 
-                <Grid item xs={4} sm={4} md={12}>
-                    {fieldErrorState['recipe_categories'] && <Typography style={{color: {red}}}>{fieldErrorMsg['recipe_categories']}</Typography>}
-                </Grid>
+
 
                 <Grid item xs={4} sm={4} md={12}>
                     <TextField
