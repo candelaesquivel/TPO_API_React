@@ -53,7 +53,7 @@ class Main extends Component{
         const ForbiddenAccessView = () => {
             return <MessagePageView
             closeSession = {false}
-            message = 'Acceso no autorizado a usuarios no registrados'
+            message = 'Acceso no autorizado'
             url = '/home'>
             </MessagePageView>
         }
