@@ -41,7 +41,7 @@ export const createRecipe = async function(recipe){
             {
                 case 201:
                 {
-                    return ({rdo:0,mensaje:"Ok", data : data});//correcto
+                    return ({rdo:0,mensaje: data.message, data : data});//correcto
                 }
                 case 400:
                 {
@@ -91,7 +91,7 @@ export const califyRecipe = async function(califyInfo){
             {
                 case 201:
                 {
-                    return ({rdo:0,mensaje:"Ok", data : responseData.data});//correcto
+                    return ({rdo:0,mensaje: responseData.message, data : responseData.data});//correcto
                 }
                 case 400:
                 {

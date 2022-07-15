@@ -51,18 +51,18 @@ export function RecipeBody(props){
             idRecipe : recipe.idRecipe
         }
 
-        let response = CalifyRecipeController(califyInfo)
+        let response = await CalifyRecipeController(califyInfo)
         console.log('Calify Response: ', response)
+        setDialogText(response.mensaje)
     }
 
     const ratingChange = (event) => {
-        setDialogOpen(true);
         if(isLogged()){
             califyRecipe(event.target.value)
-            setDialogText('Se califico correctamente')
         }else{
-            setDialogText('ERROR tiene que logearse para calificar')
+            setDialogText('Error tiene que logearse para calificar')
         }
+        setDialogOpen(true);
     };
 
     return (
