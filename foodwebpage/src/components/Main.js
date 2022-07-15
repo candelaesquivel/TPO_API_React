@@ -58,6 +58,14 @@ class Main extends Component{
             </MessagePageView>
         }
 
+        const UpdatedPasswordView = () => {
+            return <MessagePageView
+            closeSession = {false}
+            message = 'Contraseña actualizada correctamente'
+            url = '/profile'>
+            </MessagePageView>
+        }
+
         return (
             <div>
                 <Routes>
@@ -81,6 +89,7 @@ class Main extends Component{
                     <Route path= 'recipe-modified' element={<RecipedUpdateSuccesfulView/>}></Route>
                     <Route path= 'recipe-deleted' element={<RecipeDeletedSuccesfulView/>}></Route>
                     <Route path= 'forbidden-access' element={<ForbiddenAccessView/>}></Route>
+                    <Route path= 'password-updated' element={<UpdatedPasswordView/>}></Route>
                     <Route path='*' element={<Home />} />
                 </Routes>
             </div>

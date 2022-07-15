@@ -7,6 +7,7 @@ const urlWebServices = {
     securityQuestion:urlApi + "securityQ",
     securityAnswer:urlApi + "securityQ/answer",
     updateUserData:urlApi + "profile/modify",
+    updateUserPassword : urlApi + 'profile/modify-password',
     createRecipe:urlApi + "recipes/create",
     updateRecipe:urlApi + 'recipes/update-recipe',
     deleteRecipe:urlApi + "recipes/delete",
@@ -15,7 +16,7 @@ const urlWebServices = {
     saveRecipeImg : urlApi + 'recipes/saveRecipeImg',
     getRecipesFromUser : urlApi + 'recipes/my-recipes',
     getRecipeById : urlApi + 'recipes/view-recipe',
-    getAllRecipes : urlApi,
+    getAllRecipes : urlApi
 }
 
 export default urlWebServices;
