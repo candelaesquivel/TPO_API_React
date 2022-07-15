@@ -1,4 +1,3 @@
-import { Component } from "react";
 
 import {RegisterFormBody} from '../components/Register/RegisterFormBody';
 import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
