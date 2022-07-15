@@ -66,6 +66,22 @@ class Main extends Component{
             </MessagePageView>
         }
 
+        const UpdatePasswordFromRecoveryView = () => {
+            return <MessagePageView
+            closeSession = {false}
+            message = 'Contraseña actualizada correctamente'
+            url = '/login'>
+            </MessagePageView>
+        }
+
+        const UpdateUserFieldSuccesfulView = () => {
+            return <MessagePageView
+            closeSession = {false}
+            message = 'Modificacion de datos realizada correctamente'
+            url = '/profile'>
+            </MessagePageView>
+        }
+
         return (
             <div>
                 <Routes>
@@ -78,18 +94,22 @@ class Main extends Component{
                     <Route path='view-recipe/:id' element={<RecipeViewPage></RecipeViewPage>}></Route>
                     <Route path='my-recipes' element={<ProfileRecipesPage></ProfileRecipesPage>}></Route>
                     <Route path='edit-recipe/:id' element={<RecipeEditPage></RecipeEditPage>}></Route>
-                    <Route path='create-recipe' element={<RecipeCreatePage></RecipeCreatePage>}></Route>
+                    <Route path= 'create-recipe' element={<RecipeCreatePage></RecipeCreatePage>}></Route>
                     <Route path= 'ResetPassword' element={<ResetPassword></ResetPassword>}></Route>
                     <Route path= 'modify-password' element={<ChangePassword></ChangePassword>}></Route>
                     <Route path= 'modify-name' element={<ModifyProfileDataView title={'Cambiar Nombre'} inputLabel={'Nombre'} />}></Route>
                     <Route path= 'modify-last-name' element={<ModifyProfileDataView title={'Cambiar Apellido'} inputLabel={'Apellido'} />}></Route>
                     <Route path= 'modify-phone' element={<ModifyProfileDataView title={'Cambiar Teléfono'} inputLabel={'Teléfono'} />}></Route>
                     <Route path= 'logout' element={<LogoutView></LogoutView>}></Route>
+                    
+                    {/**Pagina de Mensajes */}
+                    <Route path= 'user-data-modified' element={<UpdateUserFieldSuccesfulView/>}></Route>
                     <Route path= 'recipe-created' element={<RecipeCreateSuccesfulView/>}></Route>
                     <Route path= 'recipe-modified' element={<RecipedUpdateSuccesfulView/>}></Route>
                     <Route path= 'recipe-deleted' element={<RecipeDeletedSuccesfulView/>}></Route>
                     <Route path= 'forbidden-access' element={<ForbiddenAccessView/>}></Route>
                     <Route path= 'password-updated' element={<UpdatedPasswordView/>}></Route>
+                    <Route path= 'password-recovered' element={<UpdatePasswordFromRecoveryView/>}></Route>
                     <Route path='*' element={<Home />} />
                 </Routes>
             </div>

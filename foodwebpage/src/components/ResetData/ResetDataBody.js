@@ -9,12 +9,15 @@ import { validateNameOrLastName, validatePhone } from "../../utilities/ValidateH
 import React, { useState} from 'react';
 import { getUserData } from "../../utilities/UserSession";
 import {updateUserData as UpdateUserData } from '../../controllers/MyAppController'
+import { useNavigate } from "react-router-dom";
 
 export function ResetDataBody(props){
 
     const [fieldError, setFieldError] = useState(false);
     const [fieldErrorMsg, setErrorMsg] = useState('');
     const [fieldValue, setFieldValue] = useState('');
+
+    const navigate = useNavigate();
 
     let validateFunc;
     let defaultErrorMsg;
@@ -45,6 +48,14 @@ export function ResetDataBody(props){
         userData[fieldName] = fieldValue;
 
         let updateResults = await UpdateUserData(userData);
+
+        if (updateResults.rdo === 0){
+            navigate('/user-data-modified')
+        }
+        else{
+            setFieldError(true);
+            setErrorMsg(updateResults.mensaje)
+        }
     }
 
     const modifyData = (event) => {
