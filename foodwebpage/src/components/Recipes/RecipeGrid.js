@@ -1,6 +1,5 @@
 import RecipeSmallCard from "./RecipeSmallCard";
 import { Grid, Typography } from "@mui/material";
-import React, {useState} from 'react';
 
 export function RecipeGrid(props){
 

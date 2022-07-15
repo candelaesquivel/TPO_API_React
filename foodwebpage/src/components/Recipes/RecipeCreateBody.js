@@ -11,7 +11,6 @@ import DifficultyIndicator from './DifficultyIndicator';
 import {Button} from "@mui/material";
 import React, { useState} from 'react';
 import { createRecipe as CreateRecipeController, uploadFileImgLocal, saveImgInCloud } from "../../controllers/MyAppController";
-import { red } from '@mui/material/colors';
 import {useNavigate } from "react-router-dom";
 import {getUserEmail} from '../../utilities/UserSession';
 

@@ -155,7 +155,7 @@ export function RecipeEditBody(props){
         else
             imgUrl = fieldData['recipe_photo']
 
-        if (imgUrl == '')
+        if (imgUrl === '')
             return;
 
         var recipeData = {

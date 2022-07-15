@@ -1,4 +1,3 @@
-import { Component } from "react";
 import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
 import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
 import {ChangePasswordBody} from '../components/Profile/ChangePasswordBody';

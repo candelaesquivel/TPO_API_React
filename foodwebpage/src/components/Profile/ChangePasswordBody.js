@@ -4,10 +4,10 @@ import { Avatar } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
-import React, { useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {useNavigate } from "react-router-dom";
 import { isValidPassword } from "../../utilities/stringFunctions";
-import { getUserEmail, getUserLastName, getUserName, getUserPhone } from "../../utilities/UserSession";
+import { getUserEmail } from "../../utilities/UserSession";
 import { updateUserPassword as UpdatePasswordController } from "../../controllers/MyAppController";
 
 
@@ -24,8 +24,6 @@ export function ChangePasswordBody(props){
     const [currPassErrorState, setCurrPasssErrorState] = useState(false)
     const [newPassErrorState, setNewPassErrorState] = useState(false)
     const [repeatNewPassErrorState, setRepeatPasswordErrorState] = useState(false)
-
-    const [errorMsg, setErrorMsg] = useState('')
 
     const navigate = useNavigate();
 

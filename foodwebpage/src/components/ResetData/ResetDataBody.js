@@ -4,7 +4,6 @@ import { Box } from "@mui/system";
 import { Avatar } from "@mui/material";
 import { Grid } from "@mui/material";
 import PasswordIcon from '@mui/icons-material/Password';
-import ResponsiveDialog  from '../Misc/ResponsiveDialog';
 import { validateNameOrLastName, validatePhone } from "../../utilities/ValidateHandlers";
 import React, { useState} from 'react';
 import { getUserData } from "../../utilities/UserSession";
@@ -13,35 +12,35 @@ import { useNavigate } from "react-router-dom";
 
 export function ResetDataBody(props){
 
-    const [fieldError, setFieldError] = useState(false);
-    const [fieldErrorMsg, setErrorMsg] = useState('');
-    const [fieldValue, setFieldValue] = useState('');
-
-    const navigate = useNavigate();
-
     let validateFunc;
-    let defaultErrorMsg;
+    let defaultErrorMsg = '';
     let fieldName;
 
-    if (props.inputLabel == 'Nombre')
+    if (props.inputLabel === 'Nombre')
     {
         fieldName = 'name';
         validateFunc = validateNameOrLastName
         defaultErrorMsg = 'Se requieren al menos 2 caracteres para el nombre'
 
     }
-    else if (props.inputLabel == 'Apellido')
+    else if (props.inputLabel === 'Apellido')
     {
         fieldName = 'lastName';
         validateFunc = validateNameOrLastName
         defaultErrorMsg = 'Se requieren al menos 2 caracteres para el apellido'
     }
-    else if (props.inputLabel == 'Teléfono')
+    else if (props.inputLabel === 'Teléfono')
     {
         fieldName = 'phone';
         validateFunc = validatePhone
         defaultErrorMsg = 'Se requieren al menos 5 caracteres para el tlf y que sean todos numericos'
     }
+
+    const [fieldError, setFieldError] = useState(false);
+    const [fieldErrorMsg, setErrorMsg] = useState(defaultErrorMsg);
+    const [fieldValue, setFieldValue] = useState('');
+
+    const navigate = useNavigate();
 
     const updateUserData = async function() {
         const userData = getUserData();
@@ -115,7 +114,7 @@ export function ResetDataBody(props){
                         autoComplete="name"
                         onChange={onFieldChange}
                         error={fieldError}
-                        helperText={fieldError ? defaultErrorMsg : ""}
+                        helperText={fieldError ? fieldErrorMsg : ''}
                         />
                     </Grid>
 
