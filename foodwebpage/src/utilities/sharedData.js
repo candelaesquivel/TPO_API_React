@@ -7,8 +7,7 @@ export const categories = [
     'Plato Caliente',
     'Plato Frío',
     'Postre',
-    'Vegano',
-    'Vegetariano'
+    'Vegano'
 ];
 
 
