@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { getRecipeById } from "../controllers/MyAppController";
 
+import { useNavigate } from "react-router-dom";
+import { isLogged } from "../utilities/UserSession";
 export function RecipeEditPage(props){
 
     const {id} = useParams();
@@ -19,8 +21,17 @@ export function RecipeEditPage(props){
         setRecipeData(recipeInfo)
     }
 
-    useEffect(() => {
-        getRecipeDataById();
+    const navigate = useNavigate();
+
+    useEffect( () => {
+
+        if (!isLogged())
+        {
+            console.log('PROHIBIDO')
+            navigate('/forbidden-access')
+        }
+        else
+            getRecipeDataById();
     }, [])
 
     if (recipeData !== null){

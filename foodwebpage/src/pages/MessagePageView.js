@@ -16,12 +16,12 @@ export default function MessagePageView(props){
         if (!isLogged()){
             setTimeout( () => {
                 navigate(props.url)
-            }, 3000);
+            }, 1000);
         }
         else{
             setTimeout( () => {
                 navigate(props.url)
-            }, 1000);
+            }, 750);
         }
     });
 

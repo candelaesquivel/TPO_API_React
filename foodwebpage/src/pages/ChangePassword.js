@@ -3,17 +3,31 @@ import ResponsiveFooter from "../components/Footer/ResponsiveFooter";
 import ResponsiveAppBar from "../components/Misc/ResponsiveNavBar";
 import {ChangePasswordBody} from '../components/Profile/ChangePasswordBody';
 
-class ChangePassword extends Component{
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { isLogged } from "../utilities/UserSession";
+
+export function ChangePassword(props){
     
-    render(){
-        return (
-        <>
-            <ResponsiveAppBar></ResponsiveAppBar>
-            <ChangePasswordBody> </ChangePasswordBody>
-            <ResponsiveFooter></ResponsiveFooter>
-        </>
-        )
-    }
+    const navigate = useNavigate();
+
+    useEffect( () => {
+
+        if (!isLogged())
+        {
+            console.log('PROHIBIDO')
+            navigate('/forbidden-access')
+        }
+
+    }, [])
+
+    return (
+    <>
+        <ResponsiveAppBar></ResponsiveAppBar>
+        <ChangePasswordBody> </ChangePasswordBody>
+        <ResponsiveFooter></ResponsiveFooter>
+    </>
+    )
 }
 
 export default ChangePassword;
