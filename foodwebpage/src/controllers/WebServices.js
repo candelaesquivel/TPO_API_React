@@ -6,6 +6,7 @@ const urlWebServices = {
     register:urlApi + "register",
     securityQuestion:urlApi + "securityQ",
     securityAnswer:urlApi + "securityQ/answer",
+    recoverPasswordFromQuestion: urlApi + "securityQ/recover-password",
     updateUserData:urlApi + "profile/modify",
     updateUserPassword : urlApi + 'profile/modify-password',
     createRecipe:urlApi + "recipes/create",

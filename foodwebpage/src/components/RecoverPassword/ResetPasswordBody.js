@@ -11,6 +11,26 @@ import { isValidEmailWithRegex } from "../../utilities/stringFunctions";
 import {recoveryPasswordQuestion as GetRecoveryQuestion} from '../../controllers/MyAppController';
 import {recoveryPasswordAnswer as ValidateAnswerBack} from '../../controllers/MyAppController';
 import {validateSecurityAnswerSyntax} from '../../utilities/ValidateHandlers';
+import { isValidPassword } from "../../utilities/stringFunctions";
+import { updatePasswordFromRecovery } from "../../controllers/MyAppController";
+
+const NewPasswordField = (props) => {
+    return (
+        <Grid item xs={12}>
+            <TextField
+                required
+                fullWidth
+                name={props.name}
+                label={props.label}
+                type="password"
+                id={props.name}
+                onChange={props.onChange}
+                helperText = {props.helperText}
+                error = {props.error}
+            />
+        </Grid>
+    )
+}
 
 export function ResetPasswordBody(props){
 
@@ -24,6 +44,16 @@ export function ResetPasswordBody(props){
 
         const [securityQuestion, setSecurityQuestion] = useState('');
         const [showQuestion, setShowQuestion] = useState(false);
+
+        const [newPassword, setNewPassword] = useState('');
+        const [newPasswordErrorState, setNewPasswordErrorState] = useState(false);
+        const [newPasswordErrorMsg, setNewPasswordErrorMsg] = useState('');
+
+        const [confirmPassword, setConfirmPassword] = useState('');
+        const [confirmPasswordErrorState, setConfirmPasswordErrorState] = useState(false);
+        const [confirmPasswordErrorMsg, setConfirmPasswordErrorMsg] = useState('');
+
+        const [showNewPasswordField, setShowNewPassword] = useState(false);
 
         const navigate = useNavigate();
 
@@ -72,9 +102,7 @@ export function ResetPasswordBody(props){
                 if (isValidAnswer){
                     setValidAnswer(true)
                     setAnswerErrorMsg('Respuesta correcta')
-                    // setTimeout( () => {
-                    //     navigate('/home');
-                    // }, 1000);
+                    setShowNewPassword(true)
                 }else{
                     setValidAnswer(false)
                     setAnswerErrorMsg(answerValidateResult.rdo.mensaje)
@@ -83,6 +111,27 @@ export function ResetPasswordBody(props){
             else if (answerValidateResult.rdo === 400){
                 setValidAnswer(false)
                 setAnswerErrorMsg(answerValidateResult.mensaje)
+            }
+
+        }
+
+        const updatePassword = async function () {
+
+            const userData = {
+                email : emailInput,
+                newPassword : newPassword
+            }
+
+            let result = await updatePasswordFromRecovery(userData);
+
+            console.log('Result Recover Password: ', result);
+
+            if (result.rdo === 0){
+                navigate('/password-recovered')
+            }
+            else{
+                setNewPasswordErrorState(false);
+                setNewPasswordErrorMsg(result.mensaje);
             }
 
         }
@@ -109,12 +158,21 @@ export function ResetPasswordBody(props){
             setEmailErrorMsg('')
             setSecurityQuestion('');
             setShowQuestion(false);
+            resetFields()
         }
 
         const onAnswerChange = (event) => {
             setAnswerInput(event.target.value);
             setAnswerErrorMsg('')
             setValidAnswer(true)
+        }
+
+        const resetFields = () => {
+            setShowNewPassword(false);
+            setNewPasswordErrorState(false);
+            setNewPasswordErrorMsg('');
+            setConfirmPasswordErrorState(false);
+            setConfirmPasswordErrorMsg('');
         }
 
         const onSubmitData = (event) => {
@@ -137,6 +195,40 @@ export function ResetPasswordBody(props){
             }
 
             event.preventDefault();
+        }
+        
+        const onSubmitPassword = (event) => {
+
+            if (!isValidPassword(newPassword))
+            {
+                setNewPasswordErrorState(true)
+                setNewPasswordErrorMsg('Contraseña no valida, se requieren al menos 7 caracteres y debe contener al menos 1 letra y 1 un numero')
+                event.preventDefault();
+                return;
+            }
+
+            if (newPassword !== confirmPassword){
+                setConfirmPasswordErrorState(true)
+                setConfirmPasswordErrorMsg('Las contraseñas no son iguales')
+                event.preventDefault();
+                return;
+            }
+
+            // Backend Validation
+            updatePassword();
+            event.preventDefault();
+        }
+        
+        const onNewPasswordChange = (event) => {
+            setNewPassword(event.target.value)
+            setNewPasswordErrorState(false);
+            setNewPasswordErrorMsg('');
+        }
+
+        const onConfirmPasswordChange = (event) => {
+            setConfirmPassword(event.target.value)
+            setConfirmPasswordErrorState(false);
+            setConfirmPasswordErrorMsg('');
         }
 
         return(
@@ -197,20 +289,61 @@ export function ResetPasswordBody(props){
                                     onChange={onAnswerChange}
                                     helperText = {answerErrorMsg}
                                     error = {!isValidAnswer}
-                                    autoComplete
+                                    autoComplete="text"
                                     />
                                 </Grid>
 
-                                <Grid item xs={12} sm={6}>
-                                    <Button 
-                                        sx={{mt:3, mb: 2}}
-                                        variant='contained'
-                                        fullWidth
-                                        onClick={onSubmitData}
+                                {
+                                    showNewPasswordField && 
+                                    <>
+                                        <NewPasswordField
+                                            onChange = {onNewPasswordChange}
+                                            error = {newPasswordErrorState}
+                                            helperText = {newPasswordErrorMsg}
+                                            name = 'new_password'
+                                            label= 'Nueva Contraseña'
+                                            >
+                                        </NewPasswordField>
+                                        
+                                        <NewPasswordField
+                                            onChange = {onConfirmPasswordChange}
+                                            error = {confirmPasswordErrorState}
+                                            helperText = {confirmPasswordErrorMsg}
+                                            name = 'confirm_password'
+                                            label='Confirmar contraseña'
+                                            >
+                                        </NewPasswordField>
+
+                                        <Grid item xs={12} sm={12}>
+                                            <Button 
+                                                sx={{mt:3, mb: 2}}
+                                                variant='contained'
+                                                fullWidth
+                                                onClick={onSubmitPassword}
+                                            >
+                                                Modificar Contraseña
+                                            </Button>
+                                        </Grid>
+                                        
+                                    </>
+                                }
+                                
+                                {
+                                    !showNewPasswordField &&
+                                    <>
+                                    <Grid item xs={12} sm={6}>
+                                        <Button 
+                                            sx={{mt:3, mb: 2}}
+                                            variant='contained'
+                                            fullWidth
+                                            onClick={onSubmitData}
+                                        
+                                            >
+                                            Recuperar</Button>
+                                    </Grid>
+                                    </>
                                     
-                                        >
-                                        Recuperar</Button>
-                                </Grid>
+                                }
                             </>
                         }
             
