@@ -327,7 +327,7 @@ export default function RecipeCreate(props){
                     {fieldErrorState['recipe_categories'] && <Typography style={{color: 'red'}}>{fieldErrorMsg['recipe_categories']}</Typography>}
                 </Grid>
 
-                <Grid container item xs={4} sm={4} md={4}>
+                <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
                     <Grid item xs={4} sm={4} md={4}>
                         <CheckBoxList items = {categories.slice(0, 3)} 
                             onChecked = {onCategorySelected}
