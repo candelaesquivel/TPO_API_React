@@ -12,6 +12,7 @@ export default function RecipeSearchModule(props){
     const [ingredientSearched, setIngredientSearched] = useState([])
     const [difficultySearched, setDifficultySearched] = useState(0)
     const [categoriesSearched, setCategoriesSearched] = useState([])
+    const [recipesLoaded, setRecipesLoaded] = useState(false)
 
     const isInHome = !props.isOnProfileRecipes;
     
@@ -24,6 +25,7 @@ export default function RecipeSearchModule(props){
         };
         let result = await getRecipesFromUser(getUserEmail(), filters);
         setRecipes(result.data);
+        setRecipesLoaded(true)
     }
 
     const getAllRecipesFromSite = async function(){
@@ -36,6 +38,7 @@ export default function RecipeSearchModule(props){
         
         let result = await getAllRecipes(filters)
         setRecipes(result.data);
+        setRecipesLoaded(true)
     }
 
     useEffect( () => {
@@ -66,6 +69,7 @@ export default function RecipeSearchModule(props){
 
     const handleSearchByIngredient = (event) => {
 
+        console.log("Ingredientes: ", event.target.value)
         const ingredient = event.target.value
 
         if (ingredient.length > 0)
@@ -90,6 +94,7 @@ export default function RecipeSearchModule(props){
             <RecipeGrid 
                 recipes={recipes}
                 readMoreLink={props.readMoreLink}
+                recipesLoaded = {recipesLoaded}
             >
             </RecipeGrid>
         </>

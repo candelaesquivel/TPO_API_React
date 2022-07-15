@@ -5,6 +5,7 @@ import React, {useState} from 'react';
 export function RecipeGrid(props){
 
     const hasRecipes = props.recipes.length > 0;
+    const hasRecipesLoaded = props.recipesLoaded
 
     return (
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} p={12}>
@@ -26,7 +27,7 @@ export function RecipeGrid(props){
                 ))
             }
             {
-                !hasRecipes && 
+                (!hasRecipes && hasRecipesLoaded) && 
                 <Grid item xs={4} sm={8} md={12}>
                     <Typography variant='h4' align="center">No se han encontrado recetas</Typography>
                 </Grid>
